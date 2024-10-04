@@ -8,19 +8,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Update Book</title>
-<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="../styles/styles.css" />
 </head>
 <body>
-
-	<c:if test="${!empty param.id}">
-		<sql:query var="result" dataSource="${applicationScope.oracleDataSource}">
-          select * from books  where id = ?
-           <sql:param value="${param.id}"></sql:param>
-		</sql:query>
-	</c:if>
-
-
-	<%@ include file="header.html"%>
+	<%@ include file="../globais/header.html"%>
 	<h2>Update Book</h2>
 	<form action="updatebook.jsp" method="post">
 	    <input type="hidden" value="${param.id}" name="id" />

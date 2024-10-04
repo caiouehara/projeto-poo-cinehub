@@ -1,5 +1,7 @@
 package br.com.cinehub.projetopoocinehub.Views;
 
+import br.com.cinehub.projetopoocinehub.Controllers.FilmesController;
+import br.com.cinehub.projetopoocinehub.Models.Filme;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,23 +10,24 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.List;
 
-@WebServlet(name = "client", value = "/client")
-public class FilmeView extends HttpServlet {
-    private String message;
-
-    public void init() {
-        message = "Hello World!";
-    }
-
+@WebServlet(name = "index", value = "/")
+public class FilmesView extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        response.setContentType("text/html");
+        // Carrega a lista de filmes de Models
+        List<Filme> filmes = FilmesController.carregarFilmes();
 
         // Define um atributo para ser usado no JSP
-        request.setAttribute("message", message);
+        if (filmes != null) {
+            request.setAttribute("filmes", filmes);
+        } else {
+            request.setAttribute("message", "Erro ao carregar os filmes.");
+        }
 
         // Encaminha a requisição para o arquivo JSP
-        RequestDispatcher dispatcher = request.getRequestDispatcher("filme.jsp");
+        response.setContentType("text/html");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
     }
 

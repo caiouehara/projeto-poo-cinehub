@@ -48,10 +48,7 @@
 <body>
     <div class="container">
         <h2>Cadastro de Usuário</h2>
-        <!-- Exibe mensagens de erro, se houver -->
-        <c:if test="${not empty errorMessage}">
-            <p class="error">${errorMessage}</p>
-        </c:if>
+
         <form action="cadastro" method="post" onsubmit="return validateForm();">
             <label for="nome">Nome Completo:</label>
             <input type="text" id="nome" name="nome" required>
