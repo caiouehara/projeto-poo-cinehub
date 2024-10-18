@@ -54,8 +54,7 @@
 			<th>Diretor</th>
 			<th>Ano</th>
 		</tr>
-
-		<jsp:useBean id="filmes" scope="request" type="java.util.List"/>
+//Pega o atributo filmes, cria a variável var e preenche no model
 		<c:forEach var="filme" items="${filmes}">
 			<tr>
 				<td>${filme.titulo}</td>

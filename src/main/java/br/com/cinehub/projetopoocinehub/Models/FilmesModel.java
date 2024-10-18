@@ -6,7 +6,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-
+//Persistência de dados
 public class FilmesModel {
     public static List<Filme> getFilmes() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
