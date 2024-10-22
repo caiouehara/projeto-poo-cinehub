@@ -1,4 +1,4 @@
-package br.com.cinehub.projetopoocinehub.Views;
+package br.com.cinehub.projetopoocinehub.Controllers;
 
 import java.io.*;
 import jakarta.servlet.RequestDispatcher;
@@ -7,7 +7,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 @WebServlet(name = "user", value = "/user/")
-public class ClienteView extends HttpServlet {
+public class ClienteController extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // Encaminha a requisição para o arquivo JSP
         response.setContentType("text/html");
