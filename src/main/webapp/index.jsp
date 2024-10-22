@@ -48,7 +48,11 @@
 			<th>Diretor</th>
 			<th>Ano</th>
 		</tr>
+<<<<<<< HEAD
 
+=======
+//Pega o atributo filmes, cria a variável var e preenche no model
+>>>>>>> 33071ec656098779e906ca18e5eda23f00a0677e
 		<c:forEach var="filme" items="${filmes}">
 			<tr class="item">
 				<img class="box-movie" src="/assets/films/${filme.imagem}" alt="${filme.titulo}">
