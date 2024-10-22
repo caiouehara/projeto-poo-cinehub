@@ -2,26 +2,31 @@
   {
     "titulo": "O Poderoso Chefão",
     "diretor": "Francis Ford Coppola",
-    "ano": 1972
+    "ano": 1972,
+    "imagem": "mini1"
   },
   {
     "titulo": "Pulp Fiction",
     "diretor": "Quentin Tarantino",
-    "ano": 1994
+    "ano": 1994,
+    "imagem": "mini1"
   },
   {
     "titulo": "O Senhor dos Anéis: O Retorno do Rei",
     "diretor": "Peter Jackson",
-    "ano": 2003
+    "ano": 2003,
+    "imagem": "mini1"
   },
   {
     "titulo": "A Origem",
     "diretor": "Christopher Nolan",
-    "ano": 2010
+    "ano": 2010,
+    "imagem": "mini1"
   },
   {
     "titulo": "Matrix",
     "diretor": "Lana Wachowski, Lilly Wachowski",
-    "ano": 1999
+    "ano": 1999,
+    "imagem": "mini1"
   }
 ]

@@ -7,46 +7,40 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Lista de Filmes</title>
 	<link rel="stylesheet" href="styles/styles.css" />
-	<style>
-		body {
-			font-family: Arial, sans-serif;
-			background-color: #f0f0f0;
-			margin: 0;
-			padding: 20px;
-		}
-		h2 {
-			color: #333;
-			text-align: center;
-			margin-bottom: 20px;
-		}
-		table {
-			width: 80%;
-			margin: 0 auto;
-			border-collapse: collapse;
-			background-color: #fff;
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-		}
-		th, td {
-			padding: 10px;
-			text-align: left;
-			border-bottom: 1px solid #ddd;
-		}
-		th {
-			background-color: #4CAF50;
-			color: white;
-		}
-		tr:nth-child(even) {
-			background-color: #f9f9f9;
-		}
-		tr:hover {
-			background-color: #f1f1f1;
-		}
-	</style>
 </head>
 <body>
 	<%@ include file="globais/header.html" %>
 
-	<h2>Lista de Filmes</h2>
+	<header>
+        <div class="container">
+            <img src="assets/logo_netflix.png" alt="Logo Netflix" class="logo">
+            <nav>
+                <a href="#">Início</a>
+                <a href="#">Séries</a>
+                <a href="#">Filmes</a>
+                <a href="#">Documentários</a>
+            </nav>
+        </div>
+    </header>
+
+	<main>
+        <div class="main-movie">
+            <div class="container">
+                <h3 class="title-movie">HOUSE OF CARDS</h3>
+                <p class="description">Nada pode impedir o político sem escrúpulos Frank Underwood de conquistar Washington. Assista agora a nova temporada de House of Cards que está imperdível.</p>
+                <div class="buttons">
+                    <button role="button" class="button">
+                        <i class="fas fa-play"></i>
+                        ASSISTIR AGORA
+                    </button>
+                    <button role="button" class="button">
+                        <i class="fas fa-info-circle"></i>
+                        MAIS INFORMAÇÕES
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
 
 	<table>
 		<tr>
@@ -55,9 +49,9 @@
 			<th>Ano</th>
 		</tr>
 
-		<jsp:useBean id="filmes" scope="request" type="java.util.List"/>
 		<c:forEach var="filme" items="${filmes}">
-			<tr>
+			<tr class="item">
+				<img class="box-movie" src="/assets/films/${filme.imagem}" alt="${filme.titulo}">
 				<td>${filme.titulo}</td>
 				<td>${filme.diretor}</td>
 				<td>${filme.ano}</td>
