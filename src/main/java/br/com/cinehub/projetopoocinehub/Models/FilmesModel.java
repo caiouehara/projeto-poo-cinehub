@@ -15,7 +15,7 @@ public class FilmesModel {
         List<Filme> filmes = mapper.readValue(jsonFile, new TypeReference<List<Filme>>() {});
 
         if (filmes != null) {
-            filmes.forEach(filme -> System.out.println(filme.getTitulo()));
+          //  filmes.forEach(filme -> System.out.println(filme.getTitulo()));
         }
 
         return filmes;
