@@ -9,7 +9,7 @@ public class Login {
     public static boolean validarLogin(String email, String senha) {
         Sistema cadastrado = new Sistema();
         for (int i = 0; i<cadastrado.listaClientes.size(); i++) {
-            if (cadastrado.listaClientes.get(i).getEmail().equals(email)) {
+            if (cadastrado.listaClientes.get(i).getEmail().equals(email) && cadastrado.listaClientes.get(i).getSenha().equals(senha)) {
                 return true;
             }
 
