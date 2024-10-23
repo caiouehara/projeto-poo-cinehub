@@ -48,7 +48,6 @@ public class MenuLogin {
                 System.out.println("Selecione uma opção válida!");
                 break;
         }
-        sc.close();
     }
     
 }
