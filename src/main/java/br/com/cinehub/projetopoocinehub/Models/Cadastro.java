@@ -15,7 +15,7 @@ public class Cadastro {
         //Precisa verificar se é um gerente que está adicionando
         Gerente novoGerente = new Gerente(nome,email,senha); //Instancia um novo gerente
         if(verificarCadastroGerente(email,novoGerente)) {
-            listaGerentes.add(novoGerente);
+            listaGerentes.add(novoGerente); //Adiciona o novo gerente na lista
             System.out.println("Novo gerente cadastrado com sucesso!");
         }
     }
@@ -23,7 +23,7 @@ public class Cadastro {
     {
         Cliente novoCliente = new Cliente(nome,email,senha);
         if(verificarCadastroCliente(email,novoCliente)) {
-            listaClientes.add(novoCliente);
+            listaClientes.add(novoCliente); //Adiciona o novo cliente na lista
             System.out.println("Novo Cliente cadastrado com sucesso!");
         }
     }
