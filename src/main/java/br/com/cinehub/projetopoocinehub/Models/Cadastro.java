@@ -1,12 +1,11 @@
 package br.com.cinehub.projetopoocinehub.Models;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class Sistema {
+public class Cadastro {
     ArrayList<Gerente> listaGerentes;
     ArrayList<Cliente> listaClientes;
 
-    public Sistema()
+    public Cadastro()
     {
         listaGerentes = new ArrayList<>();
         listaClientes = new ArrayList<>();
