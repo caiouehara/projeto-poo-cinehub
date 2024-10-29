@@ -1,7 +1,7 @@
 package br.com.cinehub.projetopoocinehub.Controllers;
 
 import br.com.cinehub.projetopoocinehub.Models.Filme;
-import br.com.cinehub.projetopoocinehub.Models.FilmesModel;
+import br.com.cinehub.projetopoocinehub.Models.FilmesFile;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,7 +16,7 @@ import java.util.List;
 public class FilmesController extends HttpServlet {
     public static List<Filme> carregarFilmes() {
         try {
-            return FilmesModel.getFilmes();
+            return FilmesFile.getFilmes();
         } catch (IOException e) {
             System.err.println("Erro ao carregar o arquivo filmes.json: " + e.getMessage());
             return null;

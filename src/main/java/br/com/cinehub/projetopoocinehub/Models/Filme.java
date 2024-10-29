@@ -1,5 +1,7 @@
 package br.com.cinehub.projetopoocinehub.Models;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Filme {
     private int anoFilme;
     private String tituloFilme;
@@ -11,13 +13,14 @@ public class Filme {
     private int diasAluguel;
     private int usuariosAvaliaram = 0;
 
-    public Filme(int ano, String titulo, String sinopse, double precoAluguel, double precoCompra, int dias) {
+    public Filme() {}
+    public Filme(String titulo, String sinopse, int ano /*double precoAluguel, double precoCompra, int dias*/) {
         anoFilme = ano;
         tituloFilme = titulo;
         sinopseFilme = sinopse;
-        precoFilmeAluguel = precoAluguel;
+        /*precoFilmeAluguel = precoAluguel;
         precoFilmeCompra = precoCompra;
-        diasAluguel = dias;
+        diasAluguel = dias;*/
     }
 
     public int getUsuariosAvaliaram() {

@@ -58,5 +58,12 @@ public class Cadastro {
     public ArrayList<Gerente> getListaGerentes() { //Metodo de retorno da lista completa de gerentes cadastrados
         return listaGerentes;
     }
+    //Metodos que serão usados junto com a parte de arquivos para preencher a lista de usuarios
+    public void setListaClientes(ArrayList<Cliente> listaClientes) {
+         this.listaClientes = listaClientes;
+    }
+    public void setListaGerentes(ArrayList<Gerente> listaGerentes) {
+        this.listaGerentes = listaGerentes;
+    }
 
 }
