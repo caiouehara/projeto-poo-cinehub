@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Lista de Filmes</title>
+	<title>Cinehub</title>
 	<link rel="stylesheet" href="styles/styles.css" />
 </head>
 <body>
@@ -43,16 +43,8 @@
     </main>
 
 	<table>
-		<tr>
-			<th>Título</th>
-			<th>Diretor</th>
-			<th>Ano</th>
-		</tr>
-<<<<<<< HEAD
+        <!-- Pega o atributo filmes, cria a variável var e preenche no model -->
 
-=======
-//Pega o atributo filmes, cria a variável var e preenche no model
->>>>>>> 33071ec656098779e906ca18e5eda23f00a0677e
 		<c:forEach var="filme" items="${filmes}">
 			<tr class="item">
 				<img class="box-movie" src="/assets/films/${filme.imagem}" alt="${filme.titulo}">

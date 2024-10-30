@@ -11,7 +11,7 @@ public class Filme {
     private int diasAluguel;
     private int usuariosAvaliaram = 0;
 
-    public Filmes(int ano, String titulo, String sinopse, double precoAluguel, double precoCompra, int dias) {
+    public Filme(int ano, String titulo, String sinopse, double precoAluguel, double precoCompra, int dias) {
         anoFilme = ano;
         tituloFilme = titulo;
         sinopseFilme = sinopse;
@@ -90,6 +90,10 @@ public class Filme {
 
     public void setDiasAluguel(int diasAluguel) {
         this.diasAluguel = diasAluguel;
+    }
+
+    public String getTitulo() {
+        return this.tituloFilme;
     }
 }
 
