@@ -19,6 +19,7 @@ public class FilmesModel {
 
         File jsonFile = new File("filmes.json");
         List<Filme> filmes = mapper.readValue(jsonFile, new TypeReference<List<Filme>>() {});
+        System.out.println(filmes);
 
         return filmes;
     }
