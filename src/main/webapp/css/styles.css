@@ -1,63 +1,8 @@
-.banner {
-	background-color:red;
-	color:white;
-    font-family: arial, serif;
-	font-size:24pt;
-	font-weight : bold;
-	letter-spacing:5pt;
-}
-.menu {
-	background-color:#dddddd;
-	font-weight : bold;
-}
-
-.logo {
-	font-family: verdana, serif;
-	font-size : 12pt;
-	background-color: #f0f0f0;
-	margin: 0;
-	padding: 20px;
-}
-
 header .container {
     display: flex;
     flex-direction: row; /* coloca o menu ao lado da logo */
     align-items: center; /* alinhando o menu ao centro do container */
-    justify-content: space-between; /* adicionando um espaço entre o menu e a logo */
-}
-
-.main-movie .description {
-    margin-top: 10px;
-    margin-bottom: 40px;
-}
-
-.main-movie .title-movie {
-    margin-top: 15%;
-    font-size: 40px;
-}
-
-.main-movie .container {
-    width: 70%;
-}
-
-.button {
-    background-color: rgba(0,0,0,0.50);
-    border: none;
-    color: black;
-    padding: 15px 30px;
-    margin-right: 15px;
-    font-size: 12px;
-    cursor: pointer;
-    transition: 0.3s ease all;
-}
-
-.button:hover {
-    background-color: black;
-    color: black;
-}
-
-.button i {
-    margin-right: 8px;
+    justify-content: space-between; /* adicionando um espaï¿½o entre o menu e a logo */
 }
 
 h2 {

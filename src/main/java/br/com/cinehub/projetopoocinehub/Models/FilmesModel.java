@@ -1,26 +1,42 @@
 package br.com.cinehub.projetopoocinehub.Models;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
+import java.io.InputStream;
+import java.util.ArrayList;
 
 /**
-* FilmesModels é uma classe Model que lida com a persistência dos dados em json dos filmes.
-*
- * @author Caio Uehara
-*
-*/
+ * FilmesModels é uma classe Model que lida com a persistência dos dados em JSON dos filmes.
+ *
+ * O caminho dos arquivos está configurado para todos os arquivos da pasta resource serem copiados para a pasta de compilação "target" via Maven.
+ * Assim, o caminho deve ser referenciado em tempo de compilação. Trate os arquivos de resource como a pasta raiz.
+ */
 public class FilmesModel {
-    public static List<Filme> getFilmes() throws IOException {
+    // Converte o JSON em uma lista de objetos Java do tipo Filme e aplica uma exceção para caso ocorra um erro ao acessar o arquivo
+    public static ArrayList<Filme> getFilmes() {
         ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-        File jsonFile = new File("filmes.json");
-        List<Filme> filmes = mapper.readValue(jsonFile, new TypeReference<List<Filme>>() {});
-        System.out.println(filmes);
+        try {
+            // Obtém o InputStream do arquivo JSON no classpath
+            InputStream inputStream = FilmesModel.class.getResourceAsStream("/filmes.json");
 
-        return filmes;
+            if (inputStream == null) {
+                System.out.println("Erro: Arquivo filmes.json não encontrado no classpath.");
+                return new ArrayList<Filme>();
+            }
+
+            // Lê do InputStream e preenche o ArrayList
+            return mapper.readValue(inputStream, new TypeReference<ArrayList<Filme>>() {});
+
+        } catch (IOException e) {
+            System.out.println("Erro ao carregar o arquivo filmes.json: " + e.getMessage());
+        }
+
+        return new ArrayList<Filme>();
     }
 }

@@ -69,5 +69,15 @@
         <version>3.4.0</version>
       </plugin>
     </plugins>
+
+    <!-- Configurando pasta de resources -->
+    <resources>
+        <resource>
+            <directory>src/main/resources</directory>
+            <includes>
+                <include>**/*</include> <!-- Inclui todos os arquivos e subdiretórios -->
+            </includes>
+        </resource>
+    </resources>
   </build>
 </project>

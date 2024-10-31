@@ -15,13 +15,9 @@ import java.util.List;
 @WebServlet(name = "home", value = "/home")
 public class FilmesController extends HttpServlet {
     public static List<Filme> carregarFilmes() {
-        try {
-            return FilmesModel.getFilmes();
-        } catch (IOException e) {
-            System.err.println("Erro ao carregar o arquivo filmes.json: " + e.getMessage());
-            return null;
-        }
+        return FilmesModel.getFilmes();
     }
+
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // Carrega a lista de filmes de Models
         List<Filme> filmes = FilmesController.carregarFilmes();
