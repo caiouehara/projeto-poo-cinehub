@@ -1,15 +1,9 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8" %>
 
-<!DOCTYPE html>
 <html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Cinehub</title>
-</head>
-<body>
-    <style><%@include file="/css/styles.css"%></style>
-    <%@ include file="globais/header.html" %>
+    <%@ include file="/pages/globais/header.html" %>
+    <%@ include file="/pages/globais/nav.html" %>
 
     <header>
         <div class="container">
@@ -53,5 +47,4 @@
             </tr>
         </c:forEach>
     </table>
-</body>
 </html>

@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "home", value = "/")
+@WebServlet(name = "home", value = "/home")
 public class FilmesController extends HttpServlet {
     public static List<Filme> carregarFilmes() {
         try {
@@ -35,7 +35,7 @@ public class FilmesController extends HttpServlet {
 
         // Encaminha a requisição para o arquivo JSP
         response.setContentType("text/html");
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/index.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/home.jsp");
         dispatcher.forward(request, response);
     }
 }
