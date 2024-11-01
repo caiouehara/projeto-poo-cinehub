@@ -6,9 +6,9 @@ public class Cliente extends Usuario {
     private double gastoTotal = 0;
     private Compra compra;
 
-    public Cliente (String nome, String email, String senha, Compra compra){
+    public Cliente (String nome, String email, String senha/*, Compra compra*/){
         super(nome,email,senha);
-        compra = new Compra();
+        //compra = new Compra();
     }
 
     public double getGastoAluguel() {
