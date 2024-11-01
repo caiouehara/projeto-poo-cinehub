@@ -1,37 +1,34 @@
-<html>
-    <style>
-        .banner {
-            background-color: red;
-            color:white;
-            font-family: arial, serif;
-            font-size:24pt;
-            font-weight : bold;
-            letter-spacing:5pt;
-        }
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/nav.css">
+    </head>
 
-        .logo {
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 10px;
-        }
+    <body>
+        <!-- Header com navegação -->
+        <header>
+            <div class="header-container">
+                <a href="#">
+                    <img src="${pageContext.request.contextPath}/img/logo_netflix.png" alt="Logo Netflix" class="logo">
+                </a>
+                <i class="fas fa-bars menu-toggle"></i>
+                <nav class="menu-nav">
+                    <a href="#">Início</a>
+                    <a href="#">Séries</a>
+                    <a href="#">Filmes</a>
+                    <a href="#">Documentários</a>
+                </nav>
+            </div>
+        </header>
 
-        .menu-nav {
-            background-color: #dddddd;
-            font-weight : bold;
-        }
-    </style>
-    <div>
-       <div class="banner">Catálogo de filmes</div>
-           <header>
-               <div>
-                   <img src="${pageContext.request.contextPath}/img/logo_netflix.png" alt="Logo Netflix" class="logo">
-                   <nav class="menu-nav">
-                       <a href="#">Início</a>
-                       <a href="#">Séries</a>
-                       <a href="#">Filmes</a>
-                       <a href="#">Documentários</a>
-                   </nav>
-               </div>
-           </header>
-     </div>
+        <!-- Script para o menu responsivo -->
+        <script>
+            const menuToggle = document.querySelector('.menu-toggle');
+            const menuNav = document.querySelector('.menu-nav');
+
+            menuToggle.addEventListener('click', () => {
+                menuNav.classList.toggle('active');
+            });
+        </script>
+    </body>
 </html>

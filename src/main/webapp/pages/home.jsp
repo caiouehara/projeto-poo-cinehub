@@ -6,109 +6,76 @@
     <%@ include file="/pages/globais/header.jsp" %>
     <%@ include file="/pages/globais/nav.jsp" %>
 
-    <style>
-        /* Seus estilos CSS */
-        .main-movie .description {
-            margin-bottom: 40px;
-        }
-        .main-movie .title-movie {
-            margin-top: 5%;
-            font-size: 40px;
-        }
-        .main-movie .container {
-            width: 70%;
-        }
-        .button {
-            background-color: rgba(0,0,0,0.50);
-            border: none;
-            color: black;
-            padding: 15px 30px;
-            margin-right: 15px;
-            font-size: 12px;
-            cursor: pointer;
-            transition: 0.3s ease all;
-        }
-        .button:hover {
-            background-color: black;
-            color: black;
-        }
-        .button i {
-            margin-right: 8px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-        th {
-            background-color: #f2f2f2;
-            text-align: left;
-        }
-        .box-movie {
-            width: 100px;
-            height: auto;
-        }
-    </style>
+    <head>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css">
+    </head>
 
     <body>
         <main>
-            <div class="main-movie">
+            <div class="hero">
                 <div class="container">
-                    <h3 class="title-movie">HOUSE OF CARDS</h3>
-                    <p class="description">Nada pode impedir o político sem escrúpulos Frank Underwood de conquistar Washington. Assista agora a nova temporada de House of Cards que está imperdível.</p>
+                    <h3 class="title-movie">Lista de Filmes</h3>
+                    <p class="description">Explore nossa coleção de filmes incríveis. Assista agora ou descubra mais informações sobre seus favoritos.</p>
                     <div class="buttons">
-                        <button role="button" class="button">
+                        <a href="#" role="button" class="button">
                             <i class="fas fa-play"></i>
-                            ASSISTIR AGORA
-                        </button>
-                        <button role="button" class="button">
+                            Assistir Agora
+                        </a>
+                        <a href="#" role="button" class="button">
                             <i class="fas fa-info-circle"></i>
-                            MAIS INFORMAÇÕES
-                        </button>
+                            Mais Informações
+                        </a>
                     </div>
                 </div>
             </div>
 
-            <!-- Exibe o número de filmes recebidos -->
-            <p>Número de filmes recebidos: ${fn:length(filmes)}</p>
+            <div class="container">
+                <!-- Exibe o número de filmes recebidos -->
+                <p>Número de filmes disponíveis: ${fn:length(filmes)}</p>
 
-            <!-- Tabela para exibir os filmes -->
-            <table>
-                <thead>
-                    <tr>
-                        <th>Imagem</th>
-                        <th>Título</th>
-                        <th>Sinopse</th>
-                        <th>Ano</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Verifica se a lista 'filmes' não está vazia -->
-                    <c:choose>
-                        <c:when test="${not empty filmes}">
-                            <c:forEach var="filme" items="${filmes}">
-                                <tr class="item">
-                                    <td>
-                                        <img class="box-movie" src="${pageContext.request.contextPath}/img/films/${filme.imagem}" alt="${filme.tituloFilme}">
-                                    </td>
-                                    <td>${filme.tituloFilme}</td>
-                                    <td>${filme.sinopseFilme}</td>
-                                    <td>${filme.anoFilme}</td>
+                <!-- Tabela para exibir os filmes -->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Imagem</th>
+                            <th>Título</th>
+                            <th>Sinopse</th>
+                            <th>Ano</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Verifica se a lista 'filmes' não está vazia -->
+                        <c:choose>
+                            <c:when test="${not empty filmes}">
+                                <c:forEach var="filme" items="${filmes}">
+                                    <tr class="item">
+                                        <td>
+                                            <img class="box-movie" src="${pageContext.request.contextPath}/img/films/${filme.imagem}" alt="${filme.tituloFilme}">
+                                        </td>
+                                        <td>${filme.tituloFilme}</td>
+                                        <td>${filme.sinopseFilme}</td>
+                                        <td>${filme.anoFilme}</td>
+                                        <td>
+                                            <div class="buttons">
+                                                <a href="#" role="button" class="button">
+                                                    <i class="fas fa-play"></i>
+                                                    Alugar
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </c:when>
+                            <c:otherwise>
+                                <tr>
+                                    <td colspan="4" style="text-align:center;">Nenhum filme disponível.</td>
                                 </tr>
-                            </c:forEach>
-                        </c:when>
-                        <c:otherwise>
-                            <tr>
-                                <td colspan="4" style="text-align:center;">Nenhum filme disponível.</td>
-                            </tr>
-                        </c:otherwise>
-                    </c:choose>
-                </tbody>
-            </table>
+                            </c:otherwise>
+                        </c:choose>
+                    </tbody>
+                </table>
+            </div>
         </main>
     </body>
 </html>
