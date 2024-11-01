@@ -1,4 +1,7 @@
-package br.com.cinehub.projetopoocinehub.Models;
+package br.com.cinehub.projetopoocinehub;
+
+import br.com.cinehub.projetopoocinehub.Models.Filmes.Filme;
+
 import java.util.ArrayList;
 
 public class Compra {

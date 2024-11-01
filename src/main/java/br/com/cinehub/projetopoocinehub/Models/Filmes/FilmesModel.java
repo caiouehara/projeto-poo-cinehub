@@ -1,10 +1,9 @@
-package br.com.cinehub.projetopoocinehub.Models;
+package br.com.cinehub.projetopoocinehub.Models.Filmes;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;

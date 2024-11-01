@@ -1,4 +1,9 @@
-package br.com.cinehub.projetopoocinehub.Models;
+package br.com.cinehub.projetopoocinehub.Models.User.Cliente;
+
+import br.com.cinehub.projetopoocinehub.Comentarios;
+import br.com.cinehub.projetopoocinehub.Compra;
+import br.com.cinehub.projetopoocinehub.Models.Filmes.Filme;
+import br.com.cinehub.projetopoocinehub.Usuario;
 
 public class Cliente extends Usuario {
     private double gastoAluguel = 0;

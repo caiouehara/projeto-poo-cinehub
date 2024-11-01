@@ -1,4 +1,4 @@
-package br.com.cinehub.projetopoocinehub.Models;
+package br.com.cinehub.projetopoocinehub.Models.Filmes;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

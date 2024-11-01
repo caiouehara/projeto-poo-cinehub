@@ -1,4 +1,6 @@
-package br.com.cinehub.projetopoocinehub.Models;
+package br.com.cinehub.projetopoocinehub;
+
+import br.com.cinehub.projetopoocinehub.Models.User.Cliente.Cliente;
 
 public class Comentarios {
     private String comentario;

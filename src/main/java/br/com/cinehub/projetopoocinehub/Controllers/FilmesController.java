@@ -1,7 +1,7 @@
 package br.com.cinehub.projetopoocinehub.Controllers;
 
-import br.com.cinehub.projetopoocinehub.Models.Filme;
-import br.com.cinehub.projetopoocinehub.Models.FilmesModel;
+import br.com.cinehub.projetopoocinehub.Models.Filmes.Filme;
+import br.com.cinehub.projetopoocinehub.Models.Filmes.FilmesModel;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

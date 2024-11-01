@@ -4,7 +4,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/nav.css">
     </head>
 
-    <body>
+    <div class="nav">
         <!-- Header com navegação -->
         <header>
             <div class="header-container">
@@ -30,5 +30,5 @@
                 menuNav.classList.toggle('active');
             });
         </script>
-    </body>
+    </div>
 </html>

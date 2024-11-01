@@ -11,7 +11,7 @@ public class ClienteController extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // Encaminha a requisição para o arquivo JSP
         response.setContentType("text/html");
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/user/cadastroUsuario.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/user/login.jsp");
         dispatcher.forward(request, response);
     }
 

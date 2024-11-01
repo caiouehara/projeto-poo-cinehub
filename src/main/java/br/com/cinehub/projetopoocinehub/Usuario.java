@@ -1,4 +1,4 @@
-package br.com.cinehub.projetopoocinehub.Models;
+package br.com.cinehub.projetopoocinehub;
 
 public class Usuario {
     private String nome;

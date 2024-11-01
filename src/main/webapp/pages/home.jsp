@@ -8,6 +8,7 @@
 
     <head>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css">
+        <title>Homepage</title>
     </head>
 
     <body>

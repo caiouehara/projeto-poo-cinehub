@@ -1,7 +1,15 @@
+/* Fixa navbar no topo */
+.nav {
+    position: absolute !important;
+    z-index: 9999;
+    width: 100%;
+    text-align: center
+}
+
 /* Estilos do header */
 header {
     background-color: #141414;
-    padding: 10px 20px;
+    padding: 10px;
 }
 
 .header-container {
