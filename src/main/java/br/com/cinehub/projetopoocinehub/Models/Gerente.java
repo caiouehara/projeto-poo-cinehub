@@ -8,8 +8,8 @@ public class Gerente extends Usuario {
     void cadastroGerente(Cadastro cadastro, String email, String senha, String nome) {
         cadastro.cadastroGerente(email, senha, nome);
     }
-    void removerUsuario(Cliente cliente) {
-
+    void removerUsuario(Cadastro cadastro,String email) {
+        cadastro.removeCliente(email);
     }
     void realizarCompra(Filme filme){}
     void apagarComentario(Comentarios comentario){}

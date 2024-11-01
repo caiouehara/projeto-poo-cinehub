@@ -43,7 +43,7 @@ public class Cadastro {
         }
     }
     public void removeCliente(String email){
-        //Verifica se o cliente a ser removido existe
+        //Verifica se o cliente a ser removido existe e indentifica o index dele na lista
         if(!verificaCadastroCliente(email)) {
             listaClientes.remove(indexCliente); //Remove o cliente da lista de acordo com o index dele na lista
         }
@@ -75,6 +75,7 @@ public class Cadastro {
         }
         return true; //Cliente não tem cadastro
     }
+    //Vai ser usado na parte de arquivos
     public ArrayList<Cliente> getListaClientes() { //Metodo de retorno da lista completa de clientes cadastrados
         return listaClientes;
     }
