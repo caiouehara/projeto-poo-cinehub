@@ -5,18 +5,24 @@ public class Gerente extends Usuario {
         super(nome, email, senha);
     }
     //Funcionalidade do Gerente de cadastrar um novo Gerente
-    void cadastroGerente(Cadastro cadastro, String email, String senha, String nome) {
+    public void cadastroGerente(Cadastro cadastro, String email, String senha, String nome) {
         cadastro.cadastroGerente(email, senha, nome);
     }
     //Remover o acesso de um usuario
-    void removerUsuario(Cadastro cadastro,String email) {
+    public void removerUsuario(Cadastro cadastro,String email) {
         cadastro.removeCliente(email);
     }
     //Remover o acesso de um gerente
-    void removerGerente(Cadastro cadastro,String email) {
+    public void removerGerente(Cadastro cadastro,String email) {
         cadastro.removeGerente(email);
     }
-    void realizarCompra(Filme filme){}
+    //Cadastrar um novo filme no catalogo, após passar os dados do novo filme, ele chama a classe do catalogo e verifica se o filme já está cadastrado, se não, ele adiciona ao catalogo criando uma nova instancia de filme e adicionando ao arrayList do catalogo
+    public void cadastrarFilme(Catalogo catalogo, int anoFilme, String tituloFilme, String sinopseFilme, double avaliacaoFilme, double duracaoFilme, double precoFilmeCompra, double precoFilmeAluguel, int diasAluguel, int usuariosAvaliaram, String imagem) {
+        catalogo.adicionarAoCatalogo(anoFilme, tituloFilme, sinopseFilme, avaliacaoFilme, duracaoFilme, precoFilmeCompra, precoFilmeAluguel, diasAluguel, usuariosAvaliaram, imagem);
+    }
+    public void removerFilme(Catalogo catalogo, String tituloFilme) {
+        catalogo.removerDoCatalogo(tituloFilme);
+    }
     void apagarComentario(Comentarios comentario){}
     //void adicionarFilme(Filme filme, Sistema catalogo){}
 

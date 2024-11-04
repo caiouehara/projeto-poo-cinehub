@@ -4,9 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -19,7 +17,7 @@ public class FilmesModel {
     // Converte o JSON em uma lista de objetos Java do tipo Filme e aplica uma exceção para caso ocorra um erro ao acessar o arquivo
     public static ArrayList<Filme> getFilmes() {
         ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); //evita falhas ao desserializar JSON que contém campos extras
 
         try {
             // Obtém o InputStream do arquivo JSON no classpath
@@ -38,6 +36,18 @@ public class FilmesModel {
         }
 
         return new ArrayList<Filme>();
+    }
+    public static void setFilmes(ArrayList<Filme> filmes) {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        try{
+            mapper.writeValue(new File("/filmes.jsp"), filmes);
+            System.out.println("Filmes salvos com sucesso em filmes.json");
+        }
+        catch(IOException e){
+            System.out.println("Erro ao salvar o arquivo filmes.json: " + e.getMessage());
+        }
     }
 
 }

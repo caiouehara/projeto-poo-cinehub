@@ -37,12 +37,12 @@ public class Cliente extends Usuario {
 
     public void avaliarFilme(Filme filme, double nota) {
         double notaAtual = filme.getAvaliacaoFilme();
-        int usuariosAvaliaram = filme.getUsuariosAvaliaram();
-        nota = (notaAtual*usuariosAvaliaram) + nota;
-        usuariosAvaliaram++;
-        nota = nota/usuariosAvaliaram;
+        int qtdUsuariosAvaliaram = filme.getQtdUsuariosAvaliaram();
+        nota = (notaAtual*qtdUsuariosAvaliaram) + nota;
+        qtdUsuariosAvaliaram++;
+        nota = nota/qtdUsuariosAvaliaram;
         filme.setAvaliacaoFilme(nota);
-        filme.setUsuariosAvaliaram(usuariosAvaliaram);
+        filme.setQtdUsuariosAvaliaram(qtdUsuariosAvaliaram);
     }
 
     public void deslikeComentario(Comentarios comentario) {

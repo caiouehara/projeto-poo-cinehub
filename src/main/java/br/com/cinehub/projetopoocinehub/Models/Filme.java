@@ -22,7 +22,7 @@ public class Filme {
     private double precoFilmeCompra;
     private double precoFilmeAluguel;
     private int diasAluguel;
-    private int usuariosAvaliaram;
+    private int qtdUsuariosAvaliaram;
     private String imagem;
 
     /**
@@ -42,7 +42,7 @@ public class Filme {
      * @param precoFilmeCompra  o preço para compra do filme
      * @param precoFilmeAluguel o preço para aluguel do filme
      * @param diasAluguel       a quantidade de dias para aluguel
-     * @param usuariosAvaliaram o número de usuários que avaliaram o filme
+     * @param qtdUsuariosAvaliaram o número de usuários que avaliaram o filme
      * @param imagem            o caminho ou URL da imagem do filme
      */
     @JsonCreator
@@ -55,7 +55,7 @@ public class Filme {
         @JsonProperty("precoFilmeCompra") double precoFilmeCompra,
         @JsonProperty("precoFilmeAluguel") double precoFilmeAluguel,
         @JsonProperty("diasAluguel") int diasAluguel,
-        @JsonProperty("usuariosAvaliaram") int usuariosAvaliaram,
+        @JsonProperty("usuariosAvaliaram") int qtdUsuariosAvaliaram,
         @JsonProperty("imagem") String imagem
     ) {
         this.anoFilme = anoFilme;
@@ -66,7 +66,7 @@ public class Filme {
         this.precoFilmeCompra = precoFilmeCompra;
         this.precoFilmeAluguel = precoFilmeAluguel;
         this.diasAluguel = diasAluguel;
-        this.usuariosAvaliaram = usuariosAvaliaram;
+        this.qtdUsuariosAvaliaram = qtdUsuariosAvaliaram;
         this.imagem = imagem;
     }
 
@@ -221,17 +221,17 @@ public class Filme {
      *
      * @return o número de usuários que avaliaram
      */
-    public int getUsuariosAvaliaram() {
-        return usuariosAvaliaram;
+    public int getQtdUsuariosAvaliaram() {
+        return qtdUsuariosAvaliaram;
     }
 
     /**
      * Define o número de usuários que avaliaram o filme.
      *
-     * @param usuariosAvaliaram o número de usuários que avaliaram
+     * @param qtdUsuariosAvaliaram o número de usuários que avaliaram
      */
-    public void setUsuariosAvaliaram(int usuariosAvaliaram) {
-        this.usuariosAvaliaram = usuariosAvaliaram;
+    public void setQtdUsuariosAvaliaram(int qtdUsuariosAvaliaram) {
+        this.qtdUsuariosAvaliaram = qtdUsuariosAvaliaram;
     }
 
     /**
