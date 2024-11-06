@@ -4,7 +4,7 @@ public class Main {
     public static void main(String args[]) {
         Scanner sc = new Scanner(System.in);
         Cadastro cadastro = new Cadastro();
-        MenuInicial.Menu(sc, cadastro);
+        Menu.menuInicial(sc, cadastro);
         sc.close();
     }
 
