@@ -2,11 +2,11 @@ package br.com.cinehub.projetopoocinehub.Models;
 
 public class Comentarios {
     private String comentario;
-    private Cliente autor;
+    private String autor;
 
-    public Comentarios (String comentario, Cliente autor) {
-        setComentario(comentario);
-        setAutor(autor);
+    public Comentarios (String comentario, Cliente cliente) {
+        this.comentario = comentario;
+        this.autor = cliente.getNome();
     }
 
     public Cliente getAutor() {
