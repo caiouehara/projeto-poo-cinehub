@@ -24,16 +24,8 @@ public class Filme {
     private int diasAluguel;
     private int usuariosAvaliaram;
     private String imagem;
-    private String diretor;
     private ArrayList<Comentarios> comentarios;
     
-    public String getDiretor() {
-    	return this.diretor;
-    }
-    
-    public void setDiretor(String diretor) {
-    	this.diretor = diretor;
-    }
 
     /**
      * Construtor da classe {@code Filme} utilizado pelo Jackson para desserialização do JSON.
@@ -277,7 +269,6 @@ public class Filme {
         for(int i = 0; i < filmes.size(); i++) {
             System.out.println("Título: "+filmes.get(i).getTituloFilme());
             System.out.println("Ano: " + filmes.get(i).getAnoFilme());
-            System.out.println("Diretor: "+filmes.get(i).getDiretor());
             System.out.println("Sinopse: "+filmes.get(i).getSinopseFilme());
             System.out.println("Preço aluguel: "+filmes.get(i).getPrecoFilmeAluguel());
             System.out.println("Preço compra: "+filmes.get(i).getPrecoFilmeCompra());
@@ -292,7 +283,6 @@ public class Filme {
 
             System.out.println("Título: "+filme.getTituloFilme());
             System.out.println("Ano: " + filme.getAnoFilme());
-            System.out.println("Diretor: "+filme.getDiretor());
             System.out.println("Sinopse: "+filme.getSinopseFilme());
             System.out.println("Preço aluguel: "+filme.getPrecoFilmeAluguel());
             System.out.println("Preço compra: "+filme.getPrecoFilmeCompra());
