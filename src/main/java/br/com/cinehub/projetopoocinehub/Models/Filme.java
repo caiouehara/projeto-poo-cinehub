@@ -272,7 +272,6 @@ public class Filme {
             System.out.println("Sinopse: "+filmes.get(i).getSinopseFilme());
             System.out.println("Preço aluguel: "+filmes.get(i).getPrecoFilmeAluguel());
             System.out.println("Preço compra: "+filmes.get(i).getPrecoFilmeCompra());
-            System.out.println("Dias de aluguel: "+filmes.get(i).getDiasAluguel());
             System.out.println();
         }
 
