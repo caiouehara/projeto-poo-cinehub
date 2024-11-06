@@ -23,6 +23,3 @@ public class TesteFilme {
     }
 }
 
-//adicionar filme no catálogo (x)
-//imprimir catálogo (x) --> mudar para toString()
-
