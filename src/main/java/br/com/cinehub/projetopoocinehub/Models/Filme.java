@@ -24,6 +24,16 @@ public class Filme {
     private int diasAluguel;
     private int usuariosAvaliaram;
     private String imagem;
+    private String diretor;
+    private ArrayList<Comentarios> comentarios;
+    
+    public String getDiretor() {
+    	return this.diretor;
+    }
+    
+    public void setDiretor(String diretor) {
+    	this.diretor = diretor;
+    }
 
     /**
      * Construtor da classe {@code Filme} utilizado pelo Jackson para desserialização do JSON.
@@ -68,6 +78,7 @@ public class Filme {
         this.diasAluguel = diasAluguel;
         this.usuariosAvaliaram = usuariosAvaliaram;
         this.imagem = imagem;
+        comentarios = new ArrayList<>();
     }
 
     // Getters e Setters
@@ -259,5 +270,60 @@ public class Filme {
      */
     public String getTitulo() {
         return tituloFilme;
+    }
+
+    //metodo para imprimir uma lista de filmes
+    public static void imprimirFilmes(ArrayList<Filme> filmes) {
+        for(int i = 0; i < filmes.size(); i++) {
+            System.out.println("Título: "+filmes.get(i).getTituloFilme());
+            System.out.println("Ano: " + filmes.get(i).getAnoFilme());
+            System.out.println("Diretor: "+filmes.get(i).getDiretor());
+            System.out.println("Sinopse: "+filmes.get(i).getSinopseFilme());
+            System.out.println("Preço aluguel: "+filmes.get(i).getPrecoFilmeAluguel());
+            System.out.println("Preço compra: "+filmes.get(i).getPrecoFilmeCompra());
+            System.out.println("Dias de aluguel: "+filmes.get(i).getDiasAluguel());
+            System.out.println();
+        }
+
+    }
+
+    //método imprime dados de um filme em específico
+    public static void imprimirFilme(Filme filme) {
+
+            System.out.println("Título: "+filme.getTituloFilme());
+            System.out.println("Ano: " + filme.getAnoFilme());
+            System.out.println("Diretor: "+filme.getDiretor());
+            System.out.println("Sinopse: "+filme.getSinopseFilme());
+            System.out.println("Preço aluguel: "+filme.getPrecoFilmeAluguel());
+            System.out.println("Preço compra: "+filme.getPrecoFilmeCompra());
+            System.out.println("Dias de aluguel: "+filme.getDiasAluguel());
+    }
+
+
+    //método para imprimir o catálogo de filmes disponíveis ao cliente
+    public static void imprimirCatalogo(ArrayList<Filme> filmes) {
+    	for (int i = 0; i<filmes.size(); i++) {
+    		System.out.println("==================================================================================================================");
+            System.out.println("                                             Opção " + (i+1) + "                                                        ");
+            System.out.println("==================================================================================================================");
+            Filme.imprimirFilme(filmes.get(i));
+    	}
+    }
+    
+
+    //método para adicionar comentário no filme
+    public void adicionarComentarioNoFilme(Comentarios comentario) {
+        comentarios.add(comentario);
+    }
+
+
+    //método para imprimir comentário no filme
+    public void imprimirComentario() {
+        for (int i = 0; i<comentarios.size();i++) {
+            System.out.println("Comentário: " + comentarios.get(i).getComentario());
+            System.out.println("Autor: " + comentarios.get(i).getAutor());
+            System.out.println("Likes: " + comentarios.get(i).getQuantidadeLikes());
+            System.out.println("Deslikes: " + comentarios.get(i).getQuantidadeDeslikes());
+        }
     }
 }
