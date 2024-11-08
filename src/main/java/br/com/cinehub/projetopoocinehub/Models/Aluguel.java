@@ -63,15 +63,21 @@ public class Aluguel {
 
 
     //método que remove filme da lista dos alugueis após data de vencimento do aluguel
-    public boolean fimAluguel(Filme filme) {
-        LocalDate hoje = LocalDate.now();
-        if(hoje.isAfter(dataFinal)) {
-            filmesAlugados.remove(filme);
-            return true;
-        } else {
-            return false;
-        }
+    public void fimAluguel(Filme filme) {
+        TimerTask tarefa = new TimerTask() { //cria tarefa a ser automatizada
+            @Override //como TimerTask é uma classe abstrata precisamos implementar o método run() com o código que desejamos executar
+            public void run() {
+                LocalDate hoje = LocalDate.now();
+                if(hoje.isAfter(dataFinal)) {
+                    filmesAlugados.remove(filme);
+                    cancel();
+                }
+            }
+        };
+        Timer timer = new Timer("Timer");
+        timer.scheduleAtFixedRate(tarefa, 86400000, 86400000); //usamos o método scheduleAtFixedRate da classe Timer para executar a tarefa definida em certos intervalos de tempo bem definido
     }
+    
 
     //imprime filmes alugados
     public void imprimirFilmesAlugados() {
