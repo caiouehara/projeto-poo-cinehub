@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <title>Cadastro de Usuário - CineHub</title>
     <!-- Link para o CSS externo -->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/WEB-INF/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/user.css">
 </head>
 <body>
     <div class="login-page">

@@ -11,8 +11,8 @@
 
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <%@ include file="/globais/header.jsp" %>
-    <%@ include file="/globais/nav.jsp" %>
+    <%@ include file="/jsp/globais/header.jsp" %>
+    <%@ include file="/jsp/globais/nav.jsp" %>
 
     <head>
         <title>Página do Gerente</title>

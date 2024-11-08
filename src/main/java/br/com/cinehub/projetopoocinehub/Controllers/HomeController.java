@@ -31,7 +31,7 @@ public class HomeController extends HttpServlet {
 
         // Encaminha a requisição para o arquivo JSP
         response.setContentType("text/html");
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/home.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/home.jsp");
         dispatcher.forward(request, response);
     }
 }

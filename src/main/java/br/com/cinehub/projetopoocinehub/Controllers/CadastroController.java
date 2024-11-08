@@ -25,7 +25,7 @@ public class CadastroController extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // Encaminha a requisição para o arquivo JSP
         response.setContentType("text/html");
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/user/cadastro.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/user/cadastro.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -49,18 +49,18 @@ public class CadastroController extends HttpServlet {
         if (sucesso) {
             if ("Gerente".equals(tipo)) {
                 // Cadastro de Gerente realizado por um Gerente
-                response.sendRedirect(request.getContextPath() + "/pages/user/gerente/gerente.jsp?sucesso=1");
+                response.sendRedirect(request.getContextPath() + "/jsp/user/login.jsp?sucesso=1");
             } else {
                 // Cadastro de Cliente realizado por qualquer um (Gerente ou não)
-                response.sendRedirect(request.getContextPath() + "/pages/user/login.jsp?sucesso=1");
+                response.sendRedirect(request.getContextPath() + "/jsp/user/login.jsp?sucesso=1");
             }
         } else {
             if ("Gerente".equals(tipo) && "Gerente".equals(usuarioLogado)) {
                 // Falha no cadastro de Gerente
-                response.sendRedirect(request.getContextPath() + "/pages/user/gerente/cadastro.jsp?erro=1");
+                response.sendRedirect(request.getContextPath() + "/jsp/user/login.jsp?erro=1");
             } else {
                 // Falha no cadastro de Cliente ou tentativa de cadastrar Gerente sem autorização
-                response.sendRedirect(request.getContextPath() + "/pages/user/cadastro.jsp?erro=1");
+                response.sendRedirect(request.getContextPath() + "/jsp/user/login.jsp?erro=1");
             }
         }
     }

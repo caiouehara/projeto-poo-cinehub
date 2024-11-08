@@ -11,41 +11,48 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.ArrayList;
-import java.util.Objects;
+
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class CadastroModel {
     private ArrayList<Usuario> listaUsers;
-
     private static final String USERS_JSON = "users.json";
-
     private final String dataDir;
 
-    public CadastroModel(String dataDir) {
-        this.dataDir = Objects.requireNonNull(dataDir, "dataDir não pode ser null");
+    public CadastroModel() {
+        this.dataDir = System.getProperty("user.home") + "/cinehub/data/";
         listaUsers = loadUsers();
     }
 
     private ArrayList<Usuario> loadUsers() {
-        ObjectMapper mapper = new ObjectMapper();
-        // Configura o mapper para ignorar propriedades desconhecidas
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        Path filePath = Paths.get(dataDir, USERS_JSON);
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            Path filePath = Paths.get(dataDir, USERS_JSON);
 
-        if (!Files.exists(filePath)) {
-            // Se o arquivo não existir, retornar lista vazia
-            return new ArrayList<>();
-        }
+            if (!Files.exists(filePath)) {
+                // Se o arquivo não existir, criar arquivo com dados padrão
+                ArrayList<Usuario> defaultUsers = criarUsuariosPadrão();
+                try {
+                    // Certificar-se de que o diretório existe
+                    Files.createDirectories(filePath.getParent());
+                    // Salvar os usuários padrão no arquivo JSON
+                    mapper.enable(SerializationFeature.INDENT_OUTPUT);
+                    mapper.writeValue(Files.newOutputStream(filePath), defaultUsers);
+                } catch (IOException e) {
+                    System.out.println("Erro ao criar o arquivo " + USERS_JSON + ": " + e.getMessage());
+                }
+                return defaultUsers;
+            }
 
-        try {
-            return mapper.readValue(Files.newInputStream(filePath), new TypeReference<ArrayList<Usuario>>() {});
-        } catch (IOException e) {
-            System.out.println("Erro ao carregar o arquivo " + USERS_JSON + ": " + e.getMessage());
-            return new ArrayList<>();
+            try {
+                return mapper.readValue(Files.newInputStream(filePath), new TypeReference<ArrayList<Usuario>>() {});
+            } catch (IOException e) {
+                System.out.println("Erro ao carregar o arquivo " + USERS_JSON + ": " + e.getMessage());
+                return new ArrayList<>();
+            }
         }
-    }
 
     public synchronized void salvarUser() {
         ObjectMapper mapper = new ObjectMapper();
@@ -161,4 +168,16 @@ public class CadastroModel {
         this.listaUsers = listaUsers;
         salvarUser(); // Salvar no arquivo JSON
     }
+
+    private ArrayList<Usuario> criarUsuariosPadrão() {
+        ArrayList<Usuario> defaultUsers = new ArrayList<>();
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        // Criar um usuário Gerente padrão
+        Gerente defaultGerente = new Gerente("Admin", "admin@example.com", passwordEncoder.encode("admin123"));
+        defaultUsers.add(defaultGerente);
+
+    return defaultUsers;
 }
+}
+

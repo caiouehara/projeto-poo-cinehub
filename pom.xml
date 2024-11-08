@@ -58,10 +58,17 @@
       <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
+
+    <!-- Dependências para criptografia BCrypt -->
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-crypto</artifactId>
       <version>5.7.3</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.2</version>
     </dependency>
   </dependencies>
 

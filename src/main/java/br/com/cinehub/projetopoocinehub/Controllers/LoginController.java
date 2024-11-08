@@ -25,7 +25,7 @@ public class LoginController extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // Encaminha a requisição para o arquivo JSP
         response.setContentType("text/html");
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/user/login.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher( "/jsp/user/login.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -51,7 +51,7 @@ public class LoginController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/home.jsp");
         } else {
             // Dados inválidos
-            response.sendRedirect(request.getContextPath() + "/user/login.jsp?erro=1");
+            response.sendRedirect(request.getContextPath() + "/jsp/user/login.jsp?erro=1");
         }
     }
 }
