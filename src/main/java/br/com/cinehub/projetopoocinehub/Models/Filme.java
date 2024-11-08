@@ -21,7 +21,7 @@ public class Filme {
     private double duracaoFilme;
     private double precoFilmeCompra;
     private double precoFilmeAluguel;
-    private int diasAluguel;
+    private final int diasAluguel = 7;
     private int usuariosAvaliaram;
     private String imagem;
     private ArrayList<Comentarios> comentarios;
@@ -67,7 +67,6 @@ public class Filme {
         this.duracaoFilme = duracaoFilme;
         this.precoFilmeCompra = precoFilmeCompra;
         this.precoFilmeAluguel = precoFilmeAluguel;
-        this.diasAluguel = diasAluguel;
         this.usuariosAvaliaram = usuariosAvaliaram;
         this.imagem = imagem;
         comentarios = new ArrayList<>();
@@ -208,15 +207,6 @@ public class Filme {
      */
     public int getDiasAluguel() {
         return diasAluguel;
-    }
-
-    /**
-     * Define a quantidade de dias para aluguel do filme.
-     *
-     * @param diasAluguel os dias de aluguel
-     */
-    public void setDiasAluguel(int diasAluguel) {
-        this.diasAluguel = diasAluguel;
     }
 
     /**
