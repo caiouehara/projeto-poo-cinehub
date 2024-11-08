@@ -43,6 +43,15 @@ public class Catalogo {
             FilmesModel.setFilmes(catalogo);
         }
     }
+    public void editarFilmes(Aluguel aluguel, Filme filme){
+        if(verificaCatalogo("tituloFilme"))//Verifica se o filme está no catálogo
+        {
+            if(aluguel.verificarAluguel(filme))//Verifica se o filme está alugado
+            {
+
+            }
+        }
+    }
     public void exibirLista(){
         for(int i = 0; i<this.catalogo.size();i++){
             System.out.println(catalogo.get(i).getTitulo() + " - " + catalogo.get(i).getAnoFilme());

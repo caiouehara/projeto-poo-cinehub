@@ -3,6 +3,8 @@ package br.com.cinehub.projetopoocinehub.Models;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
+
 /**
  * A classe {@code Filme} representa um filme com diversas propriedades como título, ano, sinopse, etc.
  * <p>
@@ -24,6 +26,7 @@ public class Filme {
     private int diasAluguel;
     private int qtdUsuariosAvaliaram;
     private String imagem;
+    private ArrayList<Comentarios> comentarios;
 
     /**
      * Construtor da classe {@code Filme} utilizado pelo Jackson para desserialização do JSON.
@@ -68,6 +71,7 @@ public class Filme {
         this.diasAluguel = diasAluguel;
         this.qtdUsuariosAvaliaram = qtdUsuariosAvaliaram;
         this.imagem = imagem;
+        comentarios = new ArrayList<>();
     }
 
     // Getters e Setters
@@ -259,5 +263,9 @@ public class Filme {
      */
     public String getTitulo() {
         return tituloFilme;
+    }
+
+    public void adicionarComentarioNoFilme(Comentarios comentario) {
+        comentarios.add(comentario);
     }
 }

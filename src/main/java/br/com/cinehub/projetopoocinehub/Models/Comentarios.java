@@ -3,6 +3,8 @@ package br.com.cinehub.projetopoocinehub.Models;
 public class Comentarios {
     private String comentario;
     private Cliente autor;
+    private int quantidadeLikes;
+    private int quantidadeDeslikes;
 
     public Comentarios (String comentario, Cliente autor) {
         setComentario(comentario);
@@ -16,9 +18,6 @@ public class Comentarios {
     public void setAutor(Cliente autor) {
         this.autor = autor;
     }
-
-    private int quantidadeLikes;
-    private int quantidadeDeslikes;
 
     public String getComentario() {
         return this.comentario;

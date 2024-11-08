@@ -1,6 +1,7 @@
 package br.com.cinehub.projetopoocinehub.Models;
 
-public class Usuario {
+
+public class Usuario implements InterfaceUsuario {
     private String nome;
     private String email;
     private String senha;
