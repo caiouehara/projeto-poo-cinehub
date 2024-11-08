@@ -1,0 +1,17 @@
+[
+  {
+    "type": "Cliente",
+    "nome": "Taysa Guiral",
+    "email": "taysaguiral2@gmail.com",
+    "senha": "$2a$10$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36dfn...", // Hash gerado pelo BCrypt
+    "gastoAluguel": 0.0,
+    "gastoCompra": 0.0,
+    "gastoTotal": 0.0
+  },
+  {
+    "type": "Gerente",
+    "nome": "João Silva",
+    "email": "joao.silva@cinehub.com",
+    "senha": "$2a$10$7sD.OXJ3kI6jw7J0K1sE7eBGzqjvQK9Q/Yt9uF7lYQO..." // Hash gerado pelo BCrypt
+  }
+]

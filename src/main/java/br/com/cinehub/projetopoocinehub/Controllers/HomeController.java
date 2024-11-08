@@ -13,14 +13,14 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet(name = "home", value = "/home")
-public class FilmesController extends HttpServlet {
+public class HomeController extends HttpServlet {
     public static List<Filme> carregarFilmes() {
         return FilmesModel.getFilmes();
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // Carrega a lista de filmes de Models
-        List<Filme> filmes = FilmesController.carregarFilmes();
+        List<Filme> filmes = HomeController.carregarFilmes();
 
         // Define um atributo para ser usado no JSP
         if (filmes != null) {
@@ -31,7 +31,7 @@ public class FilmesController extends HttpServlet {
 
         // Encaminha a requisição para o arquivo JSP
         response.setContentType("text/html");
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/home.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/home.jsp");
         dispatcher.forward(request, response);
     }
 }

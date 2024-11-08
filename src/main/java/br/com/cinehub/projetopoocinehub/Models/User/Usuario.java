@@ -1,15 +1,27 @@
-package br.com.cinehub.projetopoocinehub;
+package br.com.cinehub.projetopoocinehub.Models.User;
+
+import com.fasterxml.jackson.annotation.*;
 
 public class Usuario {
     private String nome;
     private String email;
     private String senha;
 
-    public Usuario(String nome, String email, String senha) {
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
+    @JsonCreator
+    public Usuario(
+            @JsonProperty("nome") String nome,
+            @JsonProperty("email") String email,
+            @JsonProperty("senha") String senha
+    ) {
+            this.nome = nome;
+            this.email = email;
+            this.senha = senha;
     }
+
+    public Usuario() {
+
+    }
+
     public String getNome() {
         return nome;
     }

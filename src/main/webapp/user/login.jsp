@@ -2,8 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <%@ include file="/pages/globais/header.jsp" %>
-    <%@ include file="/pages/globais/nav.jsp" %>
+    <%@ include file="/globais/header.jsp" %>
 
     <head>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/user.css">
@@ -24,9 +23,12 @@
 
                 <label for="senha">Senha:</label>
                 <input type="password" id="senha" name="senha" required><br>
-
                 <input type="submit" value="Entrar">
             </form>
         </div>
+
+        <button class="button">
+            <a href="/cadastro">Cadastre-se</a>
+        </button>
     </div>
 </html>

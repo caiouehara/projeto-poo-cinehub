@@ -3,8 +3,8 @@
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 
 <html>
-    <%@ include file="/pages/globais/header.jsp" %>
-    <%@ include file="/pages/globais/nav.jsp" %>
+    <%@ include file="/globais/header.jsp" %>
+    <%@ include file="/globais/nav.jsp" %>
 
     <head>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css">

@@ -3,6 +3,6 @@
 <!DOCTYPE html>
 <html>
 <body>
-    <jsp:forward page="/user/" />
+    <jsp:forward page="/login" />
 </body>
 </html>

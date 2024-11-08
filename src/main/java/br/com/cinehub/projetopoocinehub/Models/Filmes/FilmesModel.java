@@ -22,7 +22,7 @@ public class FilmesModel {
 
         try {
             // Obtém o InputStream do arquivo JSON no classpath
-            InputStream inputStream = FilmesModel.class.getResourceAsStream("/filmes.json");
+            InputStream inputStream = FilmesModel.class.getResourceAsStream("/WEB-INF/filmes.json");
 
             if (inputStream == null) {
                 System.out.println("Erro: Arquivo filmes.json não encontrado no classpath.");
