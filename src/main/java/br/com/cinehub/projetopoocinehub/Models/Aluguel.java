@@ -29,6 +29,23 @@ public class Aluguel {
         this.filmesAlugados = filmesAlugados;
     }
 
+    public Compra getCompra() {
+        return this.compra;
+    }
+
+    public void setCompra(Compra compra) {
+        this.compra = compra;
+    }
+
+    public Aluguel getAluguel() {
+        return this.aluguel;
+    }
+
+    public void setAluguel(Aluguel aluguel) {
+        this.aluguel = aluguel;
+    }
+
+
     //verifica se filme já não foi alugado, caso já esteja alugado ele não permite alugar
     public boolean verificarAluguel(Filme filme) {
         for (int i = 0; i < filmesAlugados.size(); i++) {
