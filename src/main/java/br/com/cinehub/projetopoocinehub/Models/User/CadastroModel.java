@@ -107,12 +107,12 @@ public class CadastroModel {
      * @param senha     Senha do usuário.
      * @return          Tipo do usuário ("Cliente", "Gerente") se o login for válido, null caso contrário.
      */
-    public String validarLoginUser(String email, String senha) {
+    public Usuario validarLoginUser(String email, String senha) {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         for (Usuario user : listaUsers) {
             if (user.getEmail().equals(email)) {
                 if (passwordEncoder.matches(senha, user.getSenha())) {
-                    return user.getTipoDeUsuario();
+                    return user; // Retorna o usuário completo
                 }
             }
         }
@@ -131,7 +131,6 @@ public class CadastroModel {
     }
 
     // Getters e Setters
-
     public ArrayList<Usuario> getListaUsers() {
         return listaUsers;
     }

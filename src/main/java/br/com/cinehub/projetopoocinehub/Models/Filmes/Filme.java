@@ -75,7 +75,7 @@ public class Filme {
 
     // Construtor sem parâmetros para criação de novos filmes programaticamente
     public Filme() {
-        this.id = UUID.randomUUID().toString();
+
     }
 
     // Getters e Setters
@@ -146,8 +146,22 @@ public class Filme {
     public double getPrecoFilmeAluguel() {
         return precoFilmeAluguel;
     }
+    
+    public void setSinopseFilme(String sinopse) {
+    }
 
-    public void setUsuariosAvaliaram(int usuariosAvaliaram) {
-        this.usuariosAvaliaram = usuariosAvaliaram;
+    public void setDuracaoFilme(double duracao) {
+    }
+
+    public void setPrecoFilmeCompra(double precoCompra) {
+    }
+
+    public void setPrecoFilmeAluguel(double precoAluguel) {
+    }
+
+    public void setDiasAluguel(int diasAluguel) {
+    }
+
+    public void setImagem(String imagemFileName) {
     }
 }

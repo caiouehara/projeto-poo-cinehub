@@ -1,15 +1,15 @@
-package br.com.cinehub.projetopoocinehub.Controllers;
+package br.com.cinehub.projetopoocinehub.Controllers.Login;
 
 import br.com.cinehub.projetopoocinehub.Models.User.CadastroModel;
+import br.com.cinehub.projetopoocinehub.Models.User.Usuario;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-
 import java.io.IOException;
 
-@WebServlet(name = "login", value = "/login")
+@WebServlet(name = "/user/login", value = "/user/login")
 public class LoginController extends HttpServlet {
     private CadastroModel cadastro;
 
@@ -24,14 +24,15 @@ public class LoginController extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        // Definir o encoding
+        response.setContentType("text/html; charset=UTF-8");
         // Encaminha a requisição para o arquivo JSP
-        response.setContentType("text/html");
         RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/user/login.jsp");
         dispatcher.forward(request, response);
     }
 
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Definir o encoding
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
@@ -41,36 +42,29 @@ public class LoginController extends HttpServlet {
 
         // Validação básica dos campos
         if (email == null || email.isEmpty() || senha == null || senha.isEmpty()) {
-            response.sendRedirect(request.getContextPath() + "/login?erro=1");
+            response.sendRedirect(request.getContextPath() + "/user/login?erro=1");
             return;
         }
 
+        // Valida o login e obtém o usuário
+        Usuario usuario = cadastro.validarLoginUser(email, senha);
+
+        // Invalida a sessão existente, se houver
         HttpSession session = request.getSession(false);
-        if (session != null && session.getAttribute("usuario") != null) {
-            // Usuário já está logado, redireciona para a página inicial
-            response.sendRedirect(request.getContextPath() + "/home");
-            return;
+        if (session != null) {
+            session.invalidate();
         }
 
-        // Valida o login e obtém o tipo de usuário
-        String tipoUsuario = cadastro.validarLoginUser(email, senha);
-
-        if ("Cliente".equals(tipoUsuario)) {
-            // Logado como cliente
+        if (usuario != null) {
+            // Login bem-sucedido
             session = request.getSession(true);
-            session.setAttribute("usuario", "Cliente");
+            session.setAttribute("usuario", usuario.getTipoDeUsuario()); // "Cliente" ou "Gerente"
             session.setAttribute("email", email);
-            response.sendRedirect(request.getContextPath() + "/home");
-        } else if ("Gerente".equals(tipoUsuario)) {
-            // Logado como gerente
-            session = request.getSession(true);
-            session.setAttribute("usuario", "Gerente");
-            session.setAttribute("email", email);
+            session.setAttribute("nome", usuario.getNome()); // Armazenar o nome do usuário
             response.sendRedirect(request.getContextPath() + "/home");
         } else {
             // Dados inválidos
-            response.sendRedirect(request.getContextPath() + "/login?erro=1");
+            response.sendRedirect(request.getContextPath() + "/user/login?erro=1");
         }
     }
-
 }

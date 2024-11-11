@@ -35,7 +35,6 @@ public abstract class Usuario {
     }
 
     // Getters e Setters
-
     @JsonProperty("nome")
     public String getNome() {
         return nome;
@@ -54,21 +53,5 @@ public abstract class Usuario {
     @JsonProperty("tipoDeUsuario")
     public String getTipoDeUsuario() {
         return tipoDeUsuario;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public void setTipoDeUsuario(String tipoDeUsuario) {
-        this.tipoDeUsuario = tipoDeUsuario;
     }
 }

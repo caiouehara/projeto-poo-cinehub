@@ -11,7 +11,7 @@
     <!-- Configuração do LoginController -->
     <servlet>
         <servlet-name>login</servlet-name>
-        <servlet-class>br.com.cinehub.projetopoocinehub.Controllers.LoginController</servlet-class>
+        <servlet-class>br.com.cinehub.projetopoocinehub.Controllers.Login.LoginController</servlet-class>
         <load-on-startup>2</load-on-startup>
     </servlet>
     <servlet-mapping>
