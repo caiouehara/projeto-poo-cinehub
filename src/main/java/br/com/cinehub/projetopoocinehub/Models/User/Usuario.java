@@ -1,43 +1,74 @@
+// Usuario.java
 package br.com.cinehub.projetopoocinehub.Models.User;
 
-import com.fasterxml.jackson.annotation.*;
+import br.com.cinehub.projetopoocinehub.Models.User.Tipos.Cliente;
+import br.com.cinehub.projetopoocinehub.Models.User.Tipos.Gerente;
 
-public class Usuario {
-    private String nome;
-    private String email;
-    private String senha;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    @JsonCreator
-    public Usuario(
-            @JsonProperty("nome") String nome,
-            @JsonProperty("email") String email,
-            @JsonProperty("senha") String senha
-    ) {
-            this.nome = nome;
-            this.email = email;
-            this.senha = senha;
-    }
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "tipoDeUsuario"
+)
+@JsonSubTypes({
+    @JsonSubTypes.Type(value = Cliente.class, name = "Cliente"),
+    @JsonSubTypes.Type(value = Gerente.class, name = "Gerente")
+})
+public abstract class Usuario {
+    protected String nome;
+    protected String email;
+    protected String senha;
+    protected String tipoDeUsuario;
 
+    // Construtores
     public Usuario() {
-
     }
 
+    public Usuario(String nome, String email, String senha, String tipoDeUsuario) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.tipoDeUsuario = tipoDeUsuario;
+    }
+
+    // Getters e Setters
+
+    @JsonProperty("nome")
     public String getNome() {
         return nome;
     }
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+
+    @JsonProperty("email")
     public String getEmail() {
         return email;
     }
-    public void setEmail(String email) {
-        this.email = email;
-    }
+
+    @JsonProperty("senha")
     public String getSenha() {
         return senha;
     }
+
+    @JsonProperty("tipoDeUsuario")
+    public String getTipoDeUsuario() {
+        return tipoDeUsuario;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public void setTipoDeUsuario(String tipoDeUsuario) {
+        this.tipoDeUsuario = tipoDeUsuario;
     }
 }

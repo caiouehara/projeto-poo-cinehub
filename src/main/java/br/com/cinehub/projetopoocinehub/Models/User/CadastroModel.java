@@ -1,17 +1,17 @@
+// CadastroModel.java
 package br.com.cinehub.projetopoocinehub.Models.User;
 
 import br.com.cinehub.projetopoocinehub.Models.User.Tipos.Cliente;
 import br.com.cinehub.projetopoocinehub.Models.User.Tipos.Gerente;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.ArrayList;
-
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,32 +27,32 @@ public class CadastroModel {
     }
 
     private ArrayList<Usuario> loadUsers() {
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            Path filePath = Paths.get(dataDir, USERS_JSON);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        Path filePath = Paths.get(dataDir, USERS_JSON);
 
-            if (!Files.exists(filePath)) {
-                // Se o arquivo não existir, criar arquivo com dados padrão
-                ArrayList<Usuario> defaultUsers = criarUsuariosPadrão();
-                try {
-                    // Certificar-se de que o diretório existe
-                    Files.createDirectories(filePath.getParent());
-                    // Salvar os usuários padrão no arquivo JSON
-                    mapper.enable(SerializationFeature.INDENT_OUTPUT);
-                    mapper.writeValue(Files.newOutputStream(filePath), defaultUsers);
-                } catch (IOException e) {
-                    System.out.println("Erro ao criar o arquivo " + USERS_JSON + ": " + e.getMessage());
-                }
-                return defaultUsers;
-            }
-
+        if (!Files.exists(filePath)) {
+            // Se o arquivo não existir, criar arquivo com dados padrão
+            ArrayList<Usuario> defaultUsers = criarUsuariosPadrao();
             try {
-                return mapper.readValue(Files.newInputStream(filePath), new TypeReference<ArrayList<Usuario>>() {});
+                // Certificar-se de que o diretório existe
+                Files.createDirectories(filePath.getParent());
+                // Salvar os usuários padrão no arquivo JSON
+                mapper.enable(SerializationFeature.INDENT_OUTPUT);
+                mapper.writeValue(Files.newOutputStream(filePath), defaultUsers);
             } catch (IOException e) {
-                System.out.println("Erro ao carregar o arquivo " + USERS_JSON + ": " + e.getMessage());
-                return new ArrayList<>();
+                System.out.println("Erro ao criar o arquivo " + USERS_JSON + ": " + e.getMessage());
             }
+            return defaultUsers;
         }
+
+        try {
+            return mapper.readValue(Files.newInputStream(filePath), new TypeReference<ArrayList<Usuario>>() {});
+        } catch (IOException e) {
+            System.out.println("Erro ao carregar o arquivo " + USERS_JSON + ": " + e.getMessage());
+            return new ArrayList<>();
+        }
+    }
 
     public synchronized void salvarUser() {
         ObjectMapper mapper = new ObjectMapper();
@@ -82,45 +82,21 @@ public class CadastroModel {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String hashedSenha = passwordEncoder.encode(senha);
 
-        if (usuarioLogado != null && "Gerente".equals(usuarioLogado)) {
-            // Usuário logado é um Gerente
-            if ("Gerente".equalsIgnoreCase(tipo)) {
-                Gerente novoGerente = new Gerente(nome, email, hashedSenha);
-                if (verificarCadastroUser(email)) {
-                    listaUsers.add(novoGerente);
-                    salvarUser(); // Salvar no arquivo JSON
-                    return true; // Cadastro realizado com sucesso
-                } else {
-                    return false; // Email já cadastrado
-                }
+        if (verificarCadastroUser(email)) {
+            Usuario novoUsuario;
+            if ("Gerente".equalsIgnoreCase(tipo) && "Gerente".equals(usuarioLogado)) {
+                novoUsuario = new Gerente(nome, email, hashedSenha);
             } else if ("Cliente".equalsIgnoreCase(tipo)) {
-                Cliente novoCliente = new Cliente(nome, email, hashedSenha, 0.0, 0.0, 0.0);
-                if (verificarCadastroUser(email)) {
-                    listaUsers.add(novoCliente);
-                    salvarUser(); // Salvar no arquivo JSON
-                    return true; // Cadastro realizado com sucesso
-                } else {
-                    return false; // Email já cadastrado
-                }
+                novoUsuario = new Cliente(nome, email, hashedSenha, 0.0, 0.0, 0.0);
             } else {
-                // Tipo de usuário inválido
+                // Tipo de usuário inválido ou tentativa de cadastro de Gerente sem permissão
                 return false;
             }
+            listaUsers.add(novoUsuario);
+            salvarUser(); // Salvar no arquivo JSON
+            return true; // Cadastro realizado com sucesso
         } else {
-            // Usuário não está logado ou não é um Gerente; permitir apenas cadastro como Cliente
-            if ("Cliente".equalsIgnoreCase(tipo)) {
-                Cliente novoCliente = new Cliente(nome, email, hashedSenha, 0.0, 0.0, 0.0);
-                if (verificarCadastroUser(email)) {
-                    listaUsers.add(novoCliente);
-                    salvarUser(); // Salvar no arquivo JSON
-                    return true; // Cadastro realizado com sucesso
-                } else {
-                    return false; // Email já cadastrado
-                }
-            } else {
-                // Tentativa de cadastrar como Gerente sem autorização
-                return false;
-            }
+            return false; // Email já cadastrado
         }
     }
 
@@ -136,11 +112,7 @@ public class CadastroModel {
         for (Usuario user : listaUsers) {
             if (user.getEmail().equals(email)) {
                 if (passwordEncoder.matches(senha, user.getSenha())) {
-                    if (user instanceof Cliente) {
-                        return "Cliente";
-                    } else if (user instanceof Gerente) {
-                        return "Gerente";
-                    }
+                    return user.getTipoDeUsuario();
                 }
             }
         }
@@ -169,7 +141,7 @@ public class CadastroModel {
         salvarUser(); // Salvar no arquivo JSON
     }
 
-    private ArrayList<Usuario> criarUsuariosPadrão() {
+    private ArrayList<Usuario> criarUsuariosPadrao() {
         ArrayList<Usuario> defaultUsers = new ArrayList<>();
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -177,7 +149,6 @@ public class CadastroModel {
         Gerente defaultGerente = new Gerente("Admin", "admin@example.com", passwordEncoder.encode("admin123"));
         defaultUsers.add(defaultGerente);
 
-    return defaultUsers;
+        return defaultUsers;
+    }
 }
-}
-

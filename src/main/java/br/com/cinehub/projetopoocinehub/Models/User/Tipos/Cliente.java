@@ -1,10 +1,11 @@
+// Cliente.java
 package br.com.cinehub.projetopoocinehub.Models.User.Tipos;
 
 import br.com.cinehub.projetopoocinehub.Comentarios;
 import br.com.cinehub.projetopoocinehub.Compra;
 import br.com.cinehub.projetopoocinehub.Models.Filmes.Filme;
-
 import br.com.cinehub.projetopoocinehub.Models.User.Usuario;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,15 +15,14 @@ public class Cliente extends Usuario {
     private double gastoCompra = 0;
     private double gastoTotal = 0;
 
-    @JsonIgnore // Ignora este campo durante a serialização/desserialização
+    @JsonIgnore
     private Compra compra;
 
-    // Construtor padrão necessário para a desserialização
     public Cliente() {
         super();
+        this.tipoDeUsuario = "Cliente";
     }
 
-    // Construtor com parâmetros e anotações para o Jackson
     @JsonCreator
     public Cliente(
             @JsonProperty("nome") String nome,
@@ -32,7 +32,7 @@ public class Cliente extends Usuario {
             @JsonProperty("gastoCompra") double gastoCompra,
             @JsonProperty("gastoTotal") double gastoTotal
     ) {
-        super(nome, email, senha);
+        super(nome, email, senha, "Cliente");
         this.gastoAluguel = gastoAluguel;
         this.gastoCompra = gastoCompra;
         this.gastoTotal = gastoTotal;
@@ -94,14 +94,14 @@ public class Cliente extends Usuario {
     public void realizarCompra(Filme filme) {
         if (compra.verificarCompra(filme)) {
             double preco = filme.getPrecoFilmeCompra();
-            preco = gastoCompra + preco;
-            setGastoCompra(preco);
+            gastoCompra += preco;
+            setGastoCompra(gastoCompra);
         }
     }
 
     public void realizarAluguel(Filme filme) {
         double preco = filme.getPrecoFilmeAluguel();
-        preco = gastoAluguel + preco;
-        setGastoAluguel(preco);
+        gastoAluguel += preco;
+        setGastoAluguel(gastoAluguel);
     }
 }
