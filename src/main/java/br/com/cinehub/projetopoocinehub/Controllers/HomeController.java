@@ -15,7 +15,7 @@ import java.util.List;
 @WebServlet(name = "home", value = "/home")
 public class HomeController extends HttpServlet {
     public static List<Filme> carregarFilmes() {
-        return FilmesModel.getFilmes();
+        return FilmesModel.getListaFilmes();
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -26,7 +26,7 @@ public class HomeController extends HttpServlet {
         if (filmes != null) {
             request.setAttribute("filmes", filmes);
         } else {
-            request.setAttribute("message", "Erro ao carregar os filmes.");
+            System.out.println("Erro em carregar os filmes");
         }
 
         // Encaminha a requisição para o arquivo JSP

@@ -67,18 +67,6 @@ public class Cliente extends Usuario {
         this.gastoTotal = gastoTotal;
     }
 
-    // Métodos Específicos do Cliente
-
-    public void avaliarFilme(Filme filme, double nota) {
-        double notaAtual = filme.getAvaliacaoFilme();
-        int usuariosAvaliaram = filme.getUsuariosAvaliaram();
-        nota = (notaAtual * usuariosAvaliaram) + nota;
-        usuariosAvaliaram++;
-        nota = nota / usuariosAvaliaram;
-        filme.setAvaliacaoFilme(nota);
-        filme.setUsuariosAvaliaram(usuariosAvaliaram);
-    }
-
     public void deslikeComentario(Comentarios comentario) {
         int deslikesAtuais = comentario.getQuantidadeDeslikes();
         deslikesAtuais++;

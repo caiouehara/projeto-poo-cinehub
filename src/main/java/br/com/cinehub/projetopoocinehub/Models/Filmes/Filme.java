@@ -3,17 +3,18 @@ package br.com.cinehub.projetopoocinehub.Models.Filmes;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.UUID;
+
 /**
  * A classe {@code Filme} representa um filme com diversas propriedades como título, ano, sinopse, etc.
  * <p>
  * Esta classe utiliza as anotações do Jackson para permitir a serialização e desserialização de objetos
  * para JSON. O construtor é anotado com {@code @JsonCreator}, e cada parâmetro é anotado com
  * {@code @JsonProperty} para mapear as propriedades do JSON para os campos correspondentes da classe.
- * Isso facilita o processo de conversão entre JSON e objetos Java, garantindo que os dados sejam
- * corretamente interpretados e atribuídos.
  * </p>
  */
 public class Filme {
+    private String id;
     private int anoFilme;
     private String tituloFilme;
     private String sinopseFilme;
@@ -27,13 +28,8 @@ public class Filme {
 
     /**
      * Construtor da classe {@code Filme} utilizado pelo Jackson para desserialização do JSON.
-     * <p>
-     * A anotação {@code @JsonCreator} indica ao Jackson que este construtor deve ser usado para
-     * criar instâncias da classe durante a desserialização. Cada parâmetro é anotado com
-     * {@code @JsonProperty}, especificando o nome da propriedade no JSON que corresponde ao
-     * parâmetro. Isso garante que cada campo seja corretamente mapeado a partir do JSON.
-     * </p>
      *
+     * @param id                o ID único do filme
      * @param anoFilme          o ano de lançamento do filme
      * @param tituloFilme       o título do filme
      * @param sinopseFilme      a sinopse do filme
@@ -47,6 +43,7 @@ public class Filme {
      */
     @JsonCreator
     public Filme(
+        @JsonProperty("id") String id,
         @JsonProperty("anoFilme") int anoFilme,
         @JsonProperty("tituloFilme") String tituloFilme,
         @JsonProperty("sinopseFilme") String sinopseFilme,
@@ -58,6 +55,12 @@ public class Filme {
         @JsonProperty("usuariosAvaliaram") int usuariosAvaliaram,
         @JsonProperty("imagem") String imagem
     ) {
+        // Se o ID for nulo ou vazio, gerar um novo UUID
+        if (id == null || id.isEmpty()) {
+            this.id = UUID.randomUUID().toString();
+        } else {
+            this.id = id;
+        }
         this.anoFilme = anoFilme;
         this.tituloFilme = tituloFilme;
         this.sinopseFilme = sinopseFilme;
@@ -68,196 +71,83 @@ public class Filme {
         this.diasAluguel = diasAluguel;
         this.usuariosAvaliaram = usuariosAvaliaram;
         this.imagem = imagem;
+    }
+
+    // Construtor sem parâmetros para criação de novos filmes programaticamente
+    public Filme() {
+        this.id = UUID.randomUUID().toString();
     }
 
     // Getters e Setters
 
     /**
-     * Obtém o ano de lançamento do filme.
+     * Obtém o ID único do filme.
      *
-     * @return o ano do filme
+     * @return o ID do filme
      */
+    @JsonProperty("id")
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Define o ID único do filme.
+     *
+     * @param id o ID do filme
+     */
+    @JsonProperty("id")
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @JsonProperty("anoFilme")
     public int getAnoFilme() {
         return anoFilme;
     }
 
-    /**
-     * Define o ano de lançamento do filme.
-     *
-     * @param anoFilme o ano do filme
-     */
+    @JsonProperty("anoFilme")
     public void setAnoFilme(int anoFilme) {
         this.anoFilme = anoFilme;
     }
 
-    /**
-     * Obtém o título do filme.
-     *
-     * @return o título do filme
-     */
+    @JsonProperty("tituloFilme")
     public String getTituloFilme() {
         return tituloFilme;
     }
 
-    /**
-     * Define o título do filme.
-     *
-     * @param tituloFilme o título do filme
-     */
+    @JsonProperty("imagem")
+    public String getImagem() {
+        return this.imagem;
+    }
+
+    @JsonProperty("sinopseFilme")
+    public String getSinopseFilme() {
+        return this.sinopseFilme;
+    }
+
+    @JsonProperty("avaliacaoFilme")
+    public double getAvaliacaoFilme() {
+        return this.avaliacaoFilme;
+    }
+
+    @JsonProperty("tituloFilme")
     public void setTituloFilme(String tituloFilme) {
         this.tituloFilme = tituloFilme;
     }
 
-    /**
-     * Obtém a sinopse do filme.
-     *
-     * @return a sinopse do filme
-     */
-    public String getSinopseFilme() {
-        return sinopseFilme;
+    public void setAvaliacaoFilme(double nota) {
+        this.avaliacaoFilme = nota;
     }
 
-    /**
-     * Define a sinopse do filme.
-     *
-     * @param sinopseFilme a sinopse do filme
-     */
-    public void setSinopseFilme(String sinopseFilme) {
-        this.sinopseFilme = sinopseFilme;
-    }
-
-    /**
-     * Obtém a avaliação do filme.
-     *
-     * @return a avaliação do filme
-     */
-    public double getAvaliacaoFilme() {
-        return avaliacaoFilme;
-    }
-
-    /**
-     * Define a avaliação do filme.
-     *
-     * @param avaliacaoFilme a avaliação do filme
-     */
-    public void setAvaliacaoFilme(double avaliacaoFilme) {
-        this.avaliacaoFilme = avaliacaoFilme;
-    }
-
-    /**
-     * Obtém a duração do filme em minutos.
-     *
-     * @return a duração do filme
-     */
-    public double getDuracaoFilme() {
-        return duracaoFilme;
-    }
-
-    /**
-     * Define a duração do filme em minutos.
-     *
-     * @param duracaoFilme a duração do filme
-     */
-    public void setDuracaoFilme(double duracaoFilme) {
-        this.duracaoFilme = duracaoFilme;
-    }
-
-    /**
-     * Obtém o preço para compra do filme.
-     *
-     * @return o preço de compra do filme
-     */
     public double getPrecoFilmeCompra() {
         return precoFilmeCompra;
     }
 
-    /**
-     * Define o preço para compra do filme.
-     *
-     * @param precoFilmeCompra o preço de compra do filme
-     */
-    public void setPrecoFilmeCompra(double precoFilmeCompra) {
-        this.precoFilmeCompra = precoFilmeCompra;
-    }
-
-    /**
-     * Obtém o preço para aluguel do filme.
-     *
-     * @return o preço de aluguel do filme
-     */
     public double getPrecoFilmeAluguel() {
         return precoFilmeAluguel;
     }
 
-    /**
-     * Define o preço para aluguel do filme.
-     *
-     * @param precoFilmeAluguel o preço de aluguel do filme
-     */
-    public void setPrecoFilmeAluguel(double precoFilmeAluguel) {
-        this.precoFilmeAluguel = precoFilmeAluguel;
-    }
-
-    /**
-     * Obtém a quantidade de dias para aluguel do filme.
-     *
-     * @return os dias de aluguel
-     */
-    public int getDiasAluguel() {
-        return diasAluguel;
-    }
-
-    /**
-     * Define a quantidade de dias para aluguel do filme.
-     *
-     * @param diasAluguel os dias de aluguel
-     */
-    public void setDiasAluguel(int diasAluguel) {
-        this.diasAluguel = diasAluguel;
-    }
-
-    /**
-     * Obtém o número de usuários que avaliaram o filme.
-     *
-     * @return o número de usuários que avaliaram
-     */
-    public int getUsuariosAvaliaram() {
-        return usuariosAvaliaram;
-    }
-
-    /**
-     * Define o número de usuários que avaliaram o filme.
-     *
-     * @param usuariosAvaliaram o número de usuários que avaliaram
-     */
     public void setUsuariosAvaliaram(int usuariosAvaliaram) {
         this.usuariosAvaliaram = usuariosAvaliaram;
-    }
-
-    /**
-     * Obtém o caminho ou URL da imagem do filme.
-     *
-     * @return a imagem do filme
-     */
-    public String getImagem() {
-        return imagem;
-    }
-
-    /**
-     * Define o caminho ou URL da imagem do filme.
-     *
-     * @param imagem a imagem do filme
-     */
-    public void setImagem(String imagem) {
-        this.imagem = imagem;
-    }
-
-    /**
-     * Obtém o título do filme.
-     *
-     * @return o título do filme
-     */
-    public String getTitulo() {
-        return tituloFilme;
     }
 }

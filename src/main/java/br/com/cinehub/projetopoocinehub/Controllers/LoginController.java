@@ -41,14 +41,14 @@ public class LoginController extends HttpServlet {
 
         // Validação básica dos campos
         if (email == null || email.isEmpty() || senha == null || senha.isEmpty()) {
-            response.sendRedirect(request.getContextPath() + "/jsp/user/login.jsp?erro=1");
+            response.sendRedirect(request.getContextPath() + "/login?erro=1");
             return;
         }
 
         HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute("usuario") != null) {
             // Usuário já está logado, redireciona para a página inicial
-            response.sendRedirect(request.getContextPath() + "/jsp/home.jsp");
+            response.sendRedirect(request.getContextPath() + "/home");
             return;
         }
 
@@ -60,16 +60,16 @@ public class LoginController extends HttpServlet {
             session = request.getSession(true);
             session.setAttribute("usuario", "Cliente");
             session.setAttribute("email", email);
-            response.sendRedirect(request.getContextPath() + "/jsp/home.jsp");
+            response.sendRedirect(request.getContextPath() + "/home");
         } else if ("Gerente".equals(tipoUsuario)) {
             // Logado como gerente
             session = request.getSession(true);
             session.setAttribute("usuario", "Gerente");
             session.setAttribute("email", email);
-            response.sendRedirect(request.getContextPath() + "/jsp/home.jsp");
+            response.sendRedirect(request.getContextPath() + "/home");
         } else {
             // Dados inválidos
-            response.sendRedirect(request.getContextPath() + "/jsp/user/login.jsp?erro=1");
+            response.sendRedirect(request.getContextPath() + "/login?erro=1");
         }
     }
 

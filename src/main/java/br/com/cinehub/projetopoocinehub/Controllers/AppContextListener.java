@@ -1,7 +1,9 @@
 package br.com.cinehub.projetopoocinehub.Controllers;
 
 import br.com.cinehub.projetopoocinehub.Models.User.CadastroModel;
+import br.com.cinehub.projetopoocinehub.Models.Filmes.FilmesModel;
 
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
@@ -11,10 +13,13 @@ public class AppContextListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        // Inicializa o CadastroModel sem necessidade do dataDir do ServletContext
+        ServletContext context = sce.getServletContext();
+
         CadastroModel cadastroModel = new CadastroModel();
-        sce.getServletContext().setAttribute("cadastroModel", cadastroModel);
-        System.out.println("CadastroModel inicializado e armazenado no ServletContext.");
+        context.setAttribute("cadastroModel", cadastroModel);
+
+        FilmesModel filmesModel = new FilmesModel(context);
+        context.setAttribute("filmesModel", filmesModel);
     }
 
     @Override

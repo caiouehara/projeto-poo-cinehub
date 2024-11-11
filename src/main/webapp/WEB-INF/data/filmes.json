@@ -1,5 +1,6 @@
 [
     {
+        "id": "UUID-GERADO-1",
         "anoFilme": 2013,
         "tituloFilme": "House of Cards 2",
         "sinopseFilme": "Um político implacável usa todos os meios necessários para subir ao poder em Washington.",
@@ -12,6 +13,7 @@
         "imagem": "mini1.jpg"
     },
     {
+        "id": "UUID-GERADO-2",
         "anoFilme": 1994,
         "tituloFilme": "The Shawshank Redemption",
         "sinopseFilme": "Dois homens presos criam um vínculo profundo ao longo de anos, encontrando redenção através de atos comuns de decência.",
@@ -24,6 +26,7 @@
         "imagem": "mini1.jpg"
     },
     {
+        "id": "UUID-GERADO-3",
         "anoFilme": 2010,
         "tituloFilme": "Inception",
         "sinopseFilme": "Um ladrão que invade os sonhos das pessoas é oferecido a chance de apagar seu passado criminoso ao aceitar uma missão impossível.",
@@ -36,6 +39,7 @@
         "imagem": "mini1.jpg"
     },
     {
+        "id": "UUID-GERADO-4",
         "anoFilme": 2008,
         "tituloFilme": "The Dark Knight",
         "sinopseFilme": "Batman assume a responsabilidade de combater o crime organizado em Gotham, mas enfrenta a maior ameaça de sua carreira: o Coringa.",

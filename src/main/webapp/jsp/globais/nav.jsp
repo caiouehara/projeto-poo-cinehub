@@ -13,10 +13,8 @@
                 </a>
                 <i class="fas fa-bars menu-toggle"></i>
                 <nav class="menu-nav">
-                    <a href="#">Início</a>
-                    <a href="#">Séries</a>
-                    <a href="#">Filmes</a>
-                    <a href="#">Documentários</a>
+                    <a href="#">Home</a>
+                    <a href="#">Meus filmes</a>
                 </nav>
             </div>
         </header>

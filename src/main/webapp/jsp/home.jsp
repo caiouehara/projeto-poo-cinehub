@@ -42,6 +42,7 @@
                             <th>Título</th>
                             <th>Sinopse</th>
                             <th>Ano</th>
+                            <th>Avaliação</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -52,16 +53,17 @@
                                 <c:forEach var="filme" items="${filmes}">
                                     <tr class="item">
                                         <td>
-                                            <img class="box-movie" src="${pageContext.request.contextPath}/img/films/${filme.imagem}" alt="${filme.tituloFilme}">
+                                            <img class="box-movie" src="${pageContext.request.contextPath}/img/films/${filme.getImagem()}" alt="${filme.getTituloFilme()}">
                                         </td>
-                                        <td>${filme.tituloFilme}</td>
-                                        <td>${filme.sinopseFilme}</td>
-                                        <td>${filme.anoFilme}</td>
+                                        <td>${filme.getTituloFilme()}</td>
+                                        <td>${filme.getSinopseFilme()}</td>
+                                        <td>${filme.getAnoFilme()}</td>
+                                        <td>${filme.getAvaliacaoFilme()}</td>
                                         <td>
                                             <div class="buttons">
                                                 <a href="#" role="button" class="button">
                                                     <i class="fas fa-play"></i>
-                                                    Alugar
+                                                    Ver mais
                                                 </a>
                                             </div>
                                         </td>
