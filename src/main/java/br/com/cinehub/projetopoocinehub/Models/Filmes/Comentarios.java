@@ -19,9 +19,6 @@ public class Comentarios {
         this.autor = autor;
     }
 
-    private int quantidadeLikes;
-    private int quantidadeDeslikes;
-
     public String getComentario() {
         return this.comentario;
     }

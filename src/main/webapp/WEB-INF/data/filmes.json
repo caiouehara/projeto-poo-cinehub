@@ -9,7 +9,7 @@
         "precoFilmeCompra": 29.99,
         "precoFilmeAluguel": 5.99,
         "diasAluguel": 7,
-        "usuariosAvaliaram": 2000,
+        "qtdUsuariosAvaliaram": 2000,
         "imagem": "mini1.jpg"
     },
     {
@@ -22,7 +22,7 @@
         "precoFilmeCompra": 24.99,
         "precoFilmeAluguel": 4.99,
         "diasAluguel": 5,
-        "usuariosAvaliaram": 2500,
+        "qtdUsuariosAvaliaram": 2500,
         "imagem": "mini1.jpg"
     },
     {
@@ -35,7 +35,7 @@
         "precoFilmeCompra": 19.99,
         "precoFilmeAluguel": 3.99,
         "diasAluguel": 3,
-        "usuariosAvaliaram": 3000,
+        "qtdUsuariosAvaliaram": 3000,
         "imagem": "mini1.jpg"
     },
     {
@@ -48,7 +48,7 @@
         "precoFilmeCompra": 19.99,
         "precoFilmeAluguel": 3.99,
         "diasAluguel": 7,
-        "usuariosAvaliaram": 4000,
+        "qtdUsuariosAvaliaram": 4000,
         "imagem": "mini1.jpg"
     }
 ]
