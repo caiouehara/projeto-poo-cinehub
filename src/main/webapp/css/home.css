@@ -1,0 +1,168 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.hero {
+    background-image: url('../img/background.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    padding: 100px 20px;
+    text-align: center;
+    position: relative;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.hero .container {
+    position: relative;
+    z-index: 1;
+}
+
+.hero h3 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.hero p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.button {
+    background-color: #e50914;
+    border: none;
+    color: #fff;
+    padding: 15px 30px;
+    margin: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.button:hover {
+    background-color: #b20710;
+}
+
+.button i {
+    margin-right: 8px;
+}
+
+/* Estilos da tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 40px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #e50914;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+.box-movie {
+    width: 100px;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .hero h3 {
+        font-size: 2em;
+    }
+
+    .hero p {
+        font-size: 1em;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    .button {
+        width: 100%;
+        text-align: center;
+    }
+
+    th, td {
+        padding: 10px;
+    }
+
+    .box-movie {
+        width: 80px;
+    }
+
+    /*Bloco extendido de info do filme*/
+    /* Modal - Inicialmente oculto */
+    #modal {
+        display: none; /* Inicialmente oculto */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Fundo semitransparente */
+        justify-content: center;
+        align-items: center;
+        overflow-y: auto;
+    }
+
+    /* Conteúdo do Modal */
+    .modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        max-width: 500px;
+        margin: auto;
+        position: relative;
+    }
+
+    /* Botão de Fechar */
+    .close-btn {
+        background-color: transparent;
+        border: none;
+        font-size: 20px;
+        color: #000;
+        cursor: pointer;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+}

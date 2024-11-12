@@ -2,82 +2,102 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>br.com.cinehub</groupId>
-  <artifactId>projeto-poo-cinehub</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <name>projeto-poo-cinehub</name>
-  <packaging>war</packaging>
+    <groupId>br.com.cinehub</groupId>
+    <artifactId>projeto-poo-cinehub</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>projeto-poo-cinehub</name>
+    <packaging>war</packaging>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.target>17</maven.compiler.target>
-    <maven.compiler.source>17</maven.compiler.source>
-    <junit.version>5.11.0-M2</junit.version>
-  </properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.release>17</maven.compiler.release>
+        <junit.version>5.11.0-M2</junit.version>
+    </properties>
 
-  <dependencies>
-    <!-- Dependência da API Servlet Jakarta -->
-    <dependency>
-      <groupId>jakarta.servlet</groupId>
-      <artifactId>jakarta.servlet-api</artifactId>
-      <version>6.1.0</version>
-      <scope>provided</scope>
-    </dependency>
+    <dependencies>
+        <!-- Dependência da API Servlet Jakarta -->
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.1.0</version>
+            <scope>provided</scope>
+        </dependency>
 
-    <!-- Dependências do JSTL compatíveis com Jakarta EE 9+ -->
-    <dependency>
-        <groupId>jakarta.servlet.jsp.jstl</groupId>
-        <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-        <version>3.0.0</version>
-    </dependency>
-    <dependency>
-        <groupId>org.glassfish.web</groupId>
-        <artifactId>jakarta.servlet.jsp.jstl</artifactId>
-        <version>3.0.1</version>
-    </dependency>
+        <!-- Dependências do JSTL compatíveis com Jakarta EE 9+ -->
+        <dependency>
+            <groupId>jakarta.servlet.jsp.jstl</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+            <version>3.0.1</version>
+        </dependency>
 
-    <!-- Dependência do Jackson Databind -->
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>2.15.0</version>
-    </dependency>
+        <!-- Dependência do Jackson Databind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.15.0</version>
+        </dependency>
 
-    <!-- Dependências do JUnit para testes -->
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
-      <version>${junit.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-engine</artifactId>
-      <version>${junit.version}</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+        <!-- Dependências do JUnit para testes -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
 
-  <build>
-    <plugins>
-      <!-- Plugin para criação do arquivo WAR -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>3.4.0</version>
-      </plugin>
-    </plugins>
+        <!-- Dependências para criptografia BCrypt -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
+            <version>5.7.3</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.2</version>
+        </dependency>
 
-    <!-- Configurando pasta de resources -->
-    <resources>
-        <resource>
-            <directory>src/main/resources</directory>
-            <includes>
-                <include>**/*</include> <!-- Inclui todos os arquivos e subdiretórios -->
-            </includes>
-        </resource>
-    </resources>
-  </build>
+        <!-- Dependências para gráficos  -->
+        <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.5.3</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Plugin para criação do arquivo WAR -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.4.0</version>
+            </plugin>
+        </plugins>
+
+        <!-- Configurando pasta de resources -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*</include> <!-- Inclui todos os arquivos e subdiretórios -->
+                </includes>
+            </resource>
+        </resources>
+    </build>
 </project>
