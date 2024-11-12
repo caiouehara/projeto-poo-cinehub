@@ -33,6 +33,7 @@
     font-size: 3em;
     margin-bottom: 20px;
     text-transform: uppercase;
+    z-index: 1;
 }
 
 .hero p {
@@ -103,7 +104,7 @@ tr:hover {
 /*Estilo para o Modal*/
 .modal {
     display: none; /* Inicialmente oculto */
-    position: fixed; Fixo para manter a posição no viewport*/
+    position: fixed; /*Fixo para manter a posição no viewport*/
     z-index: 9999; /* Z-index alto para sobrepor outros conteúdos*/
     left: 0;
     top: 0;
@@ -113,6 +114,7 @@ tr:hover {
     background-color: rgba(0, 0, 0, 0.5); /* Fundo preto com transparência*/
     justify-content: center; /* Centraliza horizontalmente*/
     align-items: center; /* Centraliza verticalmente*/
+    backdrop-filter: blur(5px); /* Efeito de desfoque no fundo */
 }
 
 /* Estilo para o Conteúdo do Modal*/
