@@ -1,167 +1,185 @@
 package br.com.cinehub.projetopoocinehub.Models.Filmes;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
-/**
- * A classe {@code Filme} representa um filme com diversas propriedades como título, ano, sinopse, etc.
- * <p>
- * Esta classe utiliza as anotações do Jackson para permitir a serialização e desserialização de objetos
- * para JSON. O construtor é anotado com {@code @JsonCreator}, e cada parâmetro é anotado com
- * {@code @JsonProperty} para mapear as propriedades do JSON para os campos correspondentes da classe.
- * </p>
- */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Filme {
+    @JsonProperty("id")
     private String id;
+
+    @JsonProperty("anoFilme")
     private int anoFilme;
+
+    @JsonProperty("tituloFilme")
     private String tituloFilme;
+
+    @JsonProperty("sinopseFilme")
     private String sinopseFilme;
+
+    @JsonProperty("avaliacaoFilme")
     private double avaliacaoFilme;
+
+    @JsonProperty("duracaoFilme")
     private double duracaoFilme;
+
+    @JsonProperty("precoFilmeCompra")
     private double precoFilmeCompra;
+
+    @JsonProperty("precoFilmeAluguel")
     private double precoFilmeAluguel;
+
+    @JsonProperty("diasAluguel")
     private int diasAluguel;
-    private int usuariosAvaliaram;
+
+    @JsonProperty("qtdUsuariosAvaliaram")
+    private int qtdUsuariosAvaliaram;
+
+    @JsonProperty("imagem")
     private String imagem;
 
-    /**
-     * Construtor da classe {@code Filme} utilizado pelo Jackson para desserialização do JSON.
-     *
-     * @param id                o ID único do filme
-     * @param anoFilme          o ano de lançamento do filme
-     * @param tituloFilme       o título do filme
-     * @param sinopseFilme      a sinopse do filme
-     * @param avaliacaoFilme    a avaliação do filme
-     * @param duracaoFilme      a duração do filme em minutos
-     * @param precoFilmeCompra  o preço para compra do filme
-     * @param precoFilmeAluguel o preço para aluguel do filme
-     * @param diasAluguel       a quantidade de dias para aluguel
-     * @param usuariosAvaliaram o número de usuários que avaliaram o filme
-     * @param imagem            o caminho ou URL da imagem do filme
-     */
-    @JsonCreator
-    public Filme(
-        @JsonProperty("id") String id,
-        @JsonProperty("anoFilme") int anoFilme,
-        @JsonProperty("tituloFilme") String tituloFilme,
-        @JsonProperty("sinopseFilme") String sinopseFilme,
-        @JsonProperty("avaliacaoFilme") double avaliacaoFilme,
-        @JsonProperty("duracaoFilme") double duracaoFilme,
-        @JsonProperty("precoFilmeCompra") double precoFilmeCompra,
-        @JsonProperty("precoFilmeAluguel") double precoFilmeAluguel,
-        @JsonProperty("diasAluguel") int diasAluguel,
-        @JsonProperty("usuariosAvaliaram") int usuariosAvaliaram,
-        @JsonProperty("imagem") String imagem
-    ) {
-        // Se o ID for nulo ou vazio, gerar um novo UUID
-        if (id == null || id.isEmpty()) {
-            this.id = UUID.randomUUID().toString();
-        } else {
-            this.id = id;
-        }
-        this.anoFilme = anoFilme;
-        this.tituloFilme = tituloFilme;
-        this.sinopseFilme = sinopseFilme;
-        this.avaliacaoFilme = avaliacaoFilme;
-        this.duracaoFilme = duracaoFilme;
-        this.precoFilmeCompra = precoFilmeCompra;
-        this.precoFilmeAluguel = precoFilmeAluguel;
-        this.diasAluguel = diasAluguel;
-        this.usuariosAvaliaram = usuariosAvaliaram;
-        this.imagem = imagem;
-    }
+    @JsonProperty("comentarios")
+    private List<Comentario> comentarios;
 
-    // Construtor sem parâmetros para criação de novos filmes programaticamente
+    @JsonProperty("avaliacoes")
+    private List<Avaliacao> avaliacoes;
+
+    // Construtor padrão necessário para a desserialização
     public Filme() {
-
+        this.id = UUID.randomUUID().toString();
+        this.comentarios = new ArrayList<>();
+        this.avaliacoes = new ArrayList<>();
     }
 
     // Getters e Setters
 
-    /**
-     * Obtém o ID único do filme.
-     *
-     * @return o ID do filme
-     */
-    @JsonProperty("id")
     public String getId() {
         return id;
     }
 
-    /**
-     * Define o ID único do filme.
-     *
-     * @param id o ID do filme
-     */
-    @JsonProperty("id")
+    // Se você precisa definir o ID a partir do JSON, inclua o setter
     public void setId(String id) {
         this.id = id;
     }
 
-    @JsonProperty("anoFilme")
     public int getAnoFilme() {
         return anoFilme;
     }
 
-    @JsonProperty("anoFilme")
     public void setAnoFilme(int anoFilme) {
         this.anoFilme = anoFilme;
     }
 
-    @JsonProperty("tituloFilme")
     public String getTituloFilme() {
         return tituloFilme;
     }
 
-    @JsonProperty("imagem")
-    public String getImagem() {
-        return this.imagem;
-    }
-
-    @JsonProperty("sinopseFilme")
-    public String getSinopseFilme() {
-        return this.sinopseFilme;
-    }
-
-    @JsonProperty("avaliacaoFilme")
-    public double getAvaliacaoFilme() {
-        return this.avaliacaoFilme;
-    }
-
-    @JsonProperty("tituloFilme")
     public void setTituloFilme(String tituloFilme) {
         this.tituloFilme = tituloFilme;
     }
 
-    public void setAvaliacaoFilme(double nota) {
-        this.avaliacaoFilme = nota;
+    public String getSinopseFilme() {
+        return sinopseFilme;
+    }
+
+    public void setSinopseFilme(String sinopseFilme) {
+        this.sinopseFilme = sinopseFilme;
+    }
+
+    public double getAvaliacaoFilme() {
+        return avaliacaoFilme;
+    }
+
+    public void setAvaliacaoFilme(double avaliacaoFilme) {
+        this.avaliacaoFilme = avaliacaoFilme;
+    }
+
+    public double getDuracaoFilme() {
+        return duracaoFilme;
+    }
+
+    public void setDuracaoFilme(double duracaoFilme) {
+        this.duracaoFilme = duracaoFilme;
     }
 
     public double getPrecoFilmeCompra() {
         return precoFilmeCompra;
     }
 
+    public void setPrecoFilmeCompra(double precoFilmeCompra) {
+        this.precoFilmeCompra = precoFilmeCompra;
+    }
+
     public double getPrecoFilmeAluguel() {
         return precoFilmeAluguel;
     }
-    
-    public void setSinopseFilme(String sinopse) {
+
+    public void setPrecoFilmeAluguel(double precoFilmeAluguel) {
+        this.precoFilmeAluguel = precoFilmeAluguel;
     }
 
-    public void setDuracaoFilme(double duracao) {
-    }
-
-    public void setPrecoFilmeCompra(double precoCompra) {
-    }
-
-    public void setPrecoFilmeAluguel(double precoAluguel) {
+    public int getDiasAluguel() {
+        return diasAluguel;
     }
 
     public void setDiasAluguel(int diasAluguel) {
+        this.diasAluguel = diasAluguel;
     }
 
-    public void setImagem(String imagemFileName) {
+    public int getQtdUsuariosAvaliaram() {
+        return qtdUsuariosAvaliaram;
+    }
+
+    public void setQtdUsuariosAvaliaram(int qtdUsuariosAvaliaram) {
+        this.qtdUsuariosAvaliaram = qtdUsuariosAvaliaram;
+    }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
+    }
+
+    public List<Comentario> getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(List<Comentario> comentarios) {
+        this.comentarios = comentarios;
+    }
+
+    public List<Avaliacao> getAvaliacoes() {
+        return avaliacoes;
+    }
+
+    public void setAvaliacoes(List<Avaliacao> avaliacoes) {
+        this.avaliacoes = avaliacoes;
+        atualizarAvaliacaoMedia();
+    }
+
+    // Métodos adicionais
+
+    public void adicionarComentario(Comentario comentario) {
+        this.comentarios.add(comentario);
+    }
+
+    public void adicionarAvaliacao(Avaliacao avaliacao) {
+        this.avaliacoes.add(avaliacao);
+        atualizarAvaliacaoMedia();
+    }
+
+    private void atualizarAvaliacaoMedia() {
+        double somaNotas = 0.0;
+        for (Avaliacao avaliacao : avaliacoes) {
+            somaNotas += avaliacao.getNota();
+        }
+        this.qtdUsuariosAvaliaram = avaliacoes.size();
+        this.avaliacaoFilme = (qtdUsuariosAvaliaram > 0) ? (somaNotas / qtdUsuariosAvaliaram) : 0.0;
     }
 }

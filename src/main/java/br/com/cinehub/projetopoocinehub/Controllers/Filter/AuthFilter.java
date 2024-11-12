@@ -40,6 +40,7 @@ public class AuthFilter implements Filter {
             contextPath + "/img/",
             contextPath + "/images/",
             contextPath + "/public/",
+            contextPath + "/getFilmeDetalhes",
             // Adicione outras URLs ou caminhos de recursos públicos conforme necessário
         };
 

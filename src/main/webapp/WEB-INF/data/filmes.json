@@ -10,7 +10,25 @@
         "precoFilmeAluguel": 5.99,
         "diasAluguel": 7,
         "qtdUsuariosAvaliaram": 2000,
-        "imagem": "mini1.jpg"
+        "imagem": "mini1.jpg",
+        "comentarios": [
+            {
+                "id": "COMENTARIO-UUID-1",
+                "usuarioId": "USUARIO-UUID-1",
+                "filmeId": "UUID-GERADO-1",
+                "texto": "Ótima série política!",
+                "data": "2023-11-12T10:30:00"
+            }
+        ],
+        "avaliacoes": [
+            {
+                "id": "AVALIACAO-UUID-1",
+                "usuarioId": "USUARIO-UUID-1",
+                "filmeId": "UUID-GERADO-1",
+                "nota": 9.0,
+                "data": "2023-11-12T10:35:00"
+            }
+        ]
     },
     {
         "id": "UUID-GERADO-2",
@@ -23,7 +41,9 @@
         "precoFilmeAluguel": 4.99,
         "diasAluguel": 5,
         "qtdUsuariosAvaliaram": 2500,
-        "imagem": "mini1.jpg"
+        "imagem": "mini1.jpg",
+        "comentarios": [],
+        "avaliacoes": []
     },
     {
         "id": "UUID-GERADO-3",
@@ -36,7 +56,9 @@
         "precoFilmeAluguel": 3.99,
         "diasAluguel": 3,
         "qtdUsuariosAvaliaram": 3000,
-        "imagem": "mini1.jpg"
+        "imagem": "mini1.jpg",
+        "comentarios": [],
+        "avaliacoes": []
     },
     {
         "id": "UUID-GERADO-4",
@@ -49,6 +71,8 @@
         "precoFilmeAluguel": 3.99,
         "diasAluguel": 7,
         "qtdUsuariosAvaliaram": 4000,
-        "imagem": "mini1.jpg"
+        "imagem": "mini1.jpg",
+        "comentarios": [],
+        "avaliacoes": []
     }
 ]

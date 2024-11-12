@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import jakarta.servlet.ServletContext;
 
@@ -26,7 +27,12 @@ public class FilmesModel {
 
     private ArrayList<Filme> loadFilmes() {
         ObjectMapper mapper = new ObjectMapper();
+
+        //Configuração do mapeamento para Serialização
+        mapper.registerModule(new JavaTimeModule());
+        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
         Path dataFilePath = Paths.get(dataDir, FILMES_JSON);
 
         // Verifica se o arquivo filmes.json existe no dataDir
@@ -101,6 +107,15 @@ public class FilmesModel {
     // Métodos para manipular a lista de filmes
     public static ArrayList<Filme> getListaFilmes() {
         return listaFilmes;
+    }
+
+    public Filme buscarFilmePorId(String id) {
+        for (Filme filme : listaFilmes) {
+            if (filme.getId().equals(id)) {
+                return filme;
+            }
+        }
+        return null;
     }
 
     public void adicionarFilme(Filme filme) {

@@ -1,4 +1,4 @@
-package br.com.cinehub.projetopoocinehub.Controllers;
+package br.com.cinehub.projetopoocinehub.Controllers.Chart;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

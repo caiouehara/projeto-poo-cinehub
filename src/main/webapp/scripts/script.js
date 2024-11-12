@@ -1,50 +1,73 @@
-document.addEventListener("DOMContentLoaded", function() {
-    // Selecionando todos os botões de "Ver mais"
-    const buttons = document.querySelectorAll('a[data-id]');
+document.addEventListener('DOMContentLoaded', function () {
+    const modal = document.getElementById('modal');
+    const closeModalBtn = document.getElementById('close-modal');
+    const verMaisButtons = document.querySelectorAll('.ver-mais-btn');
 
-    // Adicionando o evento de clique
-    buttons.forEach(button => {
-        button.addEventListener('click', function(event) {
-            event.preventDefault(); // Impede o comportamento padrão do link
+    verMaisButtons.forEach(button => {
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
 
-            // Captura os dados do filme a partir dos atributos data-* do botão clicado
+            // Get data attributes from the clicked button
+            const filmeId = this.getAttribute('data-id');
             const imageSrc = this.getAttribute('data-image');
             const title = this.getAttribute('data-title');
             const description = this.getAttribute('data-description');
             const year = this.getAttribute('data-year');
             const rating = this.getAttribute('data-rating');
 
-            // Preenche os campos do modal com as informações do filme
+            // Populate the modal fields
             document.getElementById('modal-image').src = imageSrc;
             document.getElementById('modal-title').textContent = title;
             document.getElementById('modal-description').textContent = description;
-            document.getElementById('modal-year').textContent = `Ano: ${year}`;
+            document.getElementById('modal-year').textContent = 'Ano: ' + year;
+            // If you have a rating display, set it here
 
-            // Preenche a avaliação (se necessário)
-            const stars = document.querySelectorAll('.star-rating input');
-            stars.forEach(star => {
-                if (parseInt(star.value) <= parseInt(rating)) {
-                    star.checked = true;
-                } else {
-                    star.checked = false;
-                }
-            });
+            // Set the filmeId in the hidden inputs
+            document.getElementById('avaliacao-filmeId').value = filmeId;
+            document.getElementById('comentario-filmeId').value = filmeId;
 
-            // Exibe o modal ao definir display como 'block'
-            document.getElementById('modal').style.display = 'flex'; // Usa 'flex' para centralizar
+            // Show the modal
+            modal.style.display = 'block';
+
+            // Load comments and ratings via AJAX if needed
+            // Example: fetch comments from server using filmeId
+
+            // Inside the click event listener for 'Ver mais' buttons
+            fetch(`${contextPath}/getFilmeDetalhes?filmeId=${filmeId}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    // Populate comments
+                    const comentariosDiv = document.getElementById('comentarios');
+                    comentariosDiv.innerHTML = ''; // Clear previous comments
+
+                    if (data.comentarios && data.comentarios.length > 0) {
+                        const ul = document.createElement('ul');
+                        data.comentarios.forEach(comentario => {
+                            const li = document.createElement('li');
+                            li.innerHTML = `<strong>${comentario.usuarioId}</strong> em ${comentario.data}:<p>${comentario.texto}</p>`;
+                            ul.appendChild(li);
+                        });
+                        comentariosDiv.appendChild(ul);
+                    } else {
+                        comentariosDiv.innerHTML = '<p>Não há comentários para este filme.</p>';
+                    }
+
+                    // Similarly, populate ratings if needed
+                });
+
         });
     });
 
-    // Fecha o modal quando o botão de fechar for clicado
-    document.getElementById('close-modal').addEventListener('click', function() {
-        document.getElementById('modal').style.display = 'none'; // Fecha o modal
+    // Close modal when 'X' button is clicked
+    closeModalBtn.addEventListener('click', function () {
+        modal.style.display = 'none';
     });
 
-    // Fecha o modal quando clicar fora do conteúdo
-    window.addEventListener('click', function(event) {
-        const modal = document.getElementById('modal');
+    // Close modal when clicking outside the modal content
+    window.addEventListener('click', function (event) {
         if (event.target === modal) {
-            modal.style.display = 'none'; // Fecha o modal ao clicar fora dele
+            modal.style.display = 'none';
         }
     });
 });
