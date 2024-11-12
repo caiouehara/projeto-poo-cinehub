@@ -1,8 +1,7 @@
 // Cliente.java
 package br.com.cinehub.projetopoocinehub.Models.User.Tipos;
 
-import br.com.cinehub.projetopoocinehub.Comentarios;
-import br.com.cinehub.projetopoocinehub.Compra;
+import br.com.cinehub.projetopoocinehub.Models.Filmes.Comentarios;
 import br.com.cinehub.projetopoocinehub.Models.Filmes.Filme;
 import br.com.cinehub.projetopoocinehub.Models.User.Usuario;
 
@@ -14,9 +13,6 @@ public class Cliente extends Usuario {
     private double gastoAluguel = 0;
     private double gastoCompra = 0;
     private double gastoTotal = 0;
-
-    @JsonIgnore
-    private Compra compra;
 
     public Cliente() {
         super();
@@ -77,14 +73,6 @@ public class Cliente extends Usuario {
         int likesAtuais = comentario.getQuantidadeLikes();
         likesAtuais++;
         comentario.setQuantidadeLikes(likesAtuais);
-    }
-
-    public void realizarCompra(Filme filme) {
-        if (compra.verificarCompra(filme)) {
-            double preco = filme.getPrecoFilmeCompra();
-            gastoCompra += preco;
-            setGastoCompra(gastoCompra);
-        }
     }
 
     public void realizarAluguel(Filme filme) {
