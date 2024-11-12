@@ -89,38 +89,37 @@
                     </tbody>
                 </table>
             </div>
-        </main>
 
-        <!-- Modal de Detalhes dos filmes-->
-        <div id="modal" class="modal">
-            <div class="modal-content">
-                <button class="close-btn" id="close-modal">X</button>
-                <img id="modal-image" src="" alt="Imagem do Filme">
-                <div id="box-2">
-                    <h2 id="modal-title"></h2>
-                    <p id="modal-description"></p>
-                    <p id="modal-year"></p>
-                    <h3>Nota média:</h3>
-                    <p id="nota-final"></p>
-                    <h3>Avaliação:</h3>
-                    <div class="star-rating">
-                        <input type="radio" name="rating" id="star1" value="5"><label for="star1">5</label>
-                        <input type="radio" name="rating" id="star2" value="4"><label for="star2">4</label>
-                        <input type="radio" name="rating" id="star3" value="3"><label for="star3">3</label>
-                        <input type="radio" name="rating" id="star4" value="2"><label for="star4">2</label>
-                        <input type="radio" name="rating" id="star5" value="1"><label for="star5">1</label>
+            <!-- Modal de Detalhes dos filmes-->
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <button class="close-btn" id="close-modal">X</button>
+                    <img id="modal-image" src="" alt="Imagem do Filme">
+                    <div id="box-2">
+                        <h2 id="modal-title"></h2>
+                        <p id="modal-description"></p>
+                        <p id="modal-year"></p>
+                        <h3>Nota média:</h3>
+                        <p id="nota-final"></p>
+                        <h3>Avaliação:</h3>
+                        <div class="star-rating">
+                            <input type="radio" name="rating" id="star1" value="5"><label for="star1">5</label>
+                            <input type="radio" name="rating" id="star2" value="4"><label for="star2">4</label>
+                            <input type="radio" name="rating" id="star3" value="3"><label for="star3">3</label>
+                            <input type="radio" name="rating" id="star4" value="2"><label for="star4">2</label>
+                            <input type="radio" name="rating" id="star5" value="1"><label for="star5">1</label>
+                        </div>
+                        <!-- Botões de Compra e Aluguel -->
+                        <button id="buy-button">Comprar - R$ <span id="modal-price"></span></button>
+                        <button id="rent-button">Alugar - R$ <span id="modal-rent"></span></button>
+                        <!-- Comentários -->
+                        <h3>Comentários:</h3>
+                        <textarea class="comment-box" id="comment-box" placeholder="Deixe seu comentário aqui..."></textarea>
+                        <button id="submit-comment">Enviar Comentário</button>
                     </div>
-                    <!-- Botões de Compra e Aluguel -->
-                    <button id="buy-button">Comprar - R$ <span id="modal-price"></span></button>
-                    <button id="rent-button">Alugar - R$ <span id="modal-rent"></span></button>
-                    <!-- Comentários -->
-                    <h3>Comentários:</h3>
-                    <textarea class="comment-box" id="comment-box" placeholder="Deixe seu comentário aqui..."></textarea>
-                    <button id="submit-comment">Enviar Comentário</button>
                 </div>
             </div>
-        </div>
-
+        </main>
 
         <script src="${pageContext.request.contextPath}/scripts/script.js"></script>
     </body>
