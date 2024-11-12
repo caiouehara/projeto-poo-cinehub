@@ -1,16 +1,17 @@
 package br.com.cinehub.projetopoocinehub.Models.User;
+
+import br.com.cinehub.projetopoocinehub.Models.Filmes.Filme;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import br.com.cinehub.projetopoocinehub.Models.Filme;
-
-public class Aluguel {
+public class AluguelModel {
     private LocalDate dataAluguel;
     private LocalDate dataFinal;
     private ArrayList<Filme> filmesAlugados;
 
     //construtores
-    public Aluguel() {
+    public AluguelModel() {
         dataAluguel = LocalDate.now(); //pega a data em que filme foi alugado
         dataFinal = dataAluguel.plusDays(7);
         filmesAlugados = new ArrayList<>();
@@ -46,7 +47,6 @@ public class Aluguel {
         filmesAlugados.add(filme);
     }
 
-
     //método que remove filme da lista dos alugueis após data de vencimento do aluguel
     public boolean fimAluguel(Filme filme) {
         LocalDate hoje = LocalDate.now();
@@ -57,16 +57,4 @@ public class Aluguel {
             return false;
         }
     }
-/*
-    //imprime filmes alugados
-    public void imprimirFilmesAlugados() {
-        if(filmesAlugados.size()>0) {
-            System.out.println("==================================================================================================================");
-            System.out.println("                                                Filmes Alugados                                                   ");
-            System.out.println("==================================================================================================================");
-            Filme.imprimirFilmes(filmesAlugados);
-        } else {
-            System.out.println("Você ainda não alugou nenhum filme!");
-        }
-    }*/
 }
