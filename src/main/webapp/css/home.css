@@ -33,6 +33,7 @@
     font-size: 3em;
     margin-bottom: 20px;
     text-transform: uppercase;
+    z-index: 1;
 }
 
 .hero p {
@@ -100,6 +101,158 @@ tr:hover {
     height: auto;
     border-radius: 5px;
 }
+/*Estilo para o Modal*/
+.modal {
+    display: none; /* Inicialmente oculto */
+    position: fixed; /*Fixo para manter a posição no viewport*/
+    z-index: 9999; /* Z-index alto para sobrepor outros conteúdos*/
+    left: 0;
+    top: 0;
+    width: 100%; /* Largura total da tela*/
+    height: 100%; /* Altura total da tela*/
+    overflow: auto; /* Habilita a rolagem se necessário*/
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo preto com transparência*/
+    justify-content: center; /* Centraliza horizontalmente*/
+    align-items: center; /* Centraliza verticalmente*/
+    backdrop-filter: blur(5px); /* Efeito de desfoque no fundo */
+}
+
+/* Estilo para o Conteúdo do Modal*/
+.modal-content {
+    background-color: #fff; /* Fundo branco*/
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Largura do conteúdo*/
+    max-width: 600px; /* Largura máxima do conteúdo*/
+    border-radius: 10px; /* Bordas arredondadas*/
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para dar destaque*/
+    position: relative;
+}
+
+/* Estilo para o Botão de Fechar*/
+.close-btn {
+    color: #aaa; /* Cor do botão*/
+    position: absolute; /* Posição absoluta*/
+    top: 10px; /* Distância do topo*/
+    right: 20px; /* Distância da direita*/
+    font-size: 28px;
+    font-weight: bold;
+    border: none; /* Remove bordas*/
+    background: none; /* Remove fundo*/
+    cursor: pointer; /* Cursor de clique*/
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: #000; /* Cor do botão ao passar o mouse*/
+    text-decoration: none; /* Remove sublinhado*/
+    cursor: pointer;
+}
+
+/* Estilo para a Imagem do Modal*/
+#modal-image {
+    width: 100%; /* Largura total*/
+    max-height: 300px; /* Altura máxima*/
+    object-fit: cover; /* Ajusta a imagem*/
+    border-radius: 10px; /* Bordas arredondadas*/
+    margin-bottom: 15px; /* Espaço inferior*/
+}
+
+/* Estilo para o Conteúdo do Modal*/
+#box-2 {
+    text-align: center; /* Centraliza o texto*/
+}
+
+#modal-title {
+    font-size: 24px; /* Tamanho da fonte*/
+    margin-bottom: 10px; /* Espaço inferior*/
+}
+
+#modal-description,
+#modal-year,
+#nota-final {
+    font-size: 16px; /* Tamanho da fonte*/
+    margin-bottom: 20px; /* Espaço inferior*/
+}
+
+/* Estilo para os Botões de Compra e Aluguel*/
+#buy-button,
+#rent-button {
+    background-color: #4CAF50; /* Cor do fundo*/
+    color: white; /* Cor do texto*/
+    border: none; /* Remove bordas*/
+    padding: 10px 20px; /* Espaçamento*/
+    text-align: center; /* Centraliza o texto*/
+    text-decoration: none; /* Remove sublinhado*/
+    display: inline-block; /* Mantém em linha*/
+    font-size: 16px; /* Tamanho da fonte*/
+    margin: 10px 5px; /* Espaçamento externo*/
+    cursor: pointer; /* Cursor de clique*/
+    border-radius: 5px; /* Bordas arredondadas*/
+}
+
+#buy-button:hover,
+#rent-button:hover {
+    background-color: #45a049; /* Cor do fundo ao passar o mouse*/
+}
+
+/* Estilo para a Avaliação por Estrelas*/
+.star-rating {
+    display: flex; /* Exibe como flexbox*/
+    justify-content: center; /* Centraliza horizontalmente*/
+    margin-bottom: 20px; /* Espaço inferior*/
+}
+
+.star-rating input[type="radio"] {
+    display: none; /* Oculta os inputs de rádio*/
+}
+
+.star-rating label {
+    font-size: 20px; /* Tamanho da fonte*/
+    color: #ddd; /* Cor das estrelas*/
+    cursor: pointer; /* Cursor de clique*/
+}
+
+.star-rating input[type="radio"]:checked ~ label,
+.star-rating input[type="radio"]:checked ~ label ~ label {
+    color: #ff0; /* Cor das estrelas selecionadas*/
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: #ff0; /* Cor das estrelas ao passar o mouse*/
+}
+
+/* Estilo para a Caixa de Comentários*/
+.comment-box {
+    width: 100%; /* Largura total*/
+    height: 100px; /* Altura fixa*/
+    padding: 10px; /* Espaçamento interno*/
+    margin-bottom: 10px; /* Espaço inferior*/
+    border: 1px solid #ccc; /* Borda*/
+    border-radius: 5px; /* Bordas arredondadas*/
+    resize: none; /* Desabilita o redimensionamento*/
+}
+
+/* Estilo para o Botão de Enviar Comentário*/
+#submit-comment {
+    background-color: #008CBA; /* Cor do fundo*/
+    color: white; /* Cor do texto*/
+    border: none; /* Remove bordas*/
+    padding: 10px 20px; /* Espaçamento*/
+    text-align: center; /* Centraliza o texto*/
+    text-decoration: none; /* Remove sublinhado*/
+    display: inline-block; /* Mantém em linha*/
+    font-size: 16px; /* Tamanho da fonte*/
+    margin: 10px 5px; /* Espaçamento externo*/
+    cursor: pointer; /* Cursor de clique*/
+    border-radius: 5px; /* Bordas arredondadas*/
+}
+
+#submit-comment:hover {
+    background-color: #007bb5; /* Cor do fundo ao passar o mouse*/
+}
+
 
 /* Responsividade */
 @media (max-width: 768px) {
@@ -128,41 +281,5 @@ tr:hover {
         width: 80px;
     }
 
-    /*Bloco extendido de info do filme*/
-    /* Modal - Inicialmente oculto */
-    #modal {
-        display: none; /* Inicialmente oculto */
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5); /* Fundo semitransparente */
-        justify-content: center;
-        align-items: center;
-        overflow-y: auto;
-    }
-
-    /* Conteúdo do Modal */
-    .modal-content {
-        background-color: white;
-        padding: 20px;
-        border-radius: 5px;
-        max-width: 500px;
-        margin: auto;
-        position: relative;
-    }
-
-    /* Botão de Fechar */
-    .close-btn {
-        background-color: transparent;
-        border: none;
-        font-size: 20px;
-        color: #000;
-        cursor: pointer;
-        position: absolute;
-        top: 10px;
-        right: 10px;
-    }
 
 }

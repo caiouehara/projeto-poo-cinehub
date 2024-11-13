@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+
 <html>
 <head>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css">
@@ -85,43 +86,50 @@
         </div>
     </main>
 
-    <!-- Modal -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <button class="close-btn" id="close-modal">X</button>
-            <img id="modal-image" src="" alt="Imagem do Filme">
-            <div id="box-2">
-                <h2 id="modal-title"></h2>
-                <p id="modal-description"></p>
-                <p id="modal-year"></p>
+            <!-- Modal de Detalhes dos filmes-->
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <button class="close-btn" id="close-modal">X</button>
+                    <img id="modal-image" src="" alt="Imagem do Filme">
+                    <div id="box-2">
+                        <h2 id="modal-title"></h2>
+                        <p id="modal-description"></p>
+                        <p id="modal-year"></p>
+                        <h3>Nota média:</h3>
+                        <p id="nota-final"></p>
 
-                <!-- Rating Form -->
-                <div class="star-rating">
-                    <h3>Avalie este filme:</h3>
-                    <form action="${pageContext.request.contextPath}/adicionarAvaliacao" method="post">
-                        <input type="hidden" id="avaliacao-filmeId" name="filmeId" value=""/>
-                        <label for="nota">Nota (0.0 - 10.0):</label>
-                        <input type="number" step="0.1" min="0" max="10" name="nota" required/>
-                        <input type="submit" value="Enviar Avaliação"/>
-                    </form>
-                </div>
+                        <!-- Avaliação do filme -->
+                        <div class="star-rating">
+                            <h3>Avalie este filme:</h3>
+                            <form action="${pageContext.request.contextPath}/adicionarAvaliacao" method="post">
+                                <%--@declare id="nota"--%><input type="hidden" id="avaliacao-filmeId" name="filmeId" value=""/>
+                                <label for="nota">Nota (0.0 - 10.0):</label>
+                                <input type="number" step="0.1" min="0" max="10" name="nota" required/>
+                                <input type="submit" value="Enviar Avaliação"/>
+                            </form>
+                        </div>
 
-                <!-- Comments Section -->
-                <div id="comentarios">
-                    <!-- Comments will be loaded here via JavaScript -->
-                </div>
+                        <!-- Botões de Compra e Aluguel -->
+                        <button id="buy-button">Comprar - R$ <span id="modal-price"></span></button>
+                        <button id="rent-button">Alugar - R$ <span id="modal-rent"></span></button>
 
-                <!-- Add Comment Form -->
-                <div>
-                    <h3>Adicionar Comentário:</h3>
-                    <form action="${pageContext.request.contextPath}/adicionarComentario" method="post">
-                        <input type="hidden" id="comentario-filmeId" name="filmeId" value=""/>
-                        <textarea name="texto" required></textarea>
-                        <input type="submit" value="Enviar Comentário"/>
-                    </form>
+                        <!-- Comentários -->
+                        <h3>Comentários:</h3>
+                        <form action="${pageContext.request.contextPath}/adicionarComentario" method="post">
+                            <input type="hidden" id="comentario-filmeId" name="filmeId" value=""/>
+                            <textarea class="comment-box" id="comment-box" name="texto" required></textarea>
+                            <input type="submit" value="Enviar Comentário"/>
+                        </form>
+
+                        <!-- Seção de comentários -->
+                        <div id="comentarios">
+                            <!-- Comentários serão carregados aqui via Javascript -->
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</body>
+        </main>
+
+        <script src="${pageContext.request.contextPath}/scripts/script.js"></script>
+    </body>
 </html>
