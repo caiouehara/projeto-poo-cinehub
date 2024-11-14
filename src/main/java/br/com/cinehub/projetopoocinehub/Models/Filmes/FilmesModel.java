@@ -109,7 +109,7 @@ public class FilmesModel {
         return listaFilmes;
     }
 
-    public Filme buscarFilmePorId(String id) {
+    public static Filme buscarFilmePorId(String id) {
         for (Filme filme : listaFilmes) {
             if (filme.getId().equals(id)) {
                 return filme;

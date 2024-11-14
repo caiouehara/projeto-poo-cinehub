@@ -17,13 +17,22 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class CadastroModel {
-    private ArrayList<Usuario> listaUsers;
+    private static ArrayList<Usuario> listaUsers;
     private static final String USERS_JSON = "users.json";
     private final String dataDir;
 
     public CadastroModel() {
         this.dataDir = System.getProperty("user.home") + "/cinehub/data/";
         listaUsers = loadUsers();
+    }
+
+    public Usuario buscarClientePorEmail(String email) {
+        for (Usuario user : listaUsers) {
+            if (user.getEmail().equals(email)) {
+                return user;
+            }
+        }
+        return null;
     }
 
     private ArrayList<Usuario> loadUsers() {
@@ -128,6 +137,17 @@ public class CadastroModel {
     public boolean verificarCadastroUser(String email) {
         return listaUsers.stream()
                 .noneMatch(user -> user.getEmail().equals(email));
+    }
+
+    // Add a method to search for a Cliente by their email
+    public static Cliente buscarClienteEmail(String email) {
+        for (Usuario user : listaUsers) {
+            if (user instanceof Cliente && user.getEmail().equalsIgnoreCase(email)) {
+                return (Cliente) user;
+            }
+        }
+        // If no Cliente is found, return null
+        return null;
     }
 
     // Getters e Setters

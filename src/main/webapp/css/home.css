@@ -103,7 +103,7 @@ tr:hover {
 }
 /*Estilo para o Modal*/
 .modal {
-    display: none; /* Inicialmente oculto */
+    display: flex; /* Inicialmente oculto */
     position: fixed; /*Fixo para manter a posição no viewport*/
     z-index: 9999; /* Z-index alto para sobrepor outros conteúdos*/
     left: 0;

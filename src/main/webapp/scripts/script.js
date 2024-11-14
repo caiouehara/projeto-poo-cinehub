@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('comentario-filmeId').value = filmeId;
 
             // Show the modal
-            modal.style.display = 'block';
+            modal.style.display = 'flex';
 
             // Load comments and ratings via AJAX if needed
             // Example: fetch comments from server using filmeId

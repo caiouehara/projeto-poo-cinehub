@@ -30,5 +30,4 @@ public class Cliente extends Usuario {
         this.gastoCompra = gastoCompra;
         this.gastoTotal = gastoTotal;
     }
-
 }
