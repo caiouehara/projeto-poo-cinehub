@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.util.ArrayList;
 
+import jakarta.servlet.ServletContext;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -21,7 +22,7 @@ public class CadastroModel {
     private static final String USERS_JSON = "users.json";
     private final String dataDir;
 
-    public CadastroModel() {
+    public CadastroModel(ServletContext servletContext) {
         this.dataDir = System.getProperty("user.home") + "/cinehub/data/";
         listaUsers = loadUsers();
     }

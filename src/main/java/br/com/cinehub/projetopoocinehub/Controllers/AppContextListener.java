@@ -15,7 +15,7 @@ public class AppContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext context = sce.getServletContext();
 
-        CadastroModel cadastroModel = new CadastroModel();
+        CadastroModel cadastroModel = new CadastroModel(context);
         context.setAttribute("cadastroModel", cadastroModel);
 
         FilmesModel filmesModel = new FilmesModel(context);

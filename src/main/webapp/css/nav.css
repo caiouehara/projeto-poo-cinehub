@@ -1,6 +1,5 @@
 /* Fixa navbar no topo */
 .nav {
-    position: absolute !important;
     z-index: 9999;
     width: 100%;
     text-align: center

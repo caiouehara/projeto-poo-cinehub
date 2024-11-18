@@ -19,6 +19,8 @@ public class HomeController extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+
         // Carrega a lista de filmes de Models
         List<Filme> filmes = HomeController.carregarFilmes();
 

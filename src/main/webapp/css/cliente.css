@@ -1,0 +1,112 @@
+/* Ajuste no Contêiner */
+.container {
+    width: auto; /* Ajusta automaticamente a largura do contêiner */
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 20px auto;
+    display: table; /* Faz o contêiner se ajustar à largura da tabela */
+}
+
+h2, h3 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+}
+
+/* Seção de Perfil do Cliente */
+.profile-section {
+    margin-bottom: 40px;
+    margin-top: 40px;
+}
+
+.client-info {
+    text-align: center;
+}
+
+.details p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+/* Seção de Filmes Alugados */
+.rented-movies-section {
+    margin-bottom: 40px;
+}
+
+.title-movie {
+    color: #e50914;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.description {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* Estilos da Tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Texto com "..." se ultrapassar a largura */
+    white-space: nowrap; /* Impede quebra de linha */
+}
+
+th {
+    background-color: #e50914;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+td {
+    font-size: 14px;
+    color: #555;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Ajustes para Imagens */
+.box-movie {
+    width: 100px; /* Largura máxima da imagem */
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+        margin: 10px;
+    }
+
+    th, td {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .box-movie {
+        width: 80px; /* Reduz o tamanho da imagem em dispositivos menores */
+    }
+}

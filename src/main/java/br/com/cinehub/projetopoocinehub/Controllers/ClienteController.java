@@ -6,7 +6,8 @@ import br.com.cinehub.projetopoocinehub.Models.User.CadastroModel;
 import br.com.cinehub.projetopoocinehub.Models.Filmes.Filme;
 import br.com.cinehub.projetopoocinehub.Models.Filmes.FilmesModel;
 import br.com.cinehub.projetopoocinehub.Models.User.Tipos.Cliente;
-import br.com.cinehub.projetopoocinehub.Models.User.Usuario;
+
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -21,50 +22,54 @@ import java.util.List;
 @WebServlet(name = "cliente", value = "/cliente")
 public class ClienteController extends HttpServlet {
 
+    private AluguelModel aluguelModel;
+    private FilmesModel filmesModel;
+    private CadastroModel cadastroModel; // Supondo que CadastroModel gerencia clientes
+
     @Override
-    public void init() {
-        // Initialization logic if needed
+    public void init() throws ServletException {
+        super.init();
+        // Inicializa os modelos com o contexto do servlet
+        aluguelModel = new AluguelModel(getServletContext());
+        filmesModel = new FilmesModel(getServletContext());
+        cadastroModel = new CadastroModel(getServletContext());
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Get the session and check if the user is logged in
+        // Obtém a sessão e verifica se o cliente está logado
         HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("usuario") == null) {
-            // Redirect to the login page if the user is not logged in
-            response.sendRedirect(request.getContextPath() + "/login");
-            return;
-        }
 
-        // Get the logged-in user from the session
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        // Obtém o email do cliente da sessão
+        String email = (String) session.getAttribute("email");
 
-        // Fetch the client details using the user's email
-        Cliente cliente = CadastroModel.buscarClienteEmail(usuario.getEmail());
+        // Busca os detalhes do cliente usando o email
+        Cliente cliente = (Cliente) cadastroModel.buscarClientePorEmail(email);
         if (cliente == null) {
-            // If the client is not found, redirect to the error page
+            // Redireciona para uma página de erro se o cliente não for encontrado
             response.sendRedirect(request.getContextPath() + "/error");
             return;
         }
 
-        // Fetch the client's rentals
-        List<Aluguel> alugueisDoCliente = AluguelModel.buscarAlugueisPorCliente(cliente.getEmail());
+        // Busca os aluguéis do cliente
+        List<Aluguel> alugueisDoCliente = aluguelModel.buscarAlugueisPorCliente(email);
 
-        // Prepare the list of rented movies
+        // Prepara a lista de filmes alugados
         List<Filme> filmesAlugados = new ArrayList<>();
         for (Aluguel aluguel : alugueisDoCliente) {
-            Filme filme = FilmesModel.buscarFilmePorId(aluguel.getFilmeId());
+            Filme filme = filmesModel.buscarFilmePorId(aluguel.getFilmeId());
             if (filme != null) {
                 filmesAlugados.add(filme);
             }
         }
 
-        // Set attributes for the JSP page
+        // Define os atributos para a JSP
         request.setAttribute("cliente", cliente);
         request.setAttribute("filmesAlugados", filmesAlugados);
-        request.setAttribute("alugueisDoCliente", alugueisDoCliente); // If you need rental dates
+        request.setAttribute("alugueisDoCliente", alugueisDoCliente); // Se precisar das datas de aluguel
 
-        // Forward to the profile JSP page
-        request.getRequestDispatcher("/jsp/perfil.jsp").forward(request, response);
+        // Encaminha a requisição para a página JSP
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/cliente/cliente.jsp");
+        dispatcher.forward(request, response);
     }
 }
