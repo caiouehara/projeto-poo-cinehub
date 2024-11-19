@@ -201,4 +201,22 @@ public class AluguelModel {
             }
         }
     }
+
+    //metodo para remover aluguel após data de devolução
+    public void fimAluguel(Aluguel aluguel) {
+        TimerTask tarefa = new TimerTask() {
+            @Override //como TimerTask é uma classe abstrata precisamos implementar o método run com o código que queremos que vire uma tarefa a ser automatizada
+            public void run() {
+                LocalDate hoje = LocalDate.now();
+                if (hoje.isAfter(aluguel.getDataDevolucao())) { 
+                  	removerAluguel(aluguel);
+                    cancel();
+                }
+            }
+        };
+
+    Timer timer = new Timer();
+    timer.scheduleAtFixedRate(tarefa, 86400000, 86400000);
+    }
+    
 }
