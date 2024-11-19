@@ -1,4 +1,4 @@
-package br.com.cinehub.projetopoocinehub.Controllers;
+package br.com.cinehub.projetopoocinehub.Controllers.Gerente;
 
 import br.com.cinehub.projetopoocinehub.Models.Filmes.Filme;
 import br.com.cinehub.projetopoocinehub.Models.Filmes.FilmesModel;

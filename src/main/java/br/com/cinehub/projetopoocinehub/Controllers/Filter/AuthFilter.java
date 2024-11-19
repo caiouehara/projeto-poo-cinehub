@@ -34,7 +34,7 @@ public class AuthFilter implements Filter {
         // Define as URLs que devem ser excluídas da filtragem (recursos públicos)
         String[] excludedUrls = new String[] {
             contextPath + "/user/login",
-            contextPath + "/register",
+            contextPath + "/cadastro",
             contextPath + "/css/",
             contextPath + "/js/",
             contextPath + "/img/",
