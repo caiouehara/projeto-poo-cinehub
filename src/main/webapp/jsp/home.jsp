@@ -66,7 +66,9 @@
                                            data-title="${filme.tituloFilme}"
                                            data-description="${filme.sinopseFilme}"
                                            data-year="${filme.anoFilme}"
-                                           data-rating="${filme.avaliacaoFilme}">
+                                           data-rating="${filme.avaliacaoFilme}"
+                                           data-rent = "${filme.getPrecoFilmeAluguel()}"
+                                           data-price = "${filme.getPrecoFilmeCompra()}">
                                             <i class="fas fa-info-circle"></i>
                                             Ver mais
                                         </a>

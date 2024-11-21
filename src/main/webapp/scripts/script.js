@@ -14,12 +14,16 @@ document.addEventListener('DOMContentLoaded', function () {
             const description = this.getAttribute('data-description');
             const year = this.getAttribute('data-year');
             const rating = this.getAttribute('data-rating');
+            const rent = this.getAttribute('data-rent');
+            const price = this.getAttribute('data-price');
 
             // Populate the modal fields
             document.getElementById('modal-image').src = imageSrc;
             document.getElementById('modal-title').textContent = title;
             document.getElementById('modal-description').textContent = description;
             document.getElementById('modal-year').textContent = 'Ano: ' + year;
+            document.getElementById('modal-rent').textContent = rent;
+            document.getElementById('modal-price').textContent = price;
             // If you have a rating display, set it here
 
             // Set the filmeId in the hidden inputs
