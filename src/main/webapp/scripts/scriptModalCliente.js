@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('modal-title').textContent = title;
             document.getElementById('modal-description').textContent = description;
             document.getElementById('modal-year').textContent = 'Ano: ' + year;
+            document.getElementById('nota-final').textContent = rating;
             document.getElementById('modal-rent').textContent = rent;
             document.getElementById('modal-price').textContent = price;
             // If you have a rating display, set it here

@@ -173,7 +173,7 @@ tr:hover {
 
 #modal-description,
 #modal-year,
-#nota-final, #modal-description-Gerente, #modal-year-Gerente, #nota-final-Gerente {
+#nota-final, #modal-description-Gerente, #modal-year-Gerente, #nota-final-Gerente, #modal-price-Gerente, #modal-rent-Gerente {
     font-size: 16px; /* Tamanho da fonte*/
     margin-bottom: 20px; /* Espaço inferior*/
 }

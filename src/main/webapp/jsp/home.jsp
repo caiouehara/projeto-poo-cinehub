@@ -153,6 +153,8 @@
                             <h2 id="modal-title-Gerente"></h2>
                             <p id="modal-description-Gerente"></p>
                             <p id="modal-year-Gerente"></p>
+                            <p id="modal-price-Gerente"></p>
+                            <p id="modal-rent-Gerente"></p>
                             <h3>Nota média:</h3>
                             <p id="nota-final-Gerente"></p>
                         </div>
@@ -177,6 +179,14 @@
                                 <!-- Campo para mudar imagem -->
                                 <label for="image">Imagem:</label>
                                 <input type="file" id="modal-image-input" name="imagemFilme"/>
+
+                                <!-- Campo para mudar preço de aluguel -->
+                                <label for="rental-price">Preço de Aluguel:</label>
+                                <input type="number" id="modal-rental-price-input" name="precoAluguel" step="0.01" value="" required/>
+
+                                <!-- Campo para mudar preço de compra -->
+                                <label for="purchase-price">Preço de Compra:</label>
+                                <input type="number" id="modal-purchase-price-input" name="precoCompra" step="0.01" value="" required/>
 
                                 <input type="submit" class="save-button" value="Salvar Alterações"/>
                             </form>

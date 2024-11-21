@@ -13,12 +13,18 @@ document.addEventListener('DOMContentLoaded', function () {
             const title = this.getAttribute('data-title');
             const description = this.getAttribute('data-description');
             const year = this.getAttribute('data-year');
+            const rent = this.getAttribute('data-rent');
+            const price = this.getAttribute('data-price');
+            const rating = this.getAttribute('data-rating');
 
             // Populate the modal fields
             document.getElementById('modal-image-Gerente').src = imageSrc;
             document.getElementById('modal-title-Gerente').textContent = title;
             document.getElementById('modal-description-Gerente').textContent = description;
             document.getElementById('modal-year-Gerente').textContent = 'Ano: ' + year;
+            document.getElementById('modal-rent-Gerente').textContent = 'Aluguel: R$' + rent;
+            document.getElementById('modal-price-Gerente').textContent = 'Compra: R$' + price;
+            document.getElementById('nota-final-Gerente').textContent = rating;
 
             // Show the modal
             modalGerente.style.display = 'flex'; // Show modal
