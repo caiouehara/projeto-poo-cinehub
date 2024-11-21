@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const rating = this.getAttribute('data-rating');
             const rent = this.getAttribute('data-rent');
             const price = this.getAttribute('data-price');
+            const duration = this.getAttribute('data-duration');
 
             // Populate the modal fields
             document.getElementById('modal-image').src = imageSrc;
@@ -25,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('nota-final').textContent = rating;
             document.getElementById('modal-rent').textContent = rent;
             document.getElementById('modal-price').textContent = price;
+            document.getElementById('modal-duration').textContent = 'Duração(min): ' + duration;
             // If you have a rating display, set it here
 
             // Set the filmeId in the hidden inputs

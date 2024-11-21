@@ -68,7 +68,8 @@
                                            data-year="${filme.anoFilme}"
                                            data-rating="${filme.avaliacaoFilme}"
                                            data-rent = "${filme.getPrecoFilmeAluguel()}"
-                                           data-price = "${filme.getPrecoFilmeCompra()}">
+                                           data-price = "${filme.getPrecoFilmeCompra()}"
+                                           data-duration = "${filme.getDuracaoFilme()}">
                                             <c:choose>
                                                 <c:when test="${sessionScope.usuario == 'Cliente'}">
                                                     <i class="fas fa-info-circle"></i>
@@ -107,7 +108,10 @@
                         <div id="box-2">
                             <h2 id="modal-title"></h2>
                             <p id="modal-description"></p>
-                            <p id="modal-year"></p>
+                            <div class="modal-info-row">
+                                <p id="modal-year"></p>
+                                <p id="modal-duration"></p>
+                            </div>
                             <h3>Nota média:</h3>
                             <p id="nota-final"></p>
 
@@ -152,7 +156,10 @@
                         <div id="box-3">
                             <h2 id="modal-title-Gerente"></h2>
                             <p id="modal-description-Gerente"></p>
-                            <p id="modal-year-Gerente"></p>
+                            <div class="modal-info-row">
+                                <p id="modal-year-Gerente"></p>
+                                <p id="modal-duration-Gerente"></p>
+                            </div>
                             <p id="modal-price-Gerente"></p>
                             <p id="modal-rent-Gerente"></p>
                             <h3>Nota média:</h3>
@@ -171,6 +178,10 @@
                                 <!-- Campo para mudar ano -->
                                 <label for="year">Ano:</label>
                                 <input type="number" id="modal-year-input" name="anoFilme" value="" required/>
+
+                                <!-- Campo para mudar duração -->
+                                <label for="duration">Duração (minutos):</label>
+                                <input type="number" id="modal-duration-input" name="duracaoFilme" value="" required/>
 
                                 <!-- Campo para mudar sinopse -->
                                 <label for="description">Sinopse:</label>

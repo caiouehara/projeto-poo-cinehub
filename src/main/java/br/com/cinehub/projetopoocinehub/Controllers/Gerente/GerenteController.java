@@ -90,4 +90,8 @@ public class GerenteController extends HttpServlet {
         // Redirecionar de volta para o dashboard do gerente
         response.sendRedirect(request.getContextPath() + "/gerente");
     }
+
+    private void editarFilme(HttpServletRequest request, HttpServletResponse response){
+
+    }
 }

@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const rent = this.getAttribute('data-rent');
             const price = this.getAttribute('data-price');
             const rating = this.getAttribute('data-rating');
+            const duration = this.getAttribute('data-duration');
 
             // Populate the modal fields
             document.getElementById('modal-image-Gerente').src = imageSrc;
@@ -25,6 +26,8 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('modal-rent-Gerente').textContent = 'Aluguel: R$' + rent;
             document.getElementById('modal-price-Gerente').textContent = 'Compra: R$' + price;
             document.getElementById('nota-final-Gerente').textContent = rating;
+            document.getElementById('modal-duration-Gerente').textContent = 'Duração(min): ' + duration;
+
 
             // Show the modal
             modalGerente.style.display = 'flex'; // Show modal

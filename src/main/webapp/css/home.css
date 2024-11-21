@@ -151,6 +151,15 @@ tr:hover {
     text-decoration: none; /* Remove sublinhado*/
     cursor: pointer;
 }
+.modal-info-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Espaço entre os dois elementos */
+}
+
+.modal-info-row p {
+    margin: 0; /* Remove margens padrão */
+}
 
 /* Estilo para a Imagem do Modal*/
 #modal-image, #modal-image-Gerente {
