@@ -15,7 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 
-@WebServlet(name = "gerente", urlPatterns = {"/gerente", "/gerente/adicionarFilme"})
+@WebServlet(name = "gerente", urlPatterns = {"/gerente", "/gerente/adicionarFilme", "/gerente/editarFilme"})
 @MultipartConfig
 public class GerenteController extends HttpServlet {
     private FilmesModel filmesModel;
@@ -49,6 +49,9 @@ public class GerenteController extends HttpServlet {
         if ("/gerente/adicionarFilme".equals(action)) {
             adicionarFilme(request, response);
         }
+        else if ("/gerente/editarFilme".equals(action)) {
+            editarFilme(request, response);
+        }
     }
 
     private void adicionarFilme(HttpServletRequest request, HttpServletResponse response)
@@ -77,7 +80,6 @@ public class GerenteController extends HttpServlet {
         novoFilme.setTituloFilme(titulo);
         novoFilme.setAnoFilme(ano);
         novoFilme.setSinopseFilme(sinopse);
-        novoFilme.setAvaliacaoFilme(avaliacao);
         novoFilme.setDuracaoFilme(duracao);
         novoFilme.setPrecoFilmeCompra(precoCompra);
         novoFilme.setPrecoFilmeAluguel(precoAluguel);
@@ -91,7 +93,61 @@ public class GerenteController extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/gerente");
     }
 
-    private void editarFilme(HttpServletRequest request, HttpServletResponse response){
+    private void removerFilme(HttpServletRequest request, HttpServletResponse response){
 
     }
+    private void editarFilme(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // Obter dados do formulário
+        String id = request.getParameter("filmeId");
+
+        System.out.println("ID recebido para edição: " + id);
+
+        String titulo = request.getParameter("tituloFilme");
+        System.out.println("Titulo recebido para edição: " + titulo);
+        int ano = Integer.parseInt(request.getParameter("anoFilme"));
+        String sinopse = request.getParameter("sinopseFilme");
+        double duracao = Double.parseDouble(request.getParameter("duracaoFilme"));
+        double precoCompra = Double.parseDouble(request.getParameter("precoCompra"));
+        double precoAluguel = Double.parseDouble(request.getParameter("precoAluguel"));
+
+        // Buscar o filme existente
+        Filme filmeExistente = FilmesModel.buscarFilmePorId(id);
+
+        if (filmeExistente == null) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Filme não encontrado.");
+            return;
+        }
+
+        // Atualizar os dados do filme
+        filmeExistente.setTituloFilme(titulo);
+        filmeExistente.setAnoFilme(ano);
+        filmeExistente.setSinopseFilme(sinopse);
+        filmeExistente.setDuracaoFilme(duracao);
+        filmeExistente.setPrecoFilmeCompra(precoCompra);
+        filmeExistente.setPrecoFilmeAluguel(precoAluguel);
+
+        // Lidar com upload de nova imagem, se enviada
+        Part imagemPart = request.getPart("imagem");
+        if (imagemPart != null && imagemPart.getSize() > 0) {
+            String imagemFileName = Paths.get(imagemPart.getSubmittedFileName()).getFileName().toString();
+            String uploadPath = context.getRealPath("/img/films/");
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) uploadDir.mkdirs();
+            String imagemPath = uploadPath + File.separator + imagemFileName;
+            imagemPart.write(imagemPath);
+
+            filmeExistente.setImagem(imagemFileName);
+        }
+
+        // Atualizar o modelo
+        filmesModel.editarFilme(filmeExistente.getId(), filmeExistente.getTituloFilme(),
+                filmeExistente.getAnoFilme(), filmeExistente.getSinopseFilme(), filmeExistente.getDuracaoFilme(),
+                filmeExistente.getPrecoFilmeCompra(), filmeExistente.getPrecoFilmeAluguel(),filmeExistente.getImagem());
+
+        // Redirecionar de volta ao painel do gerente
+        response.sendRedirect(request.getContextPath() + "/gerente");
+    }
+
+
 }

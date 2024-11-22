@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Get data attributes from the clicked button
             const filmeId = this.getAttribute('data-id');
+            console.log('ID do filme:', filmeId);
             const imageSrc = this.getAttribute('data-image');
             const title = this.getAttribute('data-title');
             const description = this.getAttribute('data-description');
@@ -19,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const duration = this.getAttribute('data-duration');
 
             // Populate the modal fields
+            document.getElementById('modal-filmeId').value = filmeId;
             document.getElementById('modal-image-Gerente').src = imageSrc;
             document.getElementById('modal-title-Gerente').textContent = title;
             document.getElementById('modal-description-Gerente').textContent = description;

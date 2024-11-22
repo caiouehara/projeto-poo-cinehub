@@ -168,36 +168,36 @@
                         <div id = "modal-forms">
                             <!-- Formulários de edição para o gerente -->
                             <h2>Editar Informações do Filme</h2>
-                            <form action="${pageContext.request.contextPath}/editarFilme" method="post" enctype="multipart/form-data">
+                            <form action="${pageContext.request.contextPath}/gerente/editarFilme" method="post" enctype="multipart/form-data">
                                 <input type="hidden" id="modal-filmeId" name="filmeId" value=""/>
 
                                 <!-- Campo para mudar título -->
-                                <label for="title">Título:</label>
-                                <input type="text" id="modal-title-input" name="tituloFilme" value="" required/>
+                                <label for="tituloFilme">Título:</label>
+                                <input type="text" id="tituloFilme" name="tituloFilme" value="" required/>
 
                                 <!-- Campo para mudar ano -->
-                                <label for="year">Ano:</label>
-                                <input type="number" id="modal-year-input" name="anoFilme" value="" required/>
+                                <label for="anoFilme">Ano:</label>
+                                <input type="number" id="anoFilme" name="anoFilme" value="" required/>
 
                                 <!-- Campo para mudar duração -->
-                                <label for="duration">Duração (minutos):</label>
-                                <input type="number" id="modal-duration-input" name="duracaoFilme" value="" required/>
+                                <label for="duracaoFilme">Duração (minutos):</label>
+                                <input type="number" id="duracaoFilme" name="duracaoFilme" value="" required/>
 
                                 <!-- Campo para mudar sinopse -->
-                                <label for="description">Sinopse:</label>
-                                <textarea id="modal-description-input" name="sinopseFilme" required></textarea>
+                                <label for="sinopseFilme">Sinopse:</label>
+                                <textarea id="sinopseFilme" name="sinopseFilme" required></textarea>
 
                                 <!-- Campo para mudar imagem -->
-                                <label for="image">Imagem:</label>
-                                <input type="file" id="modal-image-input" name="imagemFilme"/>
+                                <label for="imagemFilme">Imagem:</label>
+                                <input type="file" id="imagemFilme" name="imagemFilme"/>
 
                                 <!-- Campo para mudar preço de aluguel -->
-                                <label for="rental-price">Preço de Aluguel:</label>
-                                <input type="number" id="modal-rental-price-input" name="precoAluguel" step="0.01" value="" required/>
+                                <label for="precoAluguel">Preço de Aluguel:</label>
+                                <input type="number" id="precoAluguel" name="precoAluguel" step="0.01" value="" required/>
 
                                 <!-- Campo para mudar preço de compra -->
-                                <label for="purchase-price">Preço de Compra:</label>
-                                <input type="number" id="modal-purchase-price-input" name="precoCompra" step="0.01" value="" required/>
+                                <label for="precoCompra">Preço de Compra:</label>
+                                <input type="number" id="precoCompra" name="precoCompra" step="0.01" value="" required/>
 
                                 <input type="submit" class="save-button" value="Salvar Alterações"/>
                             </form>
