@@ -17,12 +17,11 @@ import java.util.UUID;
 public class FilmesModel {
     private static ArrayList<Filme> listaFilmes;
     private static final String FILMES_JSON = "filmes.json";
-    private final String dataDir;
+    private static final String DATA_DIR = System.getProperty("user.home") + "/cinehub/data/";
     private ServletContext context;
 
     public FilmesModel(ServletContext context) {
         this.context = context;
-        this.dataDir = System.getProperty("user.home") + "/cinehub/data/";
         listaFilmes = loadFilmes();
     }
 
@@ -34,7 +33,7 @@ public class FilmesModel {
         mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-        Path dataFilePath = Paths.get(dataDir, FILMES_JSON);
+        Path dataFilePath = Paths.get(DATA_DIR, FILMES_JSON);
 
         // Verifica se o arquivo filmes.json existe no dataDir
         if (!Files.exists(dataFilePath)) {
@@ -65,7 +64,8 @@ public class FilmesModel {
 
         // Agora, carrega os filmes do arquivo no dataDir
         try {
-            ArrayList<Filme> filmes = mapper.readValue(Files.newInputStream(dataFilePath), new TypeReference<ArrayList<Filme>>() {});
+            ArrayList<Filme> filmes = mapper.readValue(Files.newInputStream(dataFilePath), new TypeReference<ArrayList<Filme>>() {
+            });
 
             // Verificar se algum filme não tem ID e gerar um novo
             boolean precisaSalvar = false;
@@ -91,17 +91,29 @@ public class FilmesModel {
         }
     }
 
-    public synchronized void salvarFilmes() {
+    /**
+     * Salva a lista atual de filmes no arquivo JSON.
+     */
+    private static void salvarFilmes() {
         ObjectMapper mapper = new ObjectMapper();
+
+        // Registrar o módulo JavaTimeModule
+        mapper.registerModule(new JavaTimeModule());
+
+        // Desativar a escrita de datas como timestamps
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+        // Habilitar a escrita de datas no formato ISO
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
-        Path dataFilePath = Paths.get(dataDir, FILMES_JSON);
+
+        Path dataFilePath = Paths.get(DATA_DIR, FILMES_JSON);
 
         try {
-            // Certifica-se de que o diretório existe
             Files.createDirectories(dataFilePath.getParent());
             mapper.writeValue(Files.newOutputStream(dataFilePath), listaFilmes);
+            System.out.println("Arquivo filmes.json salvo com sucesso.");
         } catch (IOException e) {
-            System.out.println("Erro ao salvar o arquivo " + FILMES_JSON + ": " + e.getMessage());
+            System.out.println("Erro ao salvar o arquivo filmes.json: " + e.getMessage());
         }
     }
 
@@ -128,6 +140,7 @@ public class FilmesModel {
         listaFilmes.remove(filme);
         salvarFilmes(); // Salvar a lista atualizada
     }
+
     public void editarFilme(String id, String titulo, Integer ano, String sinopse,
                             Double duracao, Double precoCompra,
                             Double precoAluguel, String novaImagem) {
@@ -135,13 +148,6 @@ public class FilmesModel {
         Filme filmeExistente = buscarFilmePorId(id);
         if (filmeExistente == null) {
             throw new IllegalArgumentException("Filme com ID " + id + " não encontrado.");
-        }
-
-        // Verificar se o filme está alugado
-        boolean filmeAlugado = AluguelModel.getListaAlugueis().stream()
-                .anyMatch(aluguel -> aluguel.getFilmeId().equals(id));
-        if (filmeAlugado) {
-            throw new IllegalStateException("O filme está alugado e não pode ser editado.");
         }
 
         // Atualizar apenas os campos fornecidos

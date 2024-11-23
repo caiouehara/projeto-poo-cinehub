@@ -97,8 +97,9 @@
         </div>
 
         <!-- Modal de Detalhes dos filmes-->
-
         <c:choose>
+
+
             <c:when test="${sessionScope.usuario == 'Cliente'}">
                 <!--Vizualização cliente-->
                 <div id="modalCliente" class="modal">
@@ -147,6 +148,7 @@
                 </div>
             </c:when>
 
+
             <c:otherwise>
                 <!-- Vizualização para o gerente -->
                 <div id="modalGerente" class="modal">
@@ -173,19 +175,19 @@
 
                                 <!-- Campo para mudar título -->
                                 <label for="tituloFilme">Título:</label>
-                                <input type="text" id="tituloFilme" name="tituloFilme" value="" required/>
+                                <input type="text" id="tituloFilme" name="tituloFilme" value=""/>
 
                                 <!-- Campo para mudar ano -->
                                 <label for="anoFilme">Ano:</label>
-                                <input type="number" id="anoFilme" name="anoFilme" value="" required/>
+                                <input type="number" id="anoFilme" name="anoFilme" value=""/>
 
                                 <!-- Campo para mudar duração -->
                                 <label for="duracaoFilme">Duração (minutos):</label>
-                                <input type="number" id="duracaoFilme" name="duracaoFilme" value="" required/>
+                                <input type="number" id="duracaoFilme" name="duracaoFilme" value=""/>
 
                                 <!-- Campo para mudar sinopse -->
                                 <label for="sinopseFilme">Sinopse:</label>
-                                <textarea id="sinopseFilme" name="sinopseFilme" required></textarea>
+                                <textarea id="sinopseFilme" name="sinopseFilme"></textarea>
 
                                 <!-- Campo para mudar imagem -->
                                 <label for="imagemFilme">Imagem:</label>
@@ -193,11 +195,11 @@
 
                                 <!-- Campo para mudar preço de aluguel -->
                                 <label for="precoAluguel">Preço de Aluguel:</label>
-                                <input type="number" id="precoAluguel" name="precoAluguel" step="0.01" value="" required/>
+                                <input type="number" id="precoAluguel" name="precoAluguel" step="0.01" value=""/>
 
                                 <!-- Campo para mudar preço de compra -->
                                 <label for="precoCompra">Preço de Compra:</label>
-                                <input type="number" id="precoCompra" name="precoCompra" step="0.01" value="" required/>
+                                <input type="number" id="precoCompra" name="precoCompra" step="0.01" value=""/>
 
                                 <input type="submit" class="save-button" value="Salvar Alterações"/>
                             </form>

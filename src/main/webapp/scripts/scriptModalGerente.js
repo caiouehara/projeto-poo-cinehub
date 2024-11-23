@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Get data attributes from the clicked button
             const filmeId = this.getAttribute('data-id');
-            console.log('ID do filme:', filmeId);
             const imageSrc = this.getAttribute('data-image');
             const title = this.getAttribute('data-title');
             const description = this.getAttribute('data-description');

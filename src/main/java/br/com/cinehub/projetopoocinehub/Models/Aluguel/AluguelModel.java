@@ -198,26 +198,4 @@ public class AluguelModel {
             }
         }
     }
-
-    /**
-     * Método para remover aluguel após a data de devolução.
-     *
-     * @param aluguel O aluguel a ser monitorado.
-     */
-    public void fimAluguel(Aluguel aluguel) {
-        TimerTask tarefa = new TimerTask() {
-            @Override
-            public void run() {
-                Date hoje = new Date();
-                if (aluguel.getDataDevolucao() != null && hoje.after(aluguel.getDataDevolucao())) {
-                    removerAluguel(aluguel);
-                    cancel();
-                }
-            }
-        };
-
-        Timer timer = new Timer();
-        // Agendar a tarefa para executar diariamente
-        timer.scheduleAtFixedRate(tarefa, 86400000, 86400000);
-    }
 }

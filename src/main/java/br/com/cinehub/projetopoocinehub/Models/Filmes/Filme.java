@@ -56,7 +56,6 @@ public class Filme {
     }
 
     // Getters e Setters
-
     public String getId() {
         return id;
     }

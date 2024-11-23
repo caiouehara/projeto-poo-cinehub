@@ -1,5 +1,6 @@
 package br.com.cinehub.projetopoocinehub.Controllers.Gerente;
 
+import br.com.cinehub.projetopoocinehub.Models.Aluguel.AluguelModel;
 import br.com.cinehub.projetopoocinehub.Models.Filmes.Filme;
 import br.com.cinehub.projetopoocinehub.Models.Filmes.FilmesModel;
 import br.com.cinehub.projetopoocinehub.Models.User.CadastroModel;
@@ -20,6 +21,7 @@ import java.nio.file.Paths;
 public class GerenteController extends HttpServlet {
     private FilmesModel filmesModel;
     private CadastroModel cadastroModel;
+    private AluguelModel aluguelModel;
     private ServletContext context;
 
     @Override
@@ -27,6 +29,7 @@ public class GerenteController extends HttpServlet {
         context = getServletContext();
         filmesModel = (FilmesModel) context.getAttribute("filmesModel");
         cadastroModel = (CadastroModel) context.getAttribute("cadastroModel");
+        aluguelModel = (AluguelModel) context.getAttribute("aluguelModel");
 
         if (filmesModel == null || cadastroModel == null) {
             throw new ServletException("Models not initialized!");
@@ -48,8 +51,7 @@ public class GerenteController extends HttpServlet {
         String action = request.getServletPath();
         if ("/gerente/adicionarFilme".equals(action)) {
             adicionarFilme(request, response);
-        }
-        else if ("/gerente/editarFilme".equals(action)) {
+        } else if ("/gerente/editarFilme".equals(action)) {
             editarFilme(request, response);
         }
     }
@@ -93,41 +95,92 @@ public class GerenteController extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/gerente");
     }
 
-    private void removerFilme(HttpServletRequest request, HttpServletResponse response){
+    private void removerFilme(HttpServletRequest request, HttpServletResponse response) {
 
     }
+
     private void editarFilme(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         // Obter dados do formulário
         String id = request.getParameter("filmeId");
-
-        System.out.println("ID recebido para edição: " + id);
-
-        String titulo = request.getParameter("tituloFilme");
-        System.out.println("Titulo recebido para edição: " + titulo);
-        int ano = Integer.parseInt(request.getParameter("anoFilme"));
-        String sinopse = request.getParameter("sinopseFilme");
-        double duracao = Double.parseDouble(request.getParameter("duracaoFilme"));
-        double precoCompra = Double.parseDouble(request.getParameter("precoCompra"));
-        double precoAluguel = Double.parseDouble(request.getParameter("precoAluguel"));
+        if (id == null || id.trim().isEmpty()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID do filme é obrigatório.");
+            return;
+        }
 
         // Buscar o filme existente
         Filme filmeExistente = FilmesModel.buscarFilmePorId(id);
-
         if (filmeExistente == null) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "Filme não encontrado.");
             return;
         }
 
-        // Atualizar os dados do filme
-        filmeExistente.setTituloFilme(titulo);
-        filmeExistente.setAnoFilme(ano);
-        filmeExistente.setSinopseFilme(sinopse);
-        filmeExistente.setDuracaoFilme(duracao);
-        filmeExistente.setPrecoFilmeCompra(precoCompra);
-        filmeExistente.setPrecoFilmeAluguel(precoAluguel);
+        // Processar parâmetros, mantendo os valores existentes se estiverem vazios
+        String titulo = request.getParameter("tituloFilme");
+        if (titulo == null || titulo.trim().isEmpty()) {
+            titulo = filmeExistente.getTituloFilme();
+        }
+
+        String sinopse = request.getParameter("sinopseFilme");
+        if (sinopse == null || sinopse.trim().isEmpty()) {
+            sinopse = filmeExistente.getSinopseFilme();
+        }
+
+        Integer ano = null;
+        String anoParam = request.getParameter("anoFilme");
+        if (anoParam == null || anoParam.trim().isEmpty()) {
+            ano = filmeExistente.getAnoFilme();
+        } else {
+            try {
+                ano = Integer.parseInt(anoParam);
+            } catch (NumberFormatException e) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Ano inválido.");
+                return;
+            }
+        }
+
+        Double duracao = null;
+        String duracaoParam = request.getParameter("duracaoFilme");
+        if (duracaoParam == null || duracaoParam.trim().isEmpty()) {
+            duracao = filmeExistente.getDuracaoFilme();
+        } else {
+            try {
+                duracao = Double.parseDouble(duracaoParam);
+            } catch (NumberFormatException e) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Duração inválida.");
+                return;
+            }
+        }
+
+        Double precoCompra = null;
+        String precoCompraParam = request.getParameter("precoCompra");
+        if (precoCompraParam == null || precoCompraParam.trim().isEmpty()) {
+            precoCompra = filmeExistente.getPrecoFilmeCompra();
+        } else {
+            try {
+                precoCompra = Double.parseDouble(precoCompraParam);
+            } catch (NumberFormatException e) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Preço de compra inválido.");
+                return;
+            }
+        }
+
+        Double precoAluguel = null;
+        String precoAluguelParam = request.getParameter("precoAluguel");
+        if (precoAluguelParam == null || precoAluguelParam.trim().isEmpty()) {
+            precoAluguel = filmeExistente.getPrecoFilmeAluguel();
+        } else {
+            try {
+                precoAluguel = Double.parseDouble(precoAluguelParam);
+            } catch (NumberFormatException e) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Preço de aluguel inválido.");
+                return;
+            }
+        }
 
         // Lidar com upload de nova imagem, se enviada
+        String novaImagem = null;
         Part imagemPart = request.getPart("imagem");
         if (imagemPart != null && imagemPart.getSize() > 0) {
             String imagemFileName = Paths.get(imagemPart.getSubmittedFileName()).getFileName().toString();
@@ -137,17 +190,21 @@ public class GerenteController extends HttpServlet {
             String imagemPath = uploadPath + File.separator + imagemFileName;
             imagemPart.write(imagemPath);
 
-            filmeExistente.setImagem(imagemFileName);
+            novaImagem = imagemFileName;
+        } else {
+            // Mantém a imagem existente se nenhuma nova imagem for enviada
+            novaImagem = filmeExistente.getImagem();
         }
 
-        // Atualizar o modelo
-        filmesModel.editarFilme(filmeExistente.getId(), filmeExistente.getTituloFilme(),
-                filmeExistente.getAnoFilme(), filmeExistente.getSinopseFilme(), filmeExistente.getDuracaoFilme(),
-                filmeExistente.getPrecoFilmeCompra(), filmeExistente.getPrecoFilmeAluguel(),filmeExistente.getImagem());
+        // Atualizar o modelo com os novos valores ou valores existentes
+        try {
+            filmesModel.editarFilme(id, titulo, ano, sinopse, duracao, precoCompra, precoAluguel, novaImagem);
+        } catch (IllegalArgumentException | IllegalStateException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+            return;
+        }
 
-        // Redirecionar de volta ao painel do gerente
-        response.sendRedirect(request.getContextPath() + "/gerente");
+        // Redirecionar de volta a home
+        response.sendRedirect(request.getContextPath() + "/home");
     }
-
-
 }
