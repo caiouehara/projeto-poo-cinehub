@@ -1,5 +1,6 @@
 package br.com.cinehub.projetopoocinehub.Controllers;
 
+import br.com.cinehub.projetopoocinehub.Models.Compras.CompraModel;
 import br.com.cinehub.projetopoocinehub.Models.User.CadastroModel;
 import br.com.cinehub.projetopoocinehub.Models.Filmes.FilmesModel;
 
@@ -20,6 +21,9 @@ public class AppContextListener implements ServletContextListener {
 
         FilmesModel filmesModel = new FilmesModel(context);
         context.setAttribute("filmesModel", filmesModel);
+
+        CompraModel comprasModel = new CompraModel(context);
+        context.setAttribute("comprasModel", comprasModel);
     }
 
     @Override

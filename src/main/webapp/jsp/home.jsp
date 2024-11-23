@@ -44,7 +44,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <!-- Check if 'filmes' list is not empty -->
+
                 <c:choose>
                     <c:when test="${not empty filmes}">
                         <c:forEach var="filme" items="${filmes}">

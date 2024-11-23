@@ -3,7 +3,11 @@ package br.com.cinehub.projetopoocinehub.Controllers.Cliente;
 import br.com.cinehub.projetopoocinehub.Models.Aluguel.Aluguel;
 import br.com.cinehub.projetopoocinehub.Models.Aluguel.AluguelFilmeData;
 import br.com.cinehub.projetopoocinehub.Models.Aluguel.AluguelModel;
+import br.com.cinehub.projetopoocinehub.Models.Compras.Compra;
+import br.com.cinehub.projetopoocinehub.Models.Compras.CompraFilmeData;
+import br.com.cinehub.projetopoocinehub.Models.Compras.CompraModel;
 import br.com.cinehub.projetopoocinehub.Models.User.CadastroModel;
+
 import br.com.cinehub.projetopoocinehub.Models.Filmes.Filme;
 import br.com.cinehub.projetopoocinehub.Models.Filmes.FilmesModel;
 import br.com.cinehub.projetopoocinehub.Models.User.Tipos.Cliente;
@@ -87,8 +91,9 @@ public class ClienteController extends HttpServlet {
             return;
         }
 
-        // Busca os aluguéis do cliente
+        // Busca os aluguéis e compras do cliente
         List<Aluguel> alugueisDoCliente = AluguelModel.buscarAlugueisPorCliente(email);
+        List<Compra> comprasDoCliente = CompraModel.buscarComprasPorCliente(email);
 
         // Prepara a lista de AluguelFilmeData combinando aluguéis e filmes
         List<AluguelFilmeData> alugueisFilmes = new ArrayList<>();
@@ -99,9 +104,19 @@ public class ClienteController extends HttpServlet {
             }
         }
 
+        // Prepara a lista de CompraFilmeData combinando compras e filmes
+        List<CompraFilmeData> comprasFilmes = new ArrayList<>();
+        for (Compra compra : comprasDoCliente) {
+            Filme filme = FilmesModel.buscarFilmePorId(compra.getFilmeId());
+            if (filme != null) {
+                comprasFilmes.add(new CompraFilmeData(compra, filme));
+            }
+        }
+
         // Define os atributos para a JSP
         request.setAttribute("cliente", cliente);
         request.setAttribute("alugueisFilmes", alugueisFilmes);
+        request.setAttribute("comprasFilmes", comprasFilmes);
 
         // Encaminha a requisição para a página JSP
         RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/cliente/cliente.jsp");
