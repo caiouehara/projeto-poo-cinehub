@@ -106,11 +106,12 @@ tr:hover {
     display: none; /* Inicialmente oculto */
     position: fixed; /*Fixo para manter a posição no viewport*/
     z-index: 9999; /* Z-index alto para sobrepor outros conteúdos*/
-    left: 0;
-    top: 0;
+    left: 50%; /* Centraliza horizontalmente */
+    top: 50%; /* Centraliza verticalmente */
+    transform: translate(-50%, -50%); /* Centraliza completamente o modal */
     width: 100%; /* Largura total da tela*/
     height: 100%; /* Altura total da tela*/
-    overflow: auto; /* Habilita a rolagem se necessário*/
+    overflow-y: auto; /* Habilita a rolagem se necessário*/
     background-color: rgba(0, 0, 0, 0.5); /* Fundo preto com transparência*/
     justify-content: center; /* Centraliza horizontalmente*/
     align-items: center; /* Centraliza verticalmente*/
@@ -124,9 +125,11 @@ tr:hover {
     border: 1px solid #888;
     width: 80%; /* Largura do conteúdo*/
     max-width: 600px; /* Largura máxima do conteúdo*/
+    max-height: 100vh;
     border-radius: 10px; /* Bordas arredondadas*/
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para dar destaque*/
     position: relative;
+    overflow-y: auto; /* Adiciona rolagem interna ao conteúdo se necessário */
 }
 
 /* Estilo para o Botão de Fechar*/
@@ -148,9 +151,18 @@ tr:hover {
     text-decoration: none; /* Remove sublinhado*/
     cursor: pointer;
 }
+.modal-info-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Espaço entre os dois elementos */
+}
+
+.modal-info-row p {
+    margin: 0; /* Remove margens padrão */
+}
 
 /* Estilo para a Imagem do Modal*/
-#modal-image {
+#modal-image, #modal-image-Gerente {
     width: 100%; /* Largura total*/
     max-height: 300px; /* Altura máxima*/
     object-fit: cover; /* Ajusta a imagem*/
@@ -159,20 +171,98 @@ tr:hover {
 }
 
 /* Estilo para o Conteúdo do Modal*/
-#box-2 {
+#box-2, #box-3, #modal-forms {
     text-align: center; /* Centraliza o texto*/
 }
 
-#modal-title {
+#modal-title, #modal-title-Gerente {
     font-size: 24px; /* Tamanho da fonte*/
     margin-bottom: 10px; /* Espaço inferior*/
 }
 
 #modal-description,
 #modal-year,
-#nota-final {
+#nota-final, #modal-description-Gerente, #modal-year-Gerente, #nota-final-Gerente, #modal-price-Gerente, #modal-rent-Gerente {
     font-size: 16px; /* Tamanho da fonte*/
     margin-bottom: 20px; /* Espaço inferior*/
+}
+
+/* Estilo para o Formulário */
+
+#modal-forms label {
+    font-weight: bold; /* Deixa as labels em negrito */
+}
+
+#modal-forms input, #modal-forms textarea {
+    padding: 10px; /* Espaçamento interno */
+    font-size: 16px; /* Tamanho da fonte */
+    border: 1px solid #ccc; /* Borda leve */
+    border-radius: 5px; /* Bordas arredondadas */
+    width: 100%; /* Largura total */
+    box-sizing: border-box; /* Inclui padding e borda na largura total */
+}
+
+#modal-forms input[type="submit"] {
+    color: white; /* Cor do texto */
+    border: none; /* Remove bordas */
+    padding: 15px; /* Espaçamento */
+    cursor: pointer; /* Cursor de clique */
+    border-radius: 5px; /* Bordas arredondadas */
+    font-size: 18px; /* Tamanho da fonte */
+    transition: background-color 0.3s ease; /* Transição suave ao passar o mouse */
+    display: inline-block; /* Para os botões ficarem lado a lado */
+    margin-right: 15px; /* Espaço à direita entre os botões */
+    width: auto; /* Tamanho automático */
+}
+
+/* Estilo para o Botão de Excluir */
+#modal-forms .delete-button {
+    background-color: #e74c3c; /* Cor de fundo para o botão Excluir */
+}
+
+#modal-forms .delete-button:hover {
+    background-color: #c0392b; /* Cor do fundo ao passar o mouse */
+}
+
+/* Estilo para o Botão de Salvar */
+#modal-forms .save-button {
+    background-color: #4CAF50; /* Cor de fundo para o botão Salvar */
+}
+
+#modal-forms .save-button:hover {
+    background-color: #45a049; /* Cor do fundo ao passar o mouse */
+}
+
+/* Garantir que os botões estão centralizados e com espaçamento correto */
+#modal-forms {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Espaçamento entre os botões */
+}
+
+/* Estilo para o Formulário */
+#modal-forms form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%; /* Tamanho completo */
+}
+/* Estilo para a Lista de Comentários */
+#comentarios {
+    max-height: 200px; /* Altura máxima da área de comentários */
+    overflow-y: auto; /* Adiciona rolagem se necessário */
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Sombra leve */
+}
+
+/* Estilo para os Comentários */
+#comentarios p {
+    font-size: 14px; /* Tamanho da fonte */
+    margin-bottom: 10px; /* Espaço inferior */
 }
 
 /* Estilo para os Botões de Compra e Aluguel*/

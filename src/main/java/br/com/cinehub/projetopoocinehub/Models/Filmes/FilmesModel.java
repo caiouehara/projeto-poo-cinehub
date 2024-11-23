@@ -1,5 +1,6 @@
 package br.com.cinehub.projetopoocinehub.Models.Filmes;
 
+import br.com.cinehub.projetopoocinehub.Models.Aluguel.AluguelModel;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -126,5 +127,47 @@ public class FilmesModel {
     public void removerFilme(Filme filme) {
         listaFilmes.remove(filme);
         salvarFilmes(); // Salvar a lista atualizada
+    }
+    public void editarFilme(String id, String titulo, Integer ano, String sinopse,
+                            Double duracao, Double precoCompra,
+                            Double precoAluguel, String novaImagem) {
+
+        Filme filmeExistente = buscarFilmePorId(id);
+        if (filmeExistente == null) {
+            throw new IllegalArgumentException("Filme com ID " + id + " não encontrado.");
+        }
+
+        // Verificar se o filme está alugado
+        boolean filmeAlugado = AluguelModel.getListaAlugueis().stream()
+                .anyMatch(aluguel -> aluguel.getFilmeId().equals(id));
+        if (filmeAlugado) {
+            throw new IllegalStateException("O filme está alugado e não pode ser editado.");
+        }
+
+        // Atualizar apenas os campos fornecidos
+        if (titulo != null && !titulo.isEmpty()) {
+            filmeExistente.setTituloFilme(titulo);
+        }
+        if (ano != null) {
+            filmeExistente.setAnoFilme(ano);
+        }
+        if (sinopse != null && !sinopse.isEmpty()) {
+            filmeExistente.setSinopseFilme(sinopse);
+        }
+        if (duracao != null) {
+            filmeExistente.setDuracaoFilme(duracao);
+        }
+        if (precoCompra != null) {
+            filmeExistente.setPrecoFilmeCompra(precoCompra);
+        }
+        if (precoAluguel != null) {
+            filmeExistente.setPrecoFilmeAluguel(precoAluguel);
+        }
+        if (novaImagem != null && !novaImagem.isEmpty()) {
+            filmeExistente.setImagem(novaImagem);
+        }
+
+        // Salvar as alterações na lista
+        salvarFilmes();
     }
 }

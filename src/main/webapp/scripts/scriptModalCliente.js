@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const modal = document.getElementById('modal');
+    const modalCliente = document.getElementById('modalCliente');
     const closeModalBtn = document.getElementById('close-modal');
     const verMaisButtons = document.querySelectorAll('.ver-mais-btn');
 
@@ -16,14 +16,17 @@ document.addEventListener('DOMContentLoaded', function () {
             const rating = this.getAttribute('data-rating');
             const rent = this.getAttribute('data-rent');
             const price = this.getAttribute('data-price');
+            const duration = this.getAttribute('data-duration');
 
             // Populate the modal fields
             document.getElementById('modal-image').src = imageSrc;
             document.getElementById('modal-title').textContent = title;
             document.getElementById('modal-description').textContent = description;
             document.getElementById('modal-year').textContent = 'Ano: ' + year;
+            document.getElementById('nota-final').textContent = rating;
             document.getElementById('modal-rent').textContent = rent;
             document.getElementById('modal-price').textContent = price;
+            document.getElementById('modal-duration').textContent = 'Duração(min): ' + duration;
             // If you have a rating display, set it here
 
             // Set the filmeId in the hidden inputs
@@ -31,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('comentario-filmeId').value = filmeId;
 
             // Show the modal
-            modal.style.display = 'flex';
+            modalCliente.style.display = 'flex';
 
             // Load comments and ratings via AJAX if needed
             // Example: fetch comments from server using filmeId
@@ -65,13 +68,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Close modal when 'X' button is clicked
     closeModalBtn.addEventListener('click', function () {
-        modal.style.display = 'none';
+        modalCliente.style.display = 'none';
     });
 
     // Close modal when clicking outside the modal content
     window.addEventListener('click', function (event) {
-        if (event.target === modal) {
-            modal.style.display = 'none';
+        if (event.target === modalCliente) {
+            modalCliente.style.display = 'none';
         }
     });
 });

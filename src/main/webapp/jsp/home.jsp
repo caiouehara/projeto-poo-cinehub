@@ -8,7 +8,7 @@
     <script>
         const contextPath = '${pageContext.request.contextPath}';
     </script>
-    <script src="${pageContext.request.contextPath}/scripts/script.js" defer></script>
+    <script src="${pageContext.request.contextPath}/scripts/scriptModalCliente.js" defer></script>
     <title>Homepage</title>
 </head>
 
@@ -68,9 +68,18 @@
                                            data-year="${filme.anoFilme}"
                                            data-rating="${filme.avaliacaoFilme}"
                                            data-rent = "${filme.getPrecoFilmeAluguel()}"
-                                           data-price = "${filme.getPrecoFilmeCompra()}">
-                                            <i class="fas fa-info-circle"></i>
-                                            Ver mais
+                                           data-price = "${filme.getPrecoFilmeCompra()}"
+                                           data-duration = "${filme.getDuracaoFilme()}">
+                                            <c:choose>
+                                                <c:when test="${sessionScope.usuario == 'Cliente'}">
+                                                    <i class="fas fa-info-circle"></i>
+                                                    Ver mais
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <i class="fas fa-info-circle"></i>
+                                                    Editar
+                                                </c:otherwise>
+                                            </c:choose>
                                         </a>
                                     </div>
                                 </td>
@@ -86,82 +95,133 @@
                 </tbody>
             </table>
         </div>
-    </main>
 
-            <!-- Modal de Detalhes dos filmes-->
-            <div id="modal" class="modal">
-                <div class="modal-content">
-                    <button class="close-btn" id="close-modal">X</button>
-                    <img id="modal-image" src="" alt="Imagem do Filme">
-                    <div id="box-2">
-                        <h2 id="modal-title"></h2>
-                        <p id="modal-description"></p>
-                        <p id="modal-year"></p>
-                        <h3>Nota média:</h3>
-                        <p id="nota-final"></p>
-                        <c:choose>
-                            <c:when test="${sessionScope.usuario == 'Cliente'}">
-                                <!--Vizualização cliente-->
-                                <!-- Avaliação do filme -->
-                                <div class="star-rating">
-                                    <h3>Avalie este filme:</h3>
-                                    <form action="${pageContext.request.contextPath}/adicionarAvaliacao" method="post">
+        <!-- Modal de Detalhes dos filmes-->
+
+        <c:choose>
+            <c:when test="${sessionScope.usuario == 'Cliente'}">
+                <!--Vizualização cliente-->
+                <div id="modalCliente" class="modal">
+                    <div class="modal-content">
+                        <button class="close-btn" id="close-modal">X</button>
+                        <img id="modal-image" src="" alt="Imagem do Filme">
+                        <div id="box-2">
+                            <h2 id="modal-title"></h2>
+                            <p id="modal-description"></p>
+                            <div class="modal-info-row">
+                                <p id="modal-year"></p>
+                                <p id="modal-duration"></p>
+                            </div>
+                            <h3>Nota média:</h3>
+                            <p id="nota-final"></p>
+
+                            <!-- Avaliação do filme -->
+                            <div class="star-rating">
+                                <h3>Avalie este filme:</h3>
+                                <form action="${pageContext.request.contextPath}/adicionarAvaliacao" method="post">
                                         <%--@declare id="nota"--%><input type="hidden" id="avaliacao-filmeId" name="filmeId" value=""/>
-                                        <label for="nota">Nota (0.0 - 10.0):</label>
-                                        <input type="number" step="0.1" min="0" max="10" name="nota" required/>
-                                        <input type="submit" value="Enviar Avaliação"/>
-                                    </form>
-                                </div>
-
-                                <!-- Botões de Compra e Aluguel -->
-                                <button id="buy-button">Comprar - R$ <span id="modal-price"></span></button>
-                                <button id="rent-button">Alugar - R$ <span id="modal-rent"></span></button>
-
-                                <!-- Comentários -->
-                                <h3>Comentários:</h3>
-                                <form action="${pageContext.request.contextPath}/adicionarComentario" method="post">
-                                    <input type="hidden" id="comentario-filmeId" name="filmeId" value=""/>
-                                    <textarea class="comment-box" id="comment-box" name="texto" required></textarea>
-                                    <input type="submit" value="Enviar Comentário"/>
+                                    <label for="nota">Nota (0.0 - 10.0):</label>
+                                    <input type="number" step="0.1" min="0" max="10" name="nota" required/>
+                                    <input type="submit" value="Enviar Avaliação"/>
                                 </form>
-                            </c:when>
+                            </div>
 
-                            <c:otherwise>
-                                <!--Vizualização gerente-->
-                                <!--Vizualização cliente-->
-                                <!-- Avaliação do filme -->
-                                <div class="star-rating">
-                                    <h3>Avalie este filme:</h3>
-                                    <form action="${pageContext.request.contextPath}/adicionarAvaliacao" method="post">
-                                            <%--@declare id="nota"--%><input type="hidden" id="avaliacao-filmeId" name="filmeId" value=""/>
-                                        <label for="nota">Nota (0.0 - 10.0):</label>
-                                        <input type="number" step="0.1" min="0" max="10" name="nota" required/>
-                                        <input type="submit" value="Enviar Avaliação"/>
-                                    </form>
-                                </div>
+                            <!-- Botões de Compra e Aluguel -->
+                            <button id="buy-button">Comprar - R$ <span id="modal-price"></span></button>
+                            <button id="rent-button">Alugar - R$ <span id="modal-rent"></span></button>
 
-                                <!-- Botões de Compra e Aluguel -->
-                                <button id="buy-button">Editar - R$ <span id="modal-price"></span></button>
-                                <button id="rent-button">Excluir - R$ <span id="modal-rent"></span></button>
+                            <!-- Comentários -->
+                            <h3>Comentários:</h3>
+                            <form action="${pageContext.request.contextPath}/adicionarComentario" method="post">
+                                <input type="hidden" id="comentario-filmeId" name="filmeId" value=""/>
+                                <textarea class="comment-box" id="comment-box" name="texto" required></textarea>
+                                <input type="submit" value="Enviar Comentário"/>
+                            </form>
 
-                                <!-- Comentários -->
-                                <h3>Comentários:</h3>
-                                <form action="${pageContext.request.contextPath}/adicionarComentario" method="post">
-                                    <input type="hidden" id="comentario-filmeId" name="filmeId" value=""/>
-                                    <textarea class="comment-box" id="comment-box" name="texto" required></textarea>
-                                    <input type="submit" value="Enviar Comentário"/>
-                                </form>
-                            </c:otherwise>
-                        </c:choose>
-                        <!-- Seção de comentários -->
-                        <div id="comentarios">
-                            <!-- Comentários serão carregados aqui via Javascript -->
+                            <!-- Seção de comentários -->
+                            <div id="comentarios">
+                                <!-- Comentários serão carregados aqui via Javascript -->
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </main>
+            </c:when>
 
-        <script src="${pageContext.request.contextPath}/scripts/script.js"></script>
+            <c:otherwise>
+                <!-- Vizualização para o gerente -->
+                <div id="modalGerente" class="modal">
+                    <div class="modal-content">
+                        <button class="close-btn" id="close-modal-Gerente">X</button>
+                        <img id="modal-image-Gerente" src="" alt="Imagem do Filme">
+                        <div id="box-3">
+                            <h2 id="modal-title-Gerente"></h2>
+                            <p id="modal-description-Gerente"></p>
+                            <div class="modal-info-row">
+                                <p id="modal-year-Gerente"></p>
+                                <p id="modal-duration-Gerente"></p>
+                            </div>
+                            <p id="modal-price-Gerente"></p>
+                            <p id="modal-rent-Gerente"></p>
+                            <h3>Nota média:</h3>
+                            <p id="nota-final-Gerente"></p>
+                        </div>
+                        <div id = "modal-forms">
+                            <!-- Formulários de edição para o gerente -->
+                            <h2>Editar Informações do Filme</h2>
+                            <form action="${pageContext.request.contextPath}/gerente/editarFilme" method="post" enctype="multipart/form-data">
+                                <input type="hidden" id="modal-filmeId" name="filmeId" value=""/>
+
+                                <!-- Campo para mudar título -->
+                                <label for="tituloFilme">Título:</label>
+                                <input type="text" id="tituloFilme" name="tituloFilme" value="" required/>
+
+                                <!-- Campo para mudar ano -->
+                                <label for="anoFilme">Ano:</label>
+                                <input type="number" id="anoFilme" name="anoFilme" value="" required/>
+
+                                <!-- Campo para mudar duração -->
+                                <label for="duracaoFilme">Duração (minutos):</label>
+                                <input type="number" id="duracaoFilme" name="duracaoFilme" value="" required/>
+
+                                <!-- Campo para mudar sinopse -->
+                                <label for="sinopseFilme">Sinopse:</label>
+                                <textarea id="sinopseFilme" name="sinopseFilme" required></textarea>
+
+                                <!-- Campo para mudar imagem -->
+                                <label for="imagemFilme">Imagem:</label>
+                                <input type="file" id="imagemFilme" name="imagemFilme"/>
+
+                                <!-- Campo para mudar preço de aluguel -->
+                                <label for="precoAluguel">Preço de Aluguel:</label>
+                                <input type="number" id="precoAluguel" name="precoAluguel" step="0.01" value="" required/>
+
+                                <!-- Campo para mudar preço de compra -->
+                                <label for="precoCompra">Preço de Compra:</label>
+                                <input type="number" id="precoCompra" name="precoCompra" step="0.01" value="" required/>
+
+                                <input type="submit" class="save-button" value="Salvar Alterações"/>
+                            </form>
+
+                            <!-- Botões para excluir filme -->
+                            <form action="${pageContext.request.contextPath}/excluirFilme" method="post">
+                                <input type="hidden" id="modal-filmeId-excluir" name="filmeId" value=""/>
+                                <input type="submit" class="delete-button" value="Excluir Filme" onclick="return confirm('Tem certeza que deseja excluir este filme?')"/>
+                            </form>
+
+                            <!-- Comentários com possibilidade de exclusão -->
+                            <h3>Comentários:</h3>
+                            <div id="comentarios">
+                                <!-- Os comentários serão carregados via Javascript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                        </c:otherwise>
+                    </c:choose>
+
+    </main>
+        <script src="${pageContext.request.contextPath}/scripts/scriptModalCliente.js"></script>
+        <script src="${pageContext.request.contextPath}/scripts/scriptModalGerente.js"></script>
     </body>
 </html>
