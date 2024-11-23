@@ -2,13 +2,11 @@ package br.com.cinehub.projetopoocinehub.Models.Aluguel;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.servlet.ServletContext;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.*;
-import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -42,10 +40,9 @@ public class AluguelModel {
     private ArrayList<Aluguel> loadAlugueis() {
         ObjectMapper mapper = new ObjectMapper();
 
-        // Registra o módulo para serialização/deserialização de LocalDate
-        mapper.registerModule(new JavaTimeModule());
+        // Configura o ObjectMapper para lidar com java.util.Date
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        mapper.disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE);
+        mapper.setDateFormat(new java.text.SimpleDateFormat("yyyy-MM-dd"));
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         Path dataFilePath = Paths.get(dataDir, ALUGUEIS_JSON);
@@ -85,11 +82,11 @@ public class AluguelModel {
             }
 
             // Remove aluguéis vencidos
-            LocalDate hoje = LocalDate.now();
+            Date hoje = new Date();
             Iterator<Aluguel> iterator = alugueis.iterator();
             while (iterator.hasNext()) {
                 Aluguel aluguel = iterator.next();
-                if (aluguel.getDataDevolucao().isBefore(hoje)) {
+                if (aluguel.getDataDevolucao() != null && aluguel.getDataDevolucao().before(hoje)) {
                     iterator.remove();
                     precisaSalvar = true;
                 }
@@ -115,9 +112,9 @@ public class AluguelModel {
      */
     public synchronized void salvarAlugueis() {
         ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        mapper.setDateFormat(new java.text.SimpleDateFormat("yyyy-MM-dd"));
 
         Path dataFilePath = Paths.get(dataDir, ALUGUEIS_JSON);
 
@@ -202,21 +199,25 @@ public class AluguelModel {
         }
     }
 
-    //metodo para remover aluguel após data de devolução
+    /**
+     * Método para remover aluguel após a data de devolução.
+     *
+     * @param aluguel O aluguel a ser monitorado.
+     */
     public void fimAluguel(Aluguel aluguel) {
         TimerTask tarefa = new TimerTask() {
-            @Override //como TimerTask é uma classe abstrata precisamos implementar o método run com o código que queremos que vire uma tarefa a ser automatizada
+            @Override
             public void run() {
-                LocalDate hoje = LocalDate.now();
-                if (hoje.isAfter(aluguel.getDataDevolucao())) { 
-                  	removerAluguel(aluguel);
+                Date hoje = new Date();
+                if (aluguel.getDataDevolucao() != null && hoje.after(aluguel.getDataDevolucao())) {
+                    removerAluguel(aluguel);
                     cancel();
                 }
             }
         };
 
-    Timer timer = new Timer();
-    timer.scheduleAtFixedRate(tarefa, 86400000, 86400000);
+        Timer timer = new Timer();
+        // Agendar a tarefa para executar diariamente
+        timer.scheduleAtFixedRate(tarefa, 86400000, 86400000);
     }
-    
 }

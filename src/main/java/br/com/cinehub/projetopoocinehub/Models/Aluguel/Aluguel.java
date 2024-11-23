@@ -1,7 +1,9 @@
 package br.com.cinehub.projetopoocinehub.Models.Aluguel;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.time.LocalDate;
+
+import java.util.Date;
 
 /**
  * Classe que representa um aluguel de um filme por um cliente.
@@ -30,13 +32,15 @@ public class Aluguel {
      * Data em que o aluguel foi efetuado.
      */
     @JsonProperty("dataAluguel")
-    private LocalDate dataAluguel;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
+    private Date dataAluguel;
 
     /**
      * Data prevista para a devolução do filme.
      */
     @JsonProperty("dataDevolucao")
-    private LocalDate dataDevolucao;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
+    private Date dataDevolucao;
 
     /**
      * Construtor padrão sem parâmetros.
@@ -52,7 +56,7 @@ public class Aluguel {
      * @param dataAluguel    Data em que o aluguel foi efetuado.
      * @param dataDevolucao  Data prevista para a devolução do filme.
      */
-    public Aluguel(String id, String clienteId, String filmeId, LocalDate dataAluguel, LocalDate dataDevolucao) {
+    public Aluguel(String id, String clienteId, String filmeId, Date dataAluguel, Date dataDevolucao) {
         this.id = id;
         this.clienteId = clienteId;
         this.filmeId = filmeId;
@@ -119,7 +123,7 @@ public class Aluguel {
      *
      * @return A data do aluguel.
      */
-    public LocalDate getDataAluguel() {
+    public Date getDataAluguel() {
         return dataAluguel;
     }
 
@@ -128,7 +132,7 @@ public class Aluguel {
      *
      * @param dataAluguel A nova data do aluguel.
      */
-    public void setDataAluguel(LocalDate dataAluguel) {
+    public void setDataAluguel(Date dataAluguel) {
         this.dataAluguel = dataAluguel;
     }
 
@@ -137,7 +141,7 @@ public class Aluguel {
      *
      * @return A data de devolução.
      */
-    public LocalDate getDataDevolucao() {
+    public Date getDataDevolucao() {
         return dataDevolucao;
     }
 
@@ -146,7 +150,7 @@ public class Aluguel {
      *
      * @param dataDevolucao A nova data de devolução.
      */
-    public void setDataDevolucao(LocalDate dataDevolucao) {
+    public void setDataDevolucao(Date dataDevolucao) {
         this.dataDevolucao = dataDevolucao;
     }
 }

@@ -37,7 +37,7 @@
             <p class="description">Veja todos os filmes alugados por você</p>
 
             <!-- Número de filmes alugados -->
-            <p>Número de filmes alugados: ${fn:length(filmesAlugados)}</p>
+            <p>Número de filmes alugados: ${fn:length(alugueisFilmes)}</p>
 
             <!-- Tabela de filmes alugados -->
             <table>
@@ -67,6 +67,8 @@
                                 <td>${item.filme.sinopseFilme}</td>
                                 <td>${item.filme.anoFilme}</td>
                                 <td>${item.filme.avaliacaoFilme}</td>
+
+                                <!-- Fazendo a formatação das datas -->
                                 <td>
                                     <fmt:formatDate value="${item.aluguel.dataAluguel}" pattern="dd/MM/yyyy"/>
                                 </td>
