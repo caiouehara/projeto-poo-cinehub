@@ -101,6 +101,7 @@ tr:hover {
     height: auto;
     border-radius: 5px;
 }
+
 /*Estilo para o Modal*/
 .modal {
     display: none; /* Inicialmente oculto */
@@ -124,7 +125,7 @@ tr:hover {
     padding: 20px;
     border: 1px solid #888;
     width: 80%; /* Largura do conteúdo*/
-    max-width: 600px; /* Largura máxima do conteúdo*/
+    max-width: 1200px; /* Largura máxima do conteúdo*/
     max-height: 100vh;
     border-radius: 10px; /* Bordas arredondadas*/
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para dar destaque*/
@@ -145,12 +146,101 @@ tr:hover {
     cursor: pointer; /* Cursor de clique*/
 }
 
+/* Estilo para a lista de comentários */
+.comentarios-lista {
+    list-style-type: none; /* Remove as bolinhas padrão da lista */
+    padding: 0;
+    margin: 0;
+}
+
+.comentarios-lista li {
+    display: flex;
+    flex-direction: column;
+    background-color: #f9f9f9; /* Fundo levemente cinza para destaque */
+    border: 1px solid #e0e0e0; /* Borda ao redor do comentário */
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px; /* Espaçamento entre os comentários */
+    position: relative; /* Para posicionar o botão de exclusão */
+}
+
+.comentarios-lista li strong {
+    font-size: 16px;
+    color: #2c3e50; /* Tom mais escuro para melhor legibilidade */
+    margin-bottom: 5px;
+}
+
+.comentarios-lista li time {
+    font-size: 12px;
+    color: #7f8c8d; /* Tom mais claro para a data */
+    margin-bottom: 10px;
+}
+
+.comentarios-lista li p {
+    margin: 0;
+    color: #34495e;
+    line-height: 1.6;
+}
+
+.comentarios-lista li .excluir-comentario-btn {
+    top: 15px;
+    right: 15px;
+    background-color: transparent;
+    border: none;
+    color: #e74c3c;
+    cursor: pointer;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.comentarios-lista li .excluir-comentario-btn:hover {
+    color: #c0392b;
+}
+
+@media (max-width: 600px) {
+    .comentarios-lista li {
+        padding: 10px;
+    }
+
+    .comentarios-lista li strong {
+        font-size: 14px;
+    }
+
+    .comentarios-lista li p {
+        font-size: 14px;
+    }
+
+    .comentarios-lista li .excluir-comentario-btn {
+        font-size: 14px;
+        top: 10px;
+        right: 10px;
+    }
+}
+
+/* Estilos para o botão de excluir comentário */
+.excluir-comentario-btn {
+    background-color: #e74c3c;
+    color: #ffffff;
+    border: none;
+    padding: 8px 12px;
+    margin-top: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.excluir-comentario-btn:hover {
+    background-color: #c0392b;
+}
+
 .close-btn:hover,
 .close-btn:focus {
     color: #000; /* Cor do botão ao passar o mouse*/
     text-decoration: none; /* Remove sublinhado*/
     cursor: pointer;
 }
+
 .modal-info-row {
     display: flex;
     justify-content: center;
@@ -248,9 +338,10 @@ tr:hover {
     gap: 15px;
     width: 100%; /* Tamanho completo */
 }
+
 /* Estilo para a Lista de Comentários */
 #comentarios {
-    max-height: 200px; /* Altura máxima da área de comentários */
+    max-height: 1200px; /* Altura máxima da área de comentários */
     overflow-y: auto; /* Adiciona rolagem se necessário */
     margin-top: 15px;
     padding: 10px;

@@ -7,6 +7,8 @@ import br.com.cinehub.projetopoocinehub.Models.Filmes.Filme;
 import br.com.cinehub.projetopoocinehub.Models.Filmes.FilmesModel;
 import br.com.cinehub.projetopoocinehub.Models.User.CadastroModel;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
@@ -17,8 +19,9 @@ import jakarta.servlet.http.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.Map;
 
-@WebServlet(name = "gerente", urlPatterns = {"/gerente", "/gerente/adicionarFilme", "/gerente/editarFilme", "/gerente/excluirFilme"})
+@WebServlet(name = "gerente", urlPatterns = {"/gerente", "/gerente/adicionarFilme", "/gerente/editarFilme", "/gerente/excluirFilme", "/gerente/excluirComentario"})
 @MultipartConfig
 public class GerenteController extends HttpServlet {
     private FilmesModel filmesModel;
@@ -63,6 +66,9 @@ public class GerenteController extends HttpServlet {
                 break;
             case "/gerente/excluirFilme":
                 excluirFilme(request, response);
+                break;
+            case "/gerente/excluirComentario":
+                excluirComentario(request, response);
                 break;
         }
     }
@@ -265,5 +271,66 @@ public class GerenteController extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("mensagemSucesso", "Filme excluído com sucesso.");
         response.sendRedirect(request.getContextPath() + "/home");
+    }
+
+    private void excluirComentario(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        // Configurar o tipo de conteúdo da resposta como JSON
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, String> requestBody;
+
+        try {
+            // Ler o corpo da requisição como JSON
+            requestBody = mapper.readValue(request.getInputStream(), new TypeReference<Map<String, String>>() {
+            });
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("{\"sucesso\": false, \"mensagem\": \"Formato de JSON inválido.\"}");
+            return;
+        }
+
+        // Obter os parâmetros do JSON
+        String filmeId = requestBody.get("filmeId");
+        String comentarioId = requestBody.get("comentarioId");
+
+        // 2. Validação dos parâmetros
+        if (filmeId == null || filmeId.trim().isEmpty() || comentarioId == null || comentarioId.trim().isEmpty()) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("{\"sucesso\": false, \"mensagem\": \"IDs do filme e do comentário são obrigatórios.\"}");
+            return;
+        }
+
+        // 4. Buscar o filme existente
+        Filme filmeExistente = FilmesModel.buscarFilmePorId(filmeId);
+        if (filmeExistente == null) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            response.getWriter().write("{\"sucesso\": false, \"mensagem\": \"Filme não encontrado.\"}");
+            return;
+        }
+
+        // 5. Remover o comentário do filme
+        boolean comentarioRemovido = filmeExistente.removerComentario(comentarioId);
+        if (!comentarioRemovido) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            response.getWriter().write("{\"sucesso\": false, \"mensagem\": \"Comentário não encontrado no filme especificado.\"}");
+            return;
+        }
+
+        // 6. Salvar as alterações no modelo
+        try {
+            FilmesModel.salvarFilmes();
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().write("{\"sucesso\": false, \"mensagem\": \"Erro ao salvar as alterações: " + e.getMessage() + "\"}");
+            return;
+        }
+
+        // 7. Retornar uma resposta de sucesso em JSON
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.getWriter().write("{\"sucesso\": true, \"mensagem\": \"Comentário excluído com sucesso.\"}");
     }
 }

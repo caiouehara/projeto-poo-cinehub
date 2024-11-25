@@ -140,7 +140,7 @@
                         </form>
 
                         <!-- Seção de comentários -->
-                        <div id="comentarios">
+                        <div id="comentarios" class="comentarios-lista">
                             <!-- Comentários serão carregados aqui via Javascript -->
                         </div>
                     </div>
@@ -227,8 +227,8 @@
 
                         <!-- Comentários com possibilidade de exclusão -->
                         <h3>Comentários:</h3>
-                        <div id="comentarios-gerente">
-                            <!-- Os comentários serão carregados via Javascript -->
+                        <div id="comentarios-gerente" class="comentarios-lista">
+                            <!-- Os comentários serão carregados via Javascript -->7
                         </div>
                     </div>
                 </div>

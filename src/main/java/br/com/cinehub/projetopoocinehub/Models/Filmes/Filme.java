@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -163,7 +164,6 @@ public class Filme {
     }
 
     // Métodos adicionais
-
     public void adicionarComentario(Comentario comentario) {
         this.comentarios.add(comentario);
     }
@@ -180,5 +180,16 @@ public class Filme {
         }
         this.qtdUsuariosAvaliaram = avaliacoes.size();
         this.avaliacaoFilme = (qtdUsuariosAvaliaram > 0) ? (somaNotas / qtdUsuariosAvaliaram) : 0.0;
+    }
+
+    public boolean removerComentario(String comentarioId) {
+        for (Iterator<Comentario> iterator = comentarios.iterator(); iterator.hasNext(); ) {
+            Comentario comentario = iterator.next();
+            if (comentario.getId().equals(comentarioId)) {
+                iterator.remove();
+                return true;
+            }
+        }
+        return false;
     }
 }
