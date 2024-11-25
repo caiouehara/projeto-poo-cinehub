@@ -1,6 +1,8 @@
 package br.com.cinehub.projetopoocinehub.Controllers.Gerente;
 
 import br.com.cinehub.projetopoocinehub.Models.Aluguel.AluguelModel;
+import br.com.cinehub.projetopoocinehub.Models.Compras.Compra;
+import br.com.cinehub.projetopoocinehub.Models.Compras.CompraModel;
 import br.com.cinehub.projetopoocinehub.Models.Filmes.Filme;
 import br.com.cinehub.projetopoocinehub.Models.Filmes.FilmesModel;
 import br.com.cinehub.projetopoocinehub.Models.User.CadastroModel;
@@ -22,6 +24,7 @@ public class GerenteController extends HttpServlet {
     private FilmesModel filmesModel;
     private CadastroModel cadastroModel;
     private AluguelModel aluguelModel;
+    private CompraModel compraModel;
     private ServletContext context;
 
     @Override
@@ -30,6 +33,7 @@ public class GerenteController extends HttpServlet {
         filmesModel = (FilmesModel) context.getAttribute("filmesModel");
         cadastroModel = (CadastroModel) context.getAttribute("cadastroModel");
         aluguelModel = (AluguelModel) context.getAttribute("aluguelModel");
+        compraModel = (CompraModel) context.getAttribute("compraModel");
 
         if (filmesModel == null || cadastroModel == null) {
             throw new ServletException("Models not initialized!");
@@ -100,10 +104,6 @@ public class GerenteController extends HttpServlet {
 
         // Redirecionar de volta para o dashboard do gerente
         response.sendRedirect(request.getContextPath() + "/gerente");
-    }
-
-    private void removerFilme(HttpServletRequest request, HttpServletResponse response) {
-
     }
 
     private void editarFilme(HttpServletRequest request, HttpServletResponse response)
@@ -236,7 +236,8 @@ public class GerenteController extends HttpServlet {
         boolean filmeAlugado = aluguelModel.getListaAlugueis().stream()
                 .anyMatch(aluguel -> aluguel.getFilmeId().equals(id));
         if (filmeAlugado) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "O filme está alugado e não pode ser excluído.");
+            request.getSession().setAttribute("mensagemErro", "O filme está alugado e não pode ser excluído.");
+            response.sendRedirect(request.getContextPath() + "/home");
             return;
         }
 

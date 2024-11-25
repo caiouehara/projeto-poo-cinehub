@@ -205,6 +205,19 @@
                             <input type="submit" class="save-button" value="Salvar Alterações"/>
                         </form>
 
+                        <!-- Verifica se há uma mensagem de erro na sessão -->
+                        <c:if test="${not empty sessionScope.mensagemErro}">
+                            <%
+                                String mensagemErro = (String) session.getAttribute("mensagemErro");
+                                if (mensagemErro == null) mensagemErro = "";
+                                mensagemErro = mensagemErro.replace("\\", "\\\\").replace("'", "\\'");
+                            %>
+                            <script type="text/javascript">
+                                alert('<%= mensagemErro %>');
+                            </script>
+                            <c:set var="mensagemErro" scope="session" value=""/>
+                        </c:if>
+
                         <!-- Botões para excluir filme -->
                         <form action="${pageContext.request.contextPath}/gerente/excluirFilme" method="post">
                             <input type="hidden" id="modal-filmeId-excluir" name="filmeId" value=""/>

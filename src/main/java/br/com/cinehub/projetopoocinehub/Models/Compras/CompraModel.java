@@ -70,7 +70,8 @@ public class CompraModel {
         }
 
         try {
-            ArrayList<Compra> compras = mapper.readValue(Files.newInputStream(dataFilePath), new TypeReference<ArrayList<Compra>>() {});
+            ArrayList<Compra> compras = mapper.readValue(Files.newInputStream(dataFilePath), new TypeReference<ArrayList<Compra>>() {
+            });
 
             boolean precisaSalvar = false;
 
@@ -126,16 +127,6 @@ public class CompraModel {
     }
 
     /**
-     * Busca uma compra pelo seu ID.
-     *
-     * @param id O ID da compra a ser buscada.
-     * @return A Compra correspondente ou null se não encontrada.
-     */
-    public Compra buscarCompraPorId(String id) {
-        return listaCompras.stream().filter(compra -> compra.getId().equals(id)).findFirst().orElse(null);
-    }
-
-    /**
      * Adiciona uma nova compra à lista e salva as alterações.
      *
      * @param compra A Compra a ser adicionada.
@@ -187,5 +178,14 @@ public class CompraModel {
                 break;
             }
         }
+    }
+
+    /**
+     * Retorna a lista atual de compras.
+     *
+     * @return Uma lista de compra.
+     */
+    public static ArrayList<Compra> getListaCompra() {
+        return listaCompras;
     }
 }
