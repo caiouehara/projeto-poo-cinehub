@@ -27,7 +27,7 @@
         </div>
     </div>
 
-    <!-- Movies List -->
+    <!-- Tabela de filmes -->
     <div class="container">
         <!-- Display the number of available movies -->
         <p>Número de filmes disponíveis: ${fn:length(filmes)}</p>

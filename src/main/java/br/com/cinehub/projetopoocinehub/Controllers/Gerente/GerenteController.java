@@ -188,7 +188,7 @@ public class GerenteController extends HttpServlet {
 
         // Lidar com upload de nova imagem, se enviada
         String novaImagem = null;
-        Part imagemPart = request.getPart("imagem");
+        Part imagemPart = request.getPart("imagemFilme");
         if (imagemPart != null && imagemPart.getSize() > 0) {
             String imagemFileName = Paths.get(imagemPart.getSubmittedFileName()).getFileName().toString();
             String uploadPath = context.getRealPath("/img/films/");
@@ -266,5 +266,4 @@ public class GerenteController extends HttpServlet {
         session.setAttribute("mensagemSucesso", "Filme excluído com sucesso.");
         response.sendRedirect(request.getContextPath() + "/home");
     }
-
 }

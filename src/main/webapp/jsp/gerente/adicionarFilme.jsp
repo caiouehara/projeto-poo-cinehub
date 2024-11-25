@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <!-- Seção para Adicionar Novos Filmes -->
 <h2>Adicionar Novo Filme</h2>
 <form action="${pageContext.request.contextPath}/gerente/adicionarFilme" method="post" enctype="multipart/form-data">
@@ -9,9 +11,6 @@
 
     <label for="sinopse">Sinopse:</label>
     <textarea id="sinopse" name="sinopse" required></textarea>
-
-    <label for="avaliacao">Avaliação:</label>
-    <input type="number" step="0.1" id="avaliacao" name="avaliacao" required>
 
     <label for="duracao">Duração (minutos):</label>
     <input type="number" id="duracao" name="duracao" required>
