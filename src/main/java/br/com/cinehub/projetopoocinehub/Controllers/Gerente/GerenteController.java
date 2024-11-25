@@ -16,7 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 
-@WebServlet(name = "gerente", urlPatterns = {"/gerente", "/gerente/adicionarFilme", "/gerente/editarFilme"})
+@WebServlet(name = "gerente", urlPatterns = {"/gerente", "/gerente/adicionarFilme", "/gerente/editarFilme", "/gerente/excluirFilme"})
 @MultipartConfig
 public class GerenteController extends HttpServlet {
     private FilmesModel filmesModel;
@@ -49,10 +49,17 @@ public class GerenteController extends HttpServlet {
             throws ServletException, IOException {
         // Lidar com a adição de um novo filme
         String action = request.getServletPath();
-        if ("/gerente/adicionarFilme".equals(action)) {
-            adicionarFilme(request, response);
-        } else if ("/gerente/editarFilme".equals(action)) {
-            editarFilme(request, response);
+
+        switch (action) {
+            case "/gerente/adicionarFilme":
+                adicionarFilme(request, response);
+                break;
+            case "/gerente/editarFilme":
+                editarFilme(request, response);
+                break;
+            case "/gerente/excluirFilme":
+                excluirFilme(request, response);
+                break;
         }
     }
 
@@ -207,4 +214,56 @@ public class GerenteController extends HttpServlet {
         // Redirecionar de volta a home
         response.sendRedirect(request.getContextPath() + "/home");
     }
+
+    private void excluirFilme(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        // 1. Obter o ID do filme a ser excluído
+        String id = request.getParameter("filmeId");
+        if (id == null || id.trim().isEmpty()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID do filme é obrigatório.");
+            return;
+        }
+
+        // 2. Buscar o filme existente
+        Filme filmeExistente = FilmesModel.buscarFilmePorId(id);
+        if (filmeExistente == null) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Filme não encontrado.");
+            return;
+        }
+
+        // 3. Verificar se o filme está alugado
+        boolean filmeAlugado = aluguelModel.getListaAlugueis().stream()
+                .anyMatch(aluguel -> aluguel.getFilmeId().equals(id));
+        if (filmeAlugado) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "O filme está alugado e não pode ser excluído.");
+            return;
+        }
+
+        // 4. Remover o filme do modelo
+        try {
+            filmesModel.removerFilme(filmeExistente);
+        } catch (Exception e) {
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erro ao excluir o filme: " + e.getMessage());
+            return;
+        }
+
+        // 5. Remover a imagem associada ao filme
+        String imagemFileName = filmeExistente.getImagem();
+        if (imagemFileName != null && !imagemFileName.trim().isEmpty()) {
+            String uploadPath = context.getRealPath("/img/films/");
+            File imagemFile = new File(uploadPath + File.separator + imagemFileName);
+            if (imagemFile.exists()) {
+                if (!imagemFile.delete()) {
+                    System.out.println("Falha ao excluir a imagem: " + imagemFileName);
+                }
+            }
+        }
+
+        // 6. Redirecionar de volta para a home com uma mensagem de sucesso
+        HttpSession session = request.getSession();
+        session.setAttribute("mensagemSucesso", "Filme excluído com sucesso.");
+        response.sendRedirect(request.getContextPath() + "/home");
+    }
+
 }

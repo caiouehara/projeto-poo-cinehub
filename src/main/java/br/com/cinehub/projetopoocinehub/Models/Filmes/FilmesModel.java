@@ -136,9 +136,39 @@ public class FilmesModel {
         salvarFilmes(); // Salvar a lista atualizada
     }
 
+    /**
+     * Remove um filme da lista e salva as alterações.
+     *
+     * @param filme O Filme a ser removido.
+     * @throws IllegalArgumentException se o filme não for encontrado na lista.
+     */
     public void removerFilme(Filme filme) {
+        if (filme == null) {
+            throw new IllegalArgumentException("Filme não pode ser null.");
+        }
+
+        if (!listaFilmes.contains(filme)) {
+            throw new IllegalArgumentException("Filme com ID " + filme.getId() + " não encontrado na lista.");
+        }
+
+        // Remover o filme da lista
         listaFilmes.remove(filme);
-        salvarFilmes(); // Salvar a lista atualizada
+
+        // Remover a imagem associada ao filme (se existir)
+        String imagemFileName = filme.getImagem();
+        if (imagemFileName != null && !imagemFileName.trim().isEmpty()) {
+            Path imagemPath = Paths.get(DATA_DIR, "img", "films", imagemFileName);
+            try {
+                Files.deleteIfExists(imagemPath);
+                System.out.println("Imagem " + imagemFileName + " excluída com sucesso.");
+            } catch (IOException e) {
+                System.out.println("Erro ao excluir a imagem " + imagemFileName + ": " + e.getMessage());
+                // Opcional: Você pode lançar uma exceção ou logar detalhadamente
+            }
+        }
+
+        // Salvar a lista atualizada
+        salvarFilmes();
     }
 
     public void editarFilme(String id, String titulo, Integer ano, String sinopse,
