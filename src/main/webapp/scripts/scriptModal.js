@@ -93,15 +93,13 @@ document.addEventListener('DOMContentLoaded', function () {
                             const ul = document.createElement('ul');
                             data.comentarios.forEach(comentario => {
                                 const li = document.createElement('li');
-                                li.innerHTML = `<strong>${comentario.usuarioId}</strong> em ${comentario.data}:<p>${comentario.texto}</p>`;
+                                li.innerHTML = `<strong>${comentario.name}</strong> em ${comentario.data}:<p>${comentario.texto}</p>`;
                                 ul.appendChild(li);
                             });
                             comentariosDiv.appendChild(ul);
                         } else {
                             comentariosDiv.innerHTML = '<p>Não há comentários para este filme.</p>';
                         }
-
-                        // Similarmente, pode-se popular avaliações, se necessário
                     });
 
                 // Evento para fechar o modal do cliente

@@ -94,7 +94,7 @@ public class FilmesModel {
     /**
      * Salva a lista atual de filmes no arquivo JSON.
      */
-    private static void salvarFilmes() {
+    public static void salvarFilmes() {
         ObjectMapper mapper = new ObjectMapper();
 
         // Registrar o módulo JavaTimeModule

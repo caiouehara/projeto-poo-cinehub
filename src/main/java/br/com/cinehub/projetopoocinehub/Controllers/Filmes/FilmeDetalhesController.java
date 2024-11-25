@@ -67,12 +67,14 @@ public class FilmeDetalhesController extends HttpServlet {
         String filmeId = request.getParameter("filmeId");
         String texto = request.getParameter("texto");
         HttpSession session = request.getSession();
-        String usuarioId = (String) session.getAttribute("usuarioId");
+        String nome = (String) session.getAttribute("nome");
 
-        Comentario comentario = new Comentario(usuarioId, filmeId, texto);
+        Comentario comentario = new Comentario(nome, filmeId, texto);
 
         Filme filme = filmesModel.buscarFilmePorId(filmeId);
+        assert filme != null;
         filme.adicionarComentario(comentario);
+        filmesModel.salvarFilmes();
 
         response.sendRedirect(request.getContextPath() + "/home");
     }
@@ -81,12 +83,14 @@ public class FilmeDetalhesController extends HttpServlet {
         String filmeId = request.getParameter("filmeId");
         double nota = Double.parseDouble(request.getParameter("nota"));
         HttpSession session = request.getSession();
-        String usuarioId = (String) session.getAttribute("usuarioId");
+        String nome = (String) session.getAttribute("nome");
 
-        Avaliacao avaliacao = new Avaliacao(usuarioId, filmeId, nota);
+        Avaliacao avaliacao = new Avaliacao(nome, filmeId, nota);
 
         Filme filme = filmesModel.buscarFilmePorId(filmeId);
+        assert filme != null;
         filme.adicionarAvaliacao(avaliacao);
+        filmesModel.salvarFilmes();
 
         // Redirecionar de volta para a página de detalhes do filme
         response.sendRedirect(request.getContextPath() + "/home");

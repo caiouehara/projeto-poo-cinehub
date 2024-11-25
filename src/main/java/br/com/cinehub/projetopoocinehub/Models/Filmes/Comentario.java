@@ -10,8 +10,8 @@ public class Comentario {
     @JsonProperty("id")
     private String id;
 
-    @JsonProperty("usuarioId")
-    private String usuarioId;
+    @JsonProperty("name")
+    private String name;
 
     @JsonProperty("filmeId")
     private String filmeId;
@@ -27,9 +27,9 @@ public class Comentario {
     public Comentario() {
     }
 
-    public Comentario(String usuarioId, String filmeId, String texto) {
+    public Comentario(String name, String filmeId, String texto) {
         this.id = UUID.randomUUID().toString();
-        this.usuarioId = usuarioId;
+        this.name = name;
         this.filmeId = filmeId;
         this.texto = texto;
         this.data = LocalDateTime.now();
@@ -41,12 +41,12 @@ public class Comentario {
         return id;
     }
 
-    public String getUsuarioId() {
-        return usuarioId;
+    public String getName() {
+        return name;
     }
 
-    public void setUsuarioId(String usuarioId) {
-        this.usuarioId = usuarioId;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getFilmeId() {

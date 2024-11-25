@@ -5,6 +5,9 @@
 <html>
 <head>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css">
+    <script>
+        var contextPath = '<%= request.getContextPath() %>';
+    </script>
     <script src="${pageContext.request.contextPath}/scripts/scriptModal.js" defer></script>
     <title>Homepage</title>
 </head>
