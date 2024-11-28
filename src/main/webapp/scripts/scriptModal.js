@@ -102,6 +102,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // Seleciona elementos do modal do cliente
                 const closeModalBtn = document.getElementById('close-modal');
+                const buyButton = document.getElementById('buy-button');
+                console.log("Botão de compra encontrado!");
+
+                const rentButton = document.getElementById('rent-button');
 
                 // Preenche os campos do modal do cliente
                 document.getElementById('modal-image').src = imageSrc;
@@ -116,6 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Define o ID do filme nos campos ocultos
                 document.getElementById('avaliacao-filmeId').value = filmeId;
                 document.getElementById('comentario-filmeId').value = filmeId;
+
 
                 // Exibe o modal do cliente
                 modalCliente.style.display = 'flex';
@@ -154,9 +159,81 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 });
 
-            } else {
-                // Caso nenhum modal seja encontrado, pode-se exibir uma mensagem de erro ou tomar outra ação
-                console.error('Nenhum modal encontrado no DOM.');
+                // Adiciona o event listener para o botão de compra
+                buyButton.addEventListener('click', function () {
+                    // Remove mensagens anteriores
+                    document.getElementById('success-message').style.display = 'none';
+                    document.getElementById('error-message').style.display = 'none';
+
+                    fetch(`${contextPath}/cliente/comprar`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ filmeId: filmeId })
+                    })
+                        .then(response => {
+                            // Verifica se já comprou o filme
+                            if (response.status === 409) {
+                                // Exibe a mensagem de erro
+                                document.getElementById('error-message').textContent = 'Você já comprou este filme.';
+                                document.getElementById('error-message').style.display = 'block'; // Exibe a mensagem de erro
+
+                                // Oculta a mensagem após 2 segundos
+                                setTimeout(() => {
+                                    document.getElementById('error-message').style.display = 'none';
+                                }, 2000);
+
+                                return;  // Interrompe o fluxo de compra
+                            }
+
+                            // Caso o filme seja comprado com sucesso
+                            else if (response.status === 200) {
+                                // Exibe a mensagem de sucesso
+                                document.getElementById('success-message').textContent = 'Filme comprado com sucesso!';
+                                document.getElementById('success-message').style.display = 'block'; // Exibe a mensagem de sucesso
+
+                                // Oculta a mensagem após 2 segundos
+                                setTimeout(() => {
+                                    document.getElementById('success-message').style.display = 'none';
+                                }, 2000);
+
+                                return response.json(); // Continuar para processar a resposta da compra
+                            }
+
+                            // Se ocorreu outro erro
+                            else {
+                                document.getElementById('error-message').textContent = 'Erro ao realizar a compra.';
+                                document.getElementById('error-message').style.display = 'block';
+
+                                // Oculta a mensagem após 2 segundos
+                                setTimeout(() => {
+                                    document.getElementById('error-message').style.display = 'none';
+                                }, 2000);
+                            }
+                        })
+
+                        .then(data => {
+                            if (data && data.success) {
+                                // Atualiza a tabela com a nova compra
+                                const tableBody = document.querySelector('.movies-section.comprados tbody');
+                                const newRow = document.createElement('tr');
+                                newRow.innerHTML = `
+                                    <td>
+                                        <img class="box-movie" src="${contextPath}/img/films/${data.filme.imagem}" alt="${data.filme.tituloFilme}">
+                                    </td>
+                                    <td>${data.filme.tituloFilme}</td>
+                                    <td>${data.filme.sinopseFilme}</td>
+                                    <td>${data.filme.anoFilme}</td>
+                                    <td>${data.filme.avaliacaoFilme}</td>
+                                    <td>${new Date(data.compra.dataCompra).toLocaleDateString()}</td>
+                                `;
+                                tableBody.appendChild(newRow);
+
+
+                            }
+                        })
+                });
             }
         });
     });

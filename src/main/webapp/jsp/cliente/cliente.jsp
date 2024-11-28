@@ -8,7 +8,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cliente.css">
-    <script defer src="${pageContext.request.contextPath}/scripts/scriptModalCliente.js"></script>
+    <script defer src="${pageContext.request.contextPath}/scripts/scriptModal.js"></script>
     <title>Perfil do Cliente</title>
 </head>
 

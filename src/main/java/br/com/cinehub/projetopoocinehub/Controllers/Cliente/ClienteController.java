@@ -12,6 +12,9 @@ import br.com.cinehub.projetopoocinehub.Models.Filmes.Filme;
 import br.com.cinehub.projetopoocinehub.Models.Filmes.FilmesModel;
 import br.com.cinehub.projetopoocinehub.Models.User.Tipos.Cliente;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -21,14 +24,19 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.io.StringReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * Servlet responsável por gerenciar as operações relacionadas ao cliente.
  * Este servlet lida com a exibição das informações do cliente, incluindo seus aluguéis e filmes alugados.
  */
-@WebServlet(name = "cliente", value = "/cliente")
+@WebServlet(name = "cliente", value = {"/cliente","/cliente/comprar"})
 public class ClienteController extends HttpServlet {
 
     /**
@@ -41,6 +49,10 @@ public class ClienteController extends HttpServlet {
      */
     private FilmesModel filmesModel;
 
+    /**
+     * Modelo para manipulação dos dados de compras.
+     */
+    private CompraModel compraModel;
     /**
      * Modelo para manipulação dos dados de cadastro dos clientes.
      * Supondo que CadastroModel gerencia clientes.
@@ -60,6 +72,7 @@ public class ClienteController extends HttpServlet {
         aluguelModel = new AluguelModel(getServletContext());
         filmesModel = new FilmesModel(getServletContext());
         cadastroModel = new CadastroModel(getServletContext());
+        compraModel = new CompraModel(getServletContext());
     }
 
     /**
@@ -122,4 +135,75 @@ public class ClienteController extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/cliente/cliente.jsp");
         dispatcher.forward(request, response);
     }
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String path = request.getServletPath();
+        if ("/cliente/comprar".equals(path)) {
+            processarCompra(request, response);
+        }
+    }
+
+    private void processarCompra(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("email") == null) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("{\"success\": false}");
+            return;
+        }
+
+        String email = (String) session.getAttribute("email");
+        Cliente cliente = (Cliente) cadastroModel.buscarClientePorEmail(email);
+        if (cliente == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("{\"success\": false}");
+            return;
+        }
+
+        String requestBody = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode json = (ObjectNode) mapper.readTree(requestBody);
+        String filmeId = json.get("filmeId").asText();
+
+        // Verificar se o filme já foi comprado pelo cliente
+        List<Compra> comprasDoCliente = compraModel.buscarComprasPorCliente(email);
+        for (Compra compra : comprasDoCliente) {
+            if (compra.getFilmeId().equals(filmeId)) {
+                response.setStatus(HttpServletResponse.SC_CONFLICT);
+                response.getWriter().write("{\"success\": false, \"message\": \"Filme já comprado.\"}");
+                return;
+            }
+        }
+
+        Filme filme = filmesModel.buscarFilmePorId(filmeId);
+        if (filme == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("{\"success\": false}");
+            return;
+        }
+
+        Compra compra = new Compra(UUID.randomUUID().toString(), cliente.getEmail(), filmeId, new Date());
+        compraModel.adicionarCompra(compra);
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        ObjectNode jsonResponse = mapper.createObjectNode();
+        jsonResponse.put("success", true);
+
+        ObjectNode compraJson = mapper.createObjectNode();
+        compraJson.put("dataCompra", new SimpleDateFormat("yyyy-MM-dd").format(compra.getDataCompra()));
+        jsonResponse.set("compra", compraJson);
+
+        ObjectNode filmeJson = mapper.createObjectNode();
+        filmeJson.put("tituloFilme", filme.getTituloFilme());
+        filmeJson.put("imagem", filme.getImagem());
+        filmeJson.put("sinopseFilme", filme.getSinopseFilme());
+        filmeJson.put("anoFilme", filme.getAnoFilme());
+        filmeJson.put("avaliacaoFilme", filme.getAvaliacaoFilme());
+        jsonResponse.set("filme", filmeJson);
+
+        response.getWriter().write(jsonResponse.toString());
+    }
 }
+
+

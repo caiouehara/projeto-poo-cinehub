@@ -126,6 +126,11 @@
                                 <input type="submit" value="Enviar Avaliação"/>
                             </form>
                         </div>
+                        <!-- Mensagem de Sucesso -->
+                        <div id="success-message" class="success-message" style="display: none;"></div>
+
+                        <!-- Mensagem de Erro -->
+                        <div id="error-message" class="error-message" style="display: none;"></div>
 
                         <!-- Botões de Compra e Aluguel -->
                         <button id="buy-button">Comprar - R$ <span id="modal-price"></span></button>

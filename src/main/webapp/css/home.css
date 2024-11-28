@@ -95,6 +95,30 @@ th {
 tr:hover {
     background-color: #f1f1f1;
 }
+.success-message, .error-message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    z-index: 9999;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.success-message {
+    background-color: #28a745; /* Cor verde para sucesso */
+    color: white;
+    z-index: 10000;
+}
+
+.error-message {
+    background-color: #e74c3c; /* Cor vermelha para erro */
+    color: white;
+    z-index: 9999;
+}
+
 
 .box-movie {
     width: 100px;

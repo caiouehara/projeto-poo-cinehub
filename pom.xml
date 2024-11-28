@@ -66,6 +66,7 @@
             <scope>test</scope>
         </dependency>
 
+
         <!-- Dependências para criptografia BCrypt -->
         <dependency>
             <groupId>org.springframework.security</groupId>
