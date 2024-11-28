@@ -107,11 +107,11 @@
                     <img id="modal-image" src="" alt="Imagem do Filme">
                     <div id="box-2">
                         <h2 id="modal-title"></h2>
-                        <p id="modal-description"></p>
                         <div class="modal-info-row">
                             <p id="modal-year"></p>
                             <p id="modal-duration"></p>
                         </div>
+                        <p id="modal-description"></p>
                         <h3>Nota média:</h3>
                         <p id="nota-final"></p>
 

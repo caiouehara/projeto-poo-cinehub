@@ -14,7 +14,7 @@
     <header>
         <div class="header-container">
             <a href="#">
-                <img src="${pageContext.request.contextPath}/img/logo_netflix.png" alt="Logo Netflix" class="logo">
+                <img src="${pageContext.request.contextPath}/img/logo.png" alt="Logo CineHub" class="logo">
             </a>
 
             <div class="user-info">

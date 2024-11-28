@@ -124,8 +124,7 @@ tr:hover {
     background-color: #fff; /* Fundo branco*/
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Largura do conteúdo*/
-    max-width: 1200px; /* Largura máxima do conteúdo*/
+    max-width: 50%; /* Largura do conteúdo*/
     max-height: 100vh;
     border-radius: 10px; /* Bordas arredondadas*/
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para dar destaque*/
@@ -255,7 +254,7 @@ tr:hover {
 #modal-image, #modal-image-Gerente {
     width: 100%; /* Largura total*/
     max-height: 300px; /* Altura máxima*/
-    object-fit: cover; /* Ajusta a imagem*/
+    object-fit: contain; /* Ajusta a imagem*/
     border-radius: 10px; /* Bordas arredondadas*/
     margin-bottom: 15px; /* Espaço inferior*/
 }
