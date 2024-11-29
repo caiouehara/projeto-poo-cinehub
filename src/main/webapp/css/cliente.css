@@ -1,6 +1,8 @@
 /* Ajuste no Contêiner */
 .container {
-    width: auto; /* Ajusta automaticamente a largura do contêiner */
+    /*width: auto; /* Ajusta automaticamente a largura do contêiner */
+    max-width: 1200px;
+    overflow-x: auto;
     background-color: #fff;
     padding: 30px;
     border-radius: 8px;
@@ -37,7 +39,7 @@ p {
 }
 
 /* Seção de Filmes Alugados */
-.movies-section {
+.movies-section-comprados, movies-section-alugados {
     margin-bottom: 40px;
 }
 
@@ -60,6 +62,8 @@ table {
     margin-top: 20px;
     background-color: #fff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;  /* Permite a rolagem horizontal */
+    table-layout: fixed; /* Impede a tabela de se expandir para além do contêiner */
 }
 
 th, td {
@@ -67,8 +71,12 @@ th, td {
     text-align: left;
     border-bottom: 1px solid #ddd;
     overflow: hidden;
-    text-overflow: ellipsis; /* Texto com "..." se ultrapassar a largura */
-    white-space: nowrap; /* Impede quebra de linha */
+    word-wrap: break-word; /* Quebra o texto se necessário */
+    white-space: normal;  /* Permite que o texto quebre a linha */
+}
+/* Justificar o texto da sinopse */
+td.sinopse {
+    text-align: justify;  /* Justifica o texto */
 }
 
 th {
@@ -92,6 +100,7 @@ tr:hover {
     width: 100px; /* Largura máxima da imagem */
     height: auto;
     border-radius: 5px;
+    max-width: 100%; /* Garante que a imagem não ultrapasse a largura da célula */
 }
 
 /* Responsividade */

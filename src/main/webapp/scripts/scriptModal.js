@@ -102,9 +102,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // Seleciona elementos do modal do cliente
                 const closeModalBtn = document.getElementById('close-modal');
-                const buyButton = document.getElementById('buy-button');
-                console.log("Botão de compra encontrado!");
 
+                const buyButton = document.getElementById('buy-button');
                 const rentButton = document.getElementById('rent-button');
 
                 // Preenche os campos do modal do cliente
@@ -175,8 +174,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         .then(response => {
                             // Verifica se já comprou o filme
                             if (response.status === 409) {
+
+                                // Esconde a mensagem de sucesso antes de exibir o erro
+                                document.getElementById('success-message').style.display = 'none';
+
                                 // Exibe a mensagem de erro
-                                document.getElementById('error-message').textContent = 'Você já comprou este filme.';
+                                document.getElementById('error-message').textContent = 'Você já comprou ou alugou este filme.';
                                 document.getElementById('error-message').style.display = 'block'; // Exibe a mensagem de erro
 
                                 // Oculta a mensagem após 2 segundos
@@ -189,6 +192,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
                             // Caso o filme seja comprado com sucesso
                             else if (response.status === 200) {
+                                // Esconde a mensagem de erro antes de exibir o sucesso
+                                document.getElementById('error-message').style.display = 'none';
+
                                 // Exibe a mensagem de sucesso
                                 document.getElementById('success-message').textContent = 'Filme comprado com sucesso!';
                                 document.getElementById('success-message').style.display = 'block'; // Exibe a mensagem de sucesso
@@ -216,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         .then(data => {
                             if (data && data.success) {
                                 // Atualiza a tabela com a nova compra
-                                const tableBody = document.querySelector('.movies-section.comprados tbody');
+                                const tableBody = document.querySelector('.movies-section-comprados tbody');
                                 const newRow = document.createElement('tr');
                                 newRow.innerHTML = `
                                     <td>
@@ -229,10 +235,68 @@ document.addEventListener('DOMContentLoaded', function () {
                                     <td>${new Date(data.compra.dataCompra).toLocaleDateString()}</td>
                                 `;
                                 tableBody.appendChild(newRow);
-
-
                             }
                         })
+                });
+
+                // Adiciona o event listener para o botão de alugar
+                rentButton.addEventListener('click', function () {
+                    document.getElementById('success-message').style.display = 'none';
+                    document.getElementById('error-message').style.display = 'none';
+
+                    fetch(`${contextPath}/cliente/alugar`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ filmeId: filmeId })
+                    })
+                        .then(response => {
+                            if (response.status === 409) {
+                                // Esconde a mensagem de sucesso antes de exibir o erro
+                                document.getElementById('success-message').style.display = 'none';
+
+                                document.getElementById('error-message').textContent = 'Você já comprou ou alugou este filme.';
+                                document.getElementById('error-message').style.display = 'block';
+                                setTimeout(() => {
+                                    document.getElementById('error-message').style.display = 'none';
+                                }, 2000);
+                                return;
+                            } else if (response.status === 200) {
+                                // Esconde a mensagem de erro antes de exibir o sucesso
+                                document.getElementById('error-message').style.display = 'none';
+
+                                document.getElementById('success-message').textContent = 'Filme alugado com sucesso!';
+                                document.getElementById('success-message').style.display = 'block';
+                                setTimeout(() => {
+                                    document.getElementById('success-message').style.display = 'none';
+                                }, 2000);
+                                return response.json();
+                            } else {
+                                document.getElementById('error-message').textContent = 'Erro ao realizar o aluguel.';
+                                document.getElementById('error-message').style.display = 'block';
+                                setTimeout(() => {
+                                    document.getElementById('error-message').style.display = 'none';
+                                }, 2000);
+                            }
+                        })
+                        .then(data => {
+                            if (data && data.success) {
+                                const tableBody = document.querySelector('.movies-section-alugados tbody');
+                                const newRow = document.createElement('tr');
+                                newRow.innerHTML = `
+                                    <td>
+                                        <img class="box-movie" src="${contextPath}/img/films/${data.filme.imagem}" alt="${data.filme.tituloFilme}">
+                                    </td>
+                                    <td>${data.filme.tituloFilme}</td>
+                                    <td>${data.filme.sinopseFilme}</td>
+                                    <td>${data.filme.anoFilme}</td>
+                                    <td>${data.filme.avaliacaoFilme}</td>
+                                    <td>${new Date(data.aluguel.dataAluguel).toLocaleDateString()}</td>
+                                `;
+                                tableBody.appendChild(newRow);
+                            }
+                        });
                 });
             }
         });

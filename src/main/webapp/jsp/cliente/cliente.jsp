@@ -31,7 +31,7 @@
     </div>
 
     <!-- Seção de Filmes Alugados -->
-    <div class="movies-section">
+    <div class="movies-section-alugados">
         <div class="container">
             <h3 class="title-movie">Filmes Alugados</h3>
             <p class="description">Veja todos os filmes alugados por você</p>
@@ -64,7 +64,7 @@
                                          alt="${item.filme.tituloFilme}">
                                 </td>
                                 <td>${item.filme.tituloFilme}</td>
-                                <td>${item.filme.sinopseFilme}</td>
+                                <td class="sinopse">${item.filme.sinopseFilme}</td>
                                 <td>${item.filme.anoFilme}</td>
                                 <td>${item.filme.avaliacaoFilme}</td>
 
@@ -90,7 +90,7 @@
     </div>
 
     <!-- Seção de Filmes Comprados -->
-    <div class="movies-section">
+    <div class="movies-section-comprados">
         <div class="container">
             <h3 class="title-movie">Filmes Comprados</h3>
             <p class="description">Veja todos os filmes comprados por você</p>
@@ -122,7 +122,7 @@
                                          alt="${item.filme.tituloFilme}">
                                 </td>
                                 <td>${item.filme.tituloFilme}</td>
-                                <td>${item.filme.sinopseFilme}</td>
+                                <td class="sinopse">${item.filme.sinopseFilme}</td>
                                 <td>${item.filme.anoFilme}</td>
                                 <td>${item.filme.avaliacaoFilme}</td>
 
