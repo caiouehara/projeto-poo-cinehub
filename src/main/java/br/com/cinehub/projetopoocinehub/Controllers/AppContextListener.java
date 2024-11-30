@@ -4,6 +4,7 @@ import br.com.cinehub.projetopoocinehub.Models.Aluguel.AluguelModel;
 import br.com.cinehub.projetopoocinehub.Models.Compras.CompraModel;
 import br.com.cinehub.projetopoocinehub.Models.User.CadastroModel;
 import br.com.cinehub.projetopoocinehub.Models.Filmes.FilmesModel;
+import br.com.cinehub.projetopoocinehub.Models.Estatistica.Estatistica;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
@@ -28,6 +29,9 @@ public class AppContextListener implements ServletContextListener {
 
         AluguelModel aluguelModel = new AluguelModel(context);
         context.setAttribute("aluguelModel", aluguelModel);
+        
+        Estatistica estatistica = new Estatistica();
+        context.setAttribute("estatistica", estatistica);
     }
 
     @Override
