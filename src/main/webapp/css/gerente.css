@@ -17,24 +17,36 @@ h1, h2 {
     margin-bottom: 20px;
 }
 
-/* Statistics charts styling */
-.charts {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin-bottom: 40px;
+/* Seção de estatísticas */
+.stats {
+    display: grid;
+    grid-template-columns: 200px 200px 200px;
+    gap: 20px;
+    padding: 20px;
+    margin: 20px;
+    justify-content: center;
+    align-content: center;
 }
 
-.chart {
-    width: 45%;
-    margin: 20px 0;
-    text-align: center;
-}
-
-.chart img {
-    max-width: 100%;
+/* Estilo para cada item de estatística */
+.stat-item {
+    background-color: #fff;
+    padding: 20px;
     border-radius: 8px;
-    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-content: center;
+}
+
+.stat-item p {
+    font-size: 18px;
+    color: #333;
+    margin: 0;
+}
+
+.stat-item strong {
+    color: #28a745;
+    font-size: 18px;
 }
 
 /* Form styling */
