@@ -29,8 +29,9 @@ public class AppContextListener implements ServletContextListener {
 
         AluguelModel aluguelModel = new AluguelModel(context);
         context.setAttribute("aluguelModel", aluguelModel);
-        
-        Estatistica estatistica = new Estatistica();
+
+        // Inicializa o modelo de Estatísticas, passando os modelos
+        Estatistica estatistica = new Estatistica(filmesModel, cadastroModel, aluguelModel, comprasModel);
         context.setAttribute("estatistica", estatistica);
     }
 

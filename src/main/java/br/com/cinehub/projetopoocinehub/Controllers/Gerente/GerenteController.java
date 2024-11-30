@@ -39,7 +39,8 @@ public class GerenteController extends HttpServlet {
         cadastroModel = (CadastroModel) context.getAttribute("cadastroModel");
         aluguelModel = (AluguelModel) context.getAttribute("aluguelModel");
         compraModel = (CompraModel) context.getAttribute("compraModel");
-        estatistica = (Estatistica) context.getAttribute("estatistica");
+        estatistica = new Estatistica(filmesModel, cadastroModel, aluguelModel, compraModel);
+
         if (filmesModel == null || cadastroModel == null) {
             throw new ServletException("Models not initialized!");
         }
