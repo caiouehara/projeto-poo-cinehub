@@ -1,3 +1,12 @@
+/**
+ * Classe que gerencia a lista de filmes do sistema, incluindo operações como
+ * carregar, salvar, adicionar, editar e remover filmes. Também lida com a
+ * persistência de dados no formato JSON.
+ * 
+ * <p>O arquivo JSON contendo os filmes é armazenado no diretório
+ * {@code $USER_HOME/cinehub/data/filmes.json}. Se o arquivo não existir, será
+ * criado automaticamente com base no recurso em {@code WEB-INF/data/filmes.json}.</p>
+ */
 package br.com.cinehub.projetopoocinehub.Models.Filmes;
 
 import br.com.cinehub.projetopoocinehub.Models.Aluguel.AluguelModel;
@@ -15,16 +24,31 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class FilmesModel {
+    /** Lista de filmes armazenados no sistema. */
     private static ArrayList<Filme> listaFilmes;
+    /** Nome do arquivo JSON onde os filmes são armazenados. */
     private static final String FILMES_JSON = "filmes.json";
+     /** Diretório onde os dados são armazenados. */
     private static final String DATA_DIR = System.getProperty("user.home") + "/cinehub/data/";
+    /** Contexto do servlet para acessar recursos da aplicação. */
     private ServletContext context;
 
+    /**
+     * Construtor da classe que inicializa o contexto e carrega os filmes do arquivo JSON.
+     * 
+     * @param context O contexto do servlet.
+     */
     public FilmesModel(ServletContext context) {
         this.context = context;
         listaFilmes = loadFilmes();
     }
 
+    /**
+     * Carrega os filmes do arquivo JSON. Se o arquivo não existir, será criado
+     * com base no recurso padrão em {@code WEB-INF/data/filmes.json}.
+     * 
+     * @return A lista de filmes carregada.
+     */
     private ArrayList<Filme> loadFilmes() {
         ObjectMapper mapper = new ObjectMapper();
 
@@ -117,11 +141,22 @@ public class FilmesModel {
         }
     }
 
+    /**
+     * Obtém a lista de filmes.
+     * 
+     * @return A lista de filmes.
+     */
     // Métodos para manipular a lista de filmes
     public static ArrayList<Filme> getListaFilmes() {
         return listaFilmes;
     }
 
+    /**
+     * Busca um filme pelo seu ID.
+     * 
+     * @param id O ID do filme a ser buscado.
+     * @return O filme correspondente ou {@code null} se não encontrado.
+     */
     public static Filme buscarFilmePorId(String id) {
         for (Filme filme : listaFilmes) {
             if (filme.getId().equals(id)) {
@@ -131,6 +166,11 @@ public class FilmesModel {
         return null;
     }
 
+    /**
+     * Adiciona um novo filme à lista e salva as alterações no arquivo JSON.
+     * 
+     * @param filme O filme a ser adicionado.
+     */
     public void adicionarFilme(Filme filme) {
         listaFilmes.add(filme);
         salvarFilmes(); // Salvar a lista atualizada
@@ -171,6 +211,19 @@ public class FilmesModel {
         salvarFilmes();
     }
 
+    /**
+     * Edita as informações de um filme existente.
+     * 
+     * @param id          O ID do filme a ser editado.
+     * @param titulo      O novo título do filme.
+     * @param ano         O novo ano do filme.
+     * @param sinopse     A nova sinopse do filme.
+     * @param duracao     A nova duração do filme.
+     * @param precoCompra O novo preço de compra do filme.
+     * @param precoAluguel O novo preço de aluguel do filme.
+     * @param novaImagem  O novo caminho da imagem do filme.
+     * @throws IllegalArgumentException Se o filme com o ID especificado não for encontrado.
+     */
     public void editarFilme(String id, String titulo, Integer ano, String sinopse,
                             Double duracao, Double precoCompra,
                             Double precoAluguel, String novaImagem) {
