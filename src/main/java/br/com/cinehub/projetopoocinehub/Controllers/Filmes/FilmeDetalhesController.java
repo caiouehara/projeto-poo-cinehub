@@ -17,17 +17,38 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-
+/**
+ * Controlador para a exibição de detalhes de filmes, adição de comentários e avaliações.
+ * 
+ * Este servlet é responsável por lidar com as requisições relacionadas aos detalhes de um filme, incluindo a exibição
+ * de informações do filme, bem como a adição de comentários e avaliações. Ele oferece os seguintes endpoints:
+ * - /getFilmeDetalhes: Para obter os detalhes de um filme.
+ * - /adicionarComentario: Para adicionar um comentário a um filme.
+ * - /adicionarAvaliacao: Para adicionar uma avaliação a um filme.
+ */
 @WebServlet(name = "filmeDetalhes", urlPatterns = {"/getFilmeDetalhes", "/adicionarComentario", "/adicionarAvaliacao" })
 @MultipartConfig
 public class FilmeDetalhesController extends HttpServlet {
     private FilmesModel filmesModel;
 
+    /**
+     * Inicializa o controlador e obtém o modelo de filmes do contexto do servlet.
+     * 
+     * @throws ServletException Se ocorrer um erro durante a inicialização do controlador.
+     */
     @Override
     public void init() throws ServletException {
         filmesModel = (FilmesModel) getServletContext().getAttribute("filmesModel");
     }
 
+    /**
+     * Processa requisições GET para obter os detalhes de um filme.
+     * 
+     * @param request O objeto {@link HttpServletRequest} que contém a requisição do cliente.
+     * @param response O objeto {@link HttpServletResponse} que será enviado ao cliente.
+     * @throws ServletException Se ocorrer um erro ao processar a requisição.
+     * @throws IOException Se ocorrer um erro ao escrever a resposta.
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -47,6 +68,14 @@ public class FilmeDetalhesController extends HttpServlet {
         }
     }
 
+    /**
+     * Processa requisições POST para adicionar comentários ou avaliações a um filme.
+     * 
+     * @param request O objeto {@link HttpServletRequest} que contém a requisição do cliente.
+     * @param response O objeto {@link HttpServletResponse} que será enviado ao cliente.
+     * @throws ServletException Se ocorrer um erro ao processar a requisição.
+     * @throws IOException Se ocorrer um erro ao escrever a resposta.
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -63,6 +92,14 @@ public class FilmeDetalhesController extends HttpServlet {
         }
     }
 
+    /**
+     * Adiciona um comentário a um filme.
+     * 
+     * @param request O objeto {@link HttpServletRequest} que contém a requisição do cliente.
+     * @param response O objeto {@link HttpServletResponse} que será enviado ao cliente.
+     * @throws ServletException Se ocorrer um erro durante o processamento do comentário.
+     * @throws IOException Se ocorrer um erro ao escrever a resposta.
+     */
     protected void adicionarComentario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String filmeId = request.getParameter("filmeId");
         String texto = request.getParameter("texto");
@@ -79,6 +116,14 @@ public class FilmeDetalhesController extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/home");
     }
 
+     /**
+     * Adiciona uma avaliação a um filme.
+     * 
+     * @param request O objeto {@link HttpServletRequest} que contém a requisição do cliente.
+     * @param response O objeto {@link HttpServletResponse} que será enviado ao cliente.
+     * @throws ServletException Se ocorrer um erro durante o processamento da avaliação.
+     * @throws IOException Se ocorrer um erro ao escrever a resposta.
+     */
     protected void adicionarAvaliacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String filmeId = request.getParameter("filmeId");
         double nota = Double.parseDouble(request.getParameter("nota"));
