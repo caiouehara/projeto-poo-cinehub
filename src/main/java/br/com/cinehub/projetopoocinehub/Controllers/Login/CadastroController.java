@@ -7,11 +7,24 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import java.io.IOException;
-
+/**
+ * Controlador responsável pelo processo de cadastro de novos usuários.
+ * 
+ * A classe {@link CadastroController} gerencia o processo de cadastro de usuários,
+ * seja como "Cliente" ou "Gerente". Ela trata tanto a exibição do formulário de cadastro,
+ * quanto o processamento e validação das informações enviadas.
+ * 
+ * O controlador utiliza o modelo {@link CadastroModel} para adicionar novos usuários à aplicação.
+ */
 @WebServlet(name = "cadastro", value = "/cadastro")
 public class CadastroController extends HttpServlet {
     private CadastroModel cadastro;
 
+    /**
+     * Inicializa o controlador, recuperando o modelo {@link CadastroModel} do ServletContext.
+     * 
+     * @throws ServletException Se o modelo {@link CadastroModel} não estiver inicializado.
+     */
     @Override
     public void init() throws ServletException {
         // Recupera o CadastroModel do ServletContext
@@ -21,6 +34,15 @@ public class CadastroController extends HttpServlet {
         }
     }
 
+    /**
+     * Método chamado para tratar requisições HTTP do tipo GET.
+     * Este método exibe o formulário de cadastro de um novo usuário.
+     * 
+     * @param request O objeto {@link HttpServletRequest} que contém as informações da requisição.
+     * @param response O objeto {@link HttpServletResponse} usado para enviar a resposta ao cliente.
+     * @throws ServletException Se ocorrer um erro ao encaminhar a requisição para a página de cadastro.
+     * @throws IOException Se ocorrer um erro de entrada/saída ao processar a requisição.
+     */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // Encaminha a requisição para o arquivo JSP
@@ -29,6 +51,15 @@ public class CadastroController extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Método chamado para tratar requisições HTTP do tipo POST.
+     * Este método processa os dados do formulário de cadastro e adiciona o usuário ao sistema.
+     * 
+     * @param request O objeto {@link HttpServletRequest} que contém as informações da requisição.
+     * @param response O objeto {@link HttpServletResponse} usado para enviar a resposta ao cliente.
+     * @throws ServletException Se ocorrer um erro durante o processamento da requisição.
+     * @throws IOException Se ocorrer um erro de entrada/saída durante o processamento da requisição ou resposta.
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Obtém os parâmetros do formulário de cadastro
