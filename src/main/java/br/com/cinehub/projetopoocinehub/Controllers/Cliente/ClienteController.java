@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
  * Servlet responsável por gerenciar as operações relacionadas ao cliente.
  * Este servlet lida com a exibição das informações do cliente, incluindo seus aluguéis e filmes alugados.
  */
-@WebServlet(name = "cliente", value = {"/cliente","/cliente/comprar", "/cliente/alugar"})
+@WebServlet(name = "cliente", value = {"/cliente", "/cliente/comprar", "/cliente/alugar"})
 public class ClienteController extends HttpServlet {
 
     private static final int DIAS_ALUGUEL = 7;
@@ -56,6 +56,7 @@ public class ClienteController extends HttpServlet {
      * Modelo para manipulação dos dados de compras.
      */
     private CompraModel compraModel;
+
     /**
      * Modelo para manipulação dos dados de cadastro dos clientes.
      * Supondo que CadastroModel gerencia clientes.
@@ -138,17 +139,35 @@ public class ClienteController extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/cliente/cliente.jsp");
         dispatcher.forward(request, response);
     }
+
+    /**
+     * Trata as requisições POST para o servlet.
+     * Redireciona para os métodos de processamento de compra ou aluguel com base no caminho da requisição.
+     *
+     * @param request  O objeto HttpServletRequest que contém a requisição do cliente.
+     * @param response O objeto HttpServletResponse que contém a resposta do servlet.
+     * @throws ServletException se ocorrer um erro no processamento do servlet.
+     * @throws IOException      se ocorrer um erro de entrada/saída.
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getServletPath();
         if ("/cliente/comprar".equals(path)) {
             processarCompra(request, response);
-        }
-        else if ("/cliente/alugar".equals(path)) {
-            processarAluguel(request,response);
+        } else if ("/cliente/alugar".equals(path)) {
+            processarAluguel(request, response);
         }
     }
 
+    /**
+     * Processa a compra de um filme pelo cliente.
+     * Verifica se o cliente está autenticado e se o filme já foi comprado ou alugado anteriormente.
+     * Se não, realiza a compra e atualiza os dados.
+     *
+     * @param request  O objeto HttpServletRequest que contém a requisição do cliente.
+     * @param response O objeto HttpServletResponse que contém a resposta do servlet.
+     * @throws IOException se ocorrer um erro de entrada/saída.
+     */
     private void processarCompra(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("email") == null) {
@@ -219,6 +238,16 @@ public class ClienteController extends HttpServlet {
 
         response.getWriter().write(jsonResponse.toString());
     }
+
+    /**
+     * Processa o aluguel de um filme pelo cliente.
+     * Verifica se o cliente está autenticado e se o filme já foi alugado ou comprado anteriormente.
+     * Se não, realiza o aluguel e atualiza os dados, incluindo a data de devolução.
+     *
+     * @param request  O objeto HttpServletRequest que contém a requisição do cliente.
+     * @param response O objeto HttpServletResponse que contém a resposta do servlet.
+     * @throws IOException se ocorrer um erro de entrada/saída.
+     */
     private void processarAluguel(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("email") == null) {
@@ -250,6 +279,7 @@ public class ClienteController extends HttpServlet {
             }
         }
 
+        // Verificar se o filme já foi comprado pelo cliente
         List<Compra> comprasDoCliente = compraModel.buscarComprasPorCliente(email);
         for (Compra compra : comprasDoCliente) {
             if (compra.getFilmeId().equals(filmeId)) {
@@ -297,5 +327,3 @@ public class ClienteController extends HttpServlet {
         response.getWriter().write(jsonResponse.toString());
     }
 }
-
-
