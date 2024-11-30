@@ -21,7 +21,13 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Map;
-
+/**
+ * Controlador para gerenciar as operações administrativas de um gerente.
+ * 
+ * A classe {@link GerenteController} permite ao gerente adicionar, editar e excluir filmes, além de
+ * gerenciar informações estatísticas do sistema, como lucro de compras e aluguéis, quantidade de filmes e clientes.
+ * Ela também lida com o gerenciamento de comentários associados aos filmes.
+ */
 @WebServlet(name = "gerente", urlPatterns = {"/gerente", "/gerente/adicionarFilme", "/gerente/editarFilme", "/gerente/excluirFilme", "/gerente/excluirComentario"})
 @MultipartConfig
 public class GerenteController extends HttpServlet {
@@ -32,6 +38,11 @@ public class GerenteController extends HttpServlet {
     private Estatistica estatistica;
     private ServletContext context;
 
+    /**
+     * Inicializa o controlador, configurando os modelos necessários.
+     * 
+     * @throws ServletException Se os modelos não puderem ser inicializados corretamente.
+     */
     @Override
     public void init() throws ServletException {
         context = getServletContext();
@@ -46,6 +57,14 @@ public class GerenteController extends HttpServlet {
         }
     }
 
+    /**
+     * Processa as requisições GET. Mostra informações estatísticas e encaminha para a página do gerente.
+     * 
+     * @param request O objeto {@link HttpServletRequest} que contém as informações da requisição.
+     * @param response O objeto {@link HttpServletResponse} usado para enviar a resposta ao cliente.
+     * @throws ServletException Se ocorrer um erro ao processar a requisição.
+     * @throws IOException Se ocorrer um erro de entrada/saída ao processar a requisição.
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -67,6 +86,14 @@ public class GerenteController extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Processa as requisições POST, executando ações como adicionar, editar ou excluir filmes.
+     * 
+     * @param request O objeto {@link HttpServletRequest} que contém as informações da requisição.
+     * @param response O objeto {@link HttpServletResponse} usado para enviar a resposta ao cliente.
+     * @throws ServletException Se ocorrer um erro ao processar a requisição.
+     * @throws IOException Se ocorrer um erro de entrada/saída ao processar a requisição.
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -89,6 +116,14 @@ public class GerenteController extends HttpServlet {
         }
     }
 
+     /**
+     * Adiciona um novo filme ao sistema com os dados fornecidos no formulário.
+     * 
+     * @param request O objeto {@link HttpServletRequest} que contém as informações da requisição.
+     * @param response O objeto {@link HttpServletResponse} usado para enviar a resposta ao cliente.
+     * @throws ServletException Se ocorrer um erro ao processar a requisição.
+     * @throws IOException Se ocorrer um erro de entrada/saída ao processar a requisição.
+     */
     private void adicionarFilme(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Obter dados do formulário
@@ -128,6 +163,14 @@ public class GerenteController extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/gerente");
     }
 
+    /**
+     * Edita um filme existente no sistema com os novos dados fornecidos no formulário.
+     * 
+     * @param request O objeto {@link HttpServletRequest} que contém as informações da requisição.
+     * @param response O objeto {@link HttpServletResponse} usado para enviar a resposta ao cliente.
+     * @throws ServletException Se ocorrer um erro ao processar a requisição.
+     * @throws IOException Se ocorrer um erro de entrada/saída ao processar a requisição.
+     */
     private void editarFilme(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -237,6 +280,14 @@ public class GerenteController extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/home");
     }
 
+    /**
+     * Exclui um filme do sistema.
+     * 
+     * @param request O objeto {@link HttpServletRequest} que contém as informações da requisição.
+     * @param response O objeto {@link HttpServletResponse} usado para enviar a resposta ao cliente.
+     * @throws ServletException Se ocorrer um erro ao processar a requisição.
+     * @throws IOException Se ocorrer um erro de entrada/saída ao processar a requisição.
+     */
     private void excluirFilme(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -289,6 +340,14 @@ public class GerenteController extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/home");
     }
 
+    /**
+     * Exclui um comentário de um filme.
+     * 
+     * @param request O objeto {@link HttpServletRequest} que contém as informações da requisição.
+     * @param response O objeto {@link HttpServletResponse} usado para enviar a resposta ao cliente.
+     * @throws ServletException Se ocorrer um erro ao processar a requisição.
+     * @throws IOException Se ocorrer um erro de entrada/saída ao processar a requisição.
+     */
     private void excluirComentario(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
