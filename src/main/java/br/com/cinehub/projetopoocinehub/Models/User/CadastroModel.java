@@ -1,4 +1,16 @@
 // CadastroModel.java
+/**
+ * Classe responsável pelo gerenciamento de usuários do sistema.
+ * Esta classe realiza operações de cadastro, autenticação e persistência
+ * de dados dos usuários, incluindo Clientes e Gerentes.
+ *
+ * <p>Os dados dos usuários são armazenados em um arquivo JSON localizado
+ * no diretório de dados do sistema.</p>
+ *
+ * @see Usuario
+ * @see Cliente
+ * @see Gerente
+ */
 package br.com.cinehub.projetopoocinehub.Models.User;
 
 import br.com.cinehub.projetopoocinehub.Models.User.Tipos.Cliente;
@@ -18,15 +30,31 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class CadastroModel {
+    /** Lista de usuários cadastrados no sistema. */
     private static ArrayList<Usuario> listaUsers;
+    /** Nome do arquivo JSON onde os dados dos usuários são armazenados. */
     private static final String USERS_JSON = "users.json";
+    /** Diretório de dados do sistema. */
     private final String dataDir;
 
+    
+     /**
+     * Construtor que inicializa o diretório de dados e carrega os usuários
+     * armazenados no arquivo JSON.
+     *
+     * @param servletContext Contexto do servlet para configuração inicial.
+     */
     public CadastroModel(ServletContext servletContext) {
         this.dataDir = System.getProperty("user.home") + "/cinehub/data/";
         listaUsers = loadUsers();
     }
-
+    
+     /**
+     * Busca um usuário (Cliente ou Gerente) pelo email.
+     *
+     * @param email Email do usuário a ser buscado.
+     * @return      O usuário correspondente ao email, ou null se não encontrado.
+     */
     public Usuario buscarClientePorEmail(String email) {
         for (Usuario user : listaUsers) {
             if (user.getEmail().equals(email)) {
@@ -36,6 +64,11 @@ public class CadastroModel {
         return null;
     }
 
+    /**
+     * Carrega a lista de usuários a partir do arquivo JSON.
+     *
+     * @return A lista de usuários carregada.
+     */
     private ArrayList<Usuario> loadUsers() {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -63,7 +96,10 @@ public class CadastroModel {
             return new ArrayList<>();
         }
     }
-
+    
+    /**
+     * Salva a lista de usuários no arquivo JSON.
+     */
     public synchronized void salvarUser() {
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -140,6 +176,12 @@ public class CadastroModel {
                 .noneMatch(user -> user.getEmail().equals(email));
     }
 
+    /**
+     * Busca um cliente pelo email.
+     *
+     * @param email Email do cliente a ser buscado.
+     * @return      O objeto {@link Cliente} correspondente ao email, ou null se não encontrado.
+     */
     // Add a method to search for a Cliente by their email
     public static Cliente buscarClienteEmail(String email) {
         for (Usuario user : listaUsers) {
@@ -151,16 +193,31 @@ public class CadastroModel {
         return null;
     }
 
+     /**
+     * Obtém a lista de usuários cadastrados.
+     *
+     * @return A lista de usuários.
+     */
     // Getters e Setters
     public ArrayList<Usuario> getListaUsers() {
         return listaUsers;
     }
-
+    
+     /**
+     * Define uma nova lista de usuários e salva no arquivo JSON.
+     *
+     * @param listaUsers A nova lista de usuários.
+     */
     public synchronized void setListaUsers(ArrayList<Usuario> listaUsers) {
         this.listaUsers = listaUsers;
         salvarUser(); // Salvar no arquivo JSON
     }
 
+    /**
+     * Cria uma lista de usuários padrão.
+     *
+     * @return A lista de usuários padrão.
+     */
     private ArrayList<Usuario> criarUsuariosPadrao() {
         ArrayList<Usuario> defaultUsers = new ArrayList<>();
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
