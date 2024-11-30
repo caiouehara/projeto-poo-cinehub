@@ -12,15 +12,37 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-
+/**
+ * Filtro de autenticação para proteger recursos que exigem que o usuário esteja logado.
+ * 
+ * Este filtro intercepta todas as requisições e verifica se o usuário está autenticado. Se a requisição for para
+ * uma URL pública (como login ou recursos estáticos), a autenticação não é realizada. Caso contrário, verifica-se
+ * se o usuário está logado por meio da sessão. Se não estiver, o usuário é redirecionado para a página de login.
+ */
 @WebFilter("/*") // Intercepta todas as requisições
 public class AuthFilter implements Filter {
 
+    /**
+     * Inicializa o filtro, permitindo qualquer configuração necessária antes do processamento das requisições.
+     * 
+     * @param filterConfig O objeto de configuração do filtro.
+     * @throws ServletException Se ocorrer um erro ao inicializar o filtro.
+     */
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         // Inicialização, se necessário
     }
 
+    /**
+     * Filtra as requisições HTTP para garantir que apenas usuários autenticados possam acessar os recursos protegidos.
+     * As requisições para URLs públicas (como login e recursos estáticos) são excluídas da filtragem.
+     * 
+     * @param request O objeto {@link ServletRequest} que contém as informações da requisição.
+     * @param response O objeto {@link ServletResponse} que será enviado ao cliente.
+     * @param chain A cadeia de filtros para permitir que a requisição continue, se necessário.
+     * @throws IOException Se ocorrer um erro de entrada/saída ao processar a requisição.
+     * @throws ServletException Se ocorrer um erro durante a execução do filtro.
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         // Converte para HttpServletRequest e HttpServletResponse
@@ -69,6 +91,9 @@ public class AuthFilter implements Filter {
         }
     }
 
+    /**
+     * Limpeza de recursos do filtro, se necessário, após a execução do filtro.
+     */
     @Override
     public void destroy() {
         // Limpeza, se necessário
