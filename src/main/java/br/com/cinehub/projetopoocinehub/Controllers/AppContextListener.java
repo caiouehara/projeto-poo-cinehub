@@ -10,10 +10,25 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
-
+/**
+ * Classe que implementa o {@link ServletContextListener} e é responsável 
+ * por inicializar e configurar os modelos necessários para a aplicação 
+ * quando o contexto da aplicação é inicializado.
+ * 
+ * Essa classe é configurada como um ouvinte de contexto, que é invocado
+ * quando o contexto do servlet (a aplicação web) é iniciado ou destruído.
+ */
 @WebListener
 public class AppContextListener implements ServletContextListener {
 
+    /**
+     * Método chamado quando o contexto da aplicação é inicializado.
+     * Esse método cria e configura os modelos necessários para o funcionamento
+     * da aplicação, como o modelo de cadastro, filmes, compras, aluguel e estatísticas,
+     * e os adiciona ao contexto do servlet para que possam ser acessados em toda a aplicação.
+     * 
+     * @param sce O evento de inicialização do contexto da aplicação.
+     */
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext context = sce.getServletContext();
@@ -35,6 +50,12 @@ public class AppContextListener implements ServletContextListener {
         context.setAttribute("estatistica", estatistica);
     }
 
+    /**
+     * Método chamado quando o contexto da aplicação é destruído.
+     * Esse método pode ser utilizado para liberar recursos, caso necessário.
+     * 
+     * @param sce O evento de destruição do contexto da aplicação.
+     */
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         // Limpeza de recursos, se necessário
