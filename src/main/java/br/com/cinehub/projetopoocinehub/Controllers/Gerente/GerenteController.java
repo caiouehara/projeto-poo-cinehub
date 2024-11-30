@@ -6,6 +6,7 @@ import br.com.cinehub.projetopoocinehub.Models.Compras.CompraModel;
 import br.com.cinehub.projetopoocinehub.Models.Filmes.Filme;
 import br.com.cinehub.projetopoocinehub.Models.Filmes.FilmesModel;
 import br.com.cinehub.projetopoocinehub.Models.User.CadastroModel;
+import br.com.cinehub.projetopoocinehub.Models.Estatistica.Estatistica;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,6 +29,7 @@ public class GerenteController extends HttpServlet {
     private CadastroModel cadastroModel;
     private AluguelModel aluguelModel;
     private CompraModel compraModel;
+    private Estatistica estatistica;
     private ServletContext context;
 
     @Override
@@ -37,7 +39,7 @@ public class GerenteController extends HttpServlet {
         cadastroModel = (CadastroModel) context.getAttribute("cadastroModel");
         aluguelModel = (AluguelModel) context.getAttribute("aluguelModel");
         compraModel = (CompraModel) context.getAttribute("compraModel");
-
+        estatistica = (Estatistica) context.getAttribute("estatistica");
         if (filmesModel == null || cadastroModel == null) {
             throw new ServletException("Models not initialized!");
         }
@@ -46,6 +48,19 @@ public class GerenteController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Obter o valor da estatística
+        int quantidadeFilmes = estatistica.quantidadeFilmes();
+        int quantidadeClientes = estatistica.quantidadeClientes();
+        double lucroAluguel = estatistica.lucroAlugueis();
+        double lucroCompra = estatistica.lucroCompras();
+        double lucroTotal = estatistica.lucroTotal();
+
+        // Adicionar o valor ao request
+        request.setAttribute("quantidadeFilmes", quantidadeFilmes);
+        request.setAttribute("quantidadeClientes", quantidadeClientes);
+        request.setAttribute("lucroAluguel", lucroAluguel);
+        request.setAttribute("lucroCompra", lucroCompra);
+        request.setAttribute("lucroTotal", lucroTotal);
         // Encaminhar para o JSP
         RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/gerente/gerenteHome.jsp");
         dispatcher.forward(request, response);
