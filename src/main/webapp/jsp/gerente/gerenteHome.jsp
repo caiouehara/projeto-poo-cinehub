@@ -14,21 +14,8 @@
 <div class="container">
     <h1>Bem-vindo, ${sessionScope.nome}!</h1>
 
-    <!-- Seção de Estatísticas -->
-    <h2>Estatísticas</h2>
-    <div class="charts">
-        <!-- Gráfico de Registros de Usuários -->
-        <div class="chart">
-            <h3>Novos Usuários por Mês</h3>
-            <img src="${pageContext.request.contextPath}/chart/userRegistrations" alt="Novos Usuários por Mês"/>
-        </div>
-        <!-- Gráfico de Aluguéis de Filmes -->
-        <div class="chart">
-            <h3>Aluguéis de Filmes por Gênero</h3>
-            <img src="${pageContext.request.contextPath}/chart/movieRentals" alt="Aluguéis de Filmes por Gênero"/>
-        </div>
-    </div>
-
+    <!-- Seção para as estatisticas -->
+    <%@include file="estatisticas.jsp"%>
     <!-- Seção para Adicionar Novos Filmes -->
     <%@ include file="/jsp/gerente/adicionarFilme.jsp" %>
 </div>
