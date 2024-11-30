@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -38,6 +39,8 @@ import java.util.stream.Collectors;
  */
 @WebServlet(name = "cliente", value = {"/cliente","/cliente/comprar", "/cliente/alugar"})
 public class ClienteController extends HttpServlet {
+
+    private static final int DIAS_ALUGUEL = 7;
 
     /**
      * Modelo para manipulação dos dados de aluguéis.
@@ -263,7 +266,13 @@ public class ClienteController extends HttpServlet {
             return;
         }
 
-        Aluguel aluguel = new Aluguel(UUID.randomUUID().toString(), cliente.getEmail(), filmeId, new Date(), null);
+        // Calcula a data de devolução
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DAY_OF_MONTH, DIAS_ALUGUEL);
+        Date dataDevolucao = calendar.getTime();
+
+        Aluguel aluguel = new Aluguel(UUID.randomUUID().toString(), cliente.getEmail(), filmeId, new Date(), dataDevolucao);
         aluguelModel.adicionarAluguel(aluguel);
 
         response.setContentType("application/json");
@@ -274,6 +283,7 @@ public class ClienteController extends HttpServlet {
 
         ObjectNode aluguelJson = mapper.createObjectNode();
         aluguelJson.put("dataAluguel", new SimpleDateFormat("yyyy-MM-dd").format(aluguel.getDataAluguel()));
+        aluguelJson.put("dataDevolucao", new SimpleDateFormat("yyyy-MM-dd").format(aluguel.getDataDevolucao()));
         jsonResponse.set("aluguel", aluguelJson);
 
         ObjectNode filmeJson = mapper.createObjectNode();
