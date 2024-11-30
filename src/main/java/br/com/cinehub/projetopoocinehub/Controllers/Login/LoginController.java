@@ -8,11 +8,23 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import java.io.IOException;
-
+/**
+ * Controlador responsável pelo processo de login de usuários na aplicação.
+ * 
+ * A classe {@link LoginController} lida com as requisições de login, tanto para exibir o formulário de login
+ * quanto para processar as credenciais fornecidas e autenticar o usuário. Em caso de sucesso, o usuário é redirecionado
+ * para a página principal, e em caso de falha, é exibida uma mensagem de erro.
+ * 
+ * O controlador utiliza o modelo {@link CadastroModel} para validar as credenciais do usuário.
+ */
 @WebServlet(name = "/user/login", value = "/user/login")
 public class LoginController extends HttpServlet {
     private CadastroModel cadastro;
-
+    /**
+     * Inicializa o controlador, recuperando o modelo {@link CadastroModel} do ServletContext.
+     * 
+     * @throws ServletException Se o modelo {@link CadastroModel} não estiver inicializado.
+     */
     @Override
     public void init() throws ServletException {
         // Recupera o CadastroModel do ServletContext
@@ -22,6 +34,15 @@ public class LoginController extends HttpServlet {
         }
     }
 
+    /**
+     * Método chamado para tratar requisições HTTP do tipo GET.
+     * Este método exibe o formulário de login para o usuário.
+     * 
+     * @param request O objeto {@link HttpServletRequest} que contém as informações da requisição.
+     * @param response O objeto {@link HttpServletResponse} usado para enviar a resposta ao cliente.
+     * @throws ServletException Se ocorrer um erro ao encaminhar a requisição para a página de login.
+     * @throws IOException Se ocorrer um erro de entrada/saída ao processar a requisição.
+     */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // Definir o encoding
@@ -31,6 +52,16 @@ public class LoginController extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Método chamado para tratar requisições HTTP do tipo POST.
+     * Esse método processa o login do usuário, validando as credenciais e
+     * iniciando uma nova sessão ou redirecionando para a página de login em caso de erro.
+     * 
+     * @param request O objeto {@link HttpServletRequest} que contém as informações da requisição.
+     * @param response O objeto {@link HttpServletResponse} usado para enviar a resposta ao cliente.
+     * @throws ServletException Se ocorrer um erro durante o processamento da requisição.
+     * @throws IOException Se ocorrer um erro de entrada/saída durante o processamento da requisição ou resposta.
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Definir o encoding
