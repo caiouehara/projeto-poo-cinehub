@@ -4,35 +4,38 @@
 
 <html>
 <head>
+    <!-- Link para o arquivo CSS da página -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css">
+    <!-- Definição do caminho de contexto para uso no JavaScript -->
     <script>
         var contextPath = '<%= request.getContextPath() %>';
     </script>
+    <!-- Inclusão do script JavaScript -->
     <script src="${pageContext.request.contextPath}/scripts/scriptModal.js" defer></script>
     <title>Homepage</title>
 </head>
 
+<!-- Inclusão dos cabeçalhos globais e navegação -->
 <%@ include file="/jsp/globais/header.jsp" %>
 <%@ include file="/jsp/globais/nav.jsp" %>
 
 <body>
 <main>
-    <!-- Hero Section -->
+    <!-- Seção Hero -->
     <div class="hero">
         <div class="container">
             <h3 class="title-movie">Lista de Filmes</h3>
             <p class="description">Explore nossa coleção de filmes incríveis. Assista agora ou descubra mais informações
                 sobre seus favoritos.</p>
-            <!-- Buttons can be removed if not needed -->
         </div>
     </div>
 
     <!-- Tabela de filmes -->
     <div class="container">
-        <!-- Display the number of available movies -->
+        <!-- Exibe o número de filmes disponíveis -->
         <p>Número de filmes disponíveis: ${fn:length(filmes)}</p>
 
-        <!-- Table to display the movies -->
+        <!-- Tabela para exibir os filmes -->
         <table>
             <thead>
             <tr>
@@ -46,6 +49,7 @@
             </thead>
             <tbody>
 
+            <!-- Verifica se há filmes para exibir -->
             <c:choose>
                 <c:when test="${not empty filmes}">
                     <c:forEach var="filme" items="${filmes}">
@@ -87,6 +91,7 @@
                         </tr>
                     </c:forEach>
                 </c:when>
+
                 <c:otherwise>
                     <tr>
                         <td colspan="6" style="text-align:center;">Nenhum filme disponível.</td>

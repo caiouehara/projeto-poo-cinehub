@@ -59,11 +59,11 @@ document.addEventListener('DOMContentLoaded', function () {
                                 const dataFormatada = new Date(comentario.data).toLocaleString('pt-BR');
 
                                 li.innerHTML = `
-                    <strong>${comentario.name}</strong>
-                    <time datetime="${comentario.data}">${dataFormatada}</time>
-                    <p>${comentario.texto}</p>
-                    <button class="excluir-comentario-btn" data-comentario-id="${comentario.id}" data-filme-id="${filmeId}">&times;</button>
-                `;
+                                    <strong>${comentario.name}</strong>
+                                    <time datetime="${comentario.data}">${dataFormatada}</time>
+                                    <p>${comentario.texto}</p>
+                                    <button class="excluir-comentario-btn" data-comentario-id="${comentario.id}" data-filme-id="${filmeId}">&times;</button>
+                                `;
                                 ul.appendChild(li);
                             });
                             comentariosDiv.appendChild(ul);
@@ -120,7 +120,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('avaliacao-filmeId').value = filmeId;
                 document.getElementById('comentario-filmeId').value = filmeId;
 
-
                 // Exibe o modal do cliente
                 modalCliente.style.display = 'flex';
 
@@ -174,7 +173,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         .then(response => {
                             // Verifica se já comprou o filme
                             if (response.status === 409) {
-
                                 // Esconde a mensagem de sucesso antes de exibir o erro
                                 document.getElementById('success-message').style.display = 'none';
 
@@ -218,7 +216,6 @@ document.addEventListener('DOMContentLoaded', function () {
                                 }, 2000);
                             }
                         })
-
                         .then(data => {
                             if (data && data.success) {
                                 // Atualiza a tabela com a nova compra
