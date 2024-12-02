@@ -128,13 +128,41 @@ public class GerenteController extends HttpServlet {
             throws ServletException, IOException {
         // Obter dados do formulário
         String titulo = request.getParameter("titulo");
-        int ano = Integer.parseInt(request.getParameter("ano"));
+        String anoStr = request.getParameter("ano");
         String sinopse = request.getParameter("sinopse");
-        double avaliacao = Double.parseDouble(request.getParameter("avaliacao"));
-        double duracao = Double.parseDouble(request.getParameter("duracao"));
-        double precoCompra = Double.parseDouble(request.getParameter("precoCompra"));
-        double precoAluguel = Double.parseDouble(request.getParameter("precoAluguel"));
-        int diasAluguel = Integer.parseInt(request.getParameter("diasAluguel"));
+        String duracaoStr = request.getParameter("duracao");
+        String precoCompraStr = request.getParameter("precoCompra");
+        String precoAluguelStr = request.getParameter("precoAluguel");
+        String diasAluguelStr = request.getParameter("diasAluguel");
+
+        // Validar campos obrigatórios
+        if (titulo == null || titulo.trim().isEmpty() ||
+                anoStr == null || anoStr.trim().isEmpty() ||
+                sinopse == null || sinopse.trim().isEmpty() ||
+                duracaoStr == null || duracaoStr.trim().isEmpty() ||
+                precoCompraStr == null || precoCompraStr.trim().isEmpty() ||
+                precoAluguelStr == null || precoAluguelStr.trim().isEmpty() ||
+                diasAluguelStr == null || diasAluguelStr.trim().isEmpty()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Todos os campos são obrigatórios.");
+            return;
+        }
+
+        int ano;
+        double duracao;
+        double precoCompra;
+        double precoAluguel;
+        int diasAluguel;
+
+        try {
+            ano = Integer.parseInt(anoStr.trim());
+            duracao = Double.parseDouble(duracaoStr.trim());
+            precoCompra = Double.parseDouble(precoCompraStr.trim());
+            precoAluguel = Double.parseDouble(precoAluguelStr.trim());
+            diasAluguel = Integer.parseInt(diasAluguelStr.trim());
+        } catch (NumberFormatException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Formato inválido para número.");
+            return;
+        }
 
         // Lidar com o upload da imagem
         Part imagemPart = request.getPart("imagem");
