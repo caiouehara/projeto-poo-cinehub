@@ -57,10 +57,11 @@ public class CadastroModel {
      */
     public Usuario buscarClientePorEmail(String email) {
         for (Usuario user : listaUsers) {
-            if (user.getEmail().equals(email)) {
-                return user;
+            if (user instanceof Cliente && user.getEmail().equalsIgnoreCase(email)) {
+                return (Cliente) user;
             }
         }
+        // Se o cliente não for encontrada, retorna null
         return null;
     }
 
@@ -174,23 +175,6 @@ public class CadastroModel {
     public boolean verificarCadastroUser(String email) {
         return listaUsers.stream()
                 .noneMatch(user -> user.getEmail().equals(email));
-    }
-
-    /**
-     * Busca um cliente pelo email.
-     *
-     * @param email Email do cliente a ser buscado.
-     * @return      O objeto {@link Cliente} correspondente ao email, ou null se não encontrado.
-     */
-    // Add a method to search for a Cliente by their email
-    public static Cliente buscarClienteEmail(String email) {
-        for (Usuario user : listaUsers) {
-            if (user instanceof Cliente && user.getEmail().equalsIgnoreCase(email)) {
-                return (Cliente) user;
-            }
-        }
-        // If no Cliente is found, return null
-        return null;
     }
 
      /**
